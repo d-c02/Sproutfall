@@ -13,6 +13,6 @@ private:
 	sf::IntRect m_animList[2] = { sf::IntRect(0, 0, 8, 5), sf::IntRect(0, 5, 8, 5) };
 	sf::Sprite* m_playerSprite;
 	int m_animIndex = 0;
-	float m_distanceFromPlayer = 50;
+	float m_distanceFromPlayer = 25;
 	float m_animCounter = 0;
 };

@@ -12,7 +12,7 @@ Player::Player(sf::RenderWindow* window)
 	}
 	m_Sprite->setTexture(*m_Texture);
 	m_Sprite->setOrigin(8, 8);
-	m_Sprite->setScale(4, 4);
+	m_Sprite->setScale(2, 2);
 	m_Sprite->setPosition(200, ground);
 	m_Reticle = new Reticle(m_Sprite, window);
 }
@@ -26,10 +26,20 @@ Player::~Player()
 
 void Player::Shoot()
 {
-	float tmpVelocityX = (m_Reticle->getPosition().x - getPosition().x) * m_recoil;
-	float tmpVelocityY = (m_Reticle->getPosition().y - getPosition().y) * m_recoil;
-	m_VelocityX += tmpVelocityX;
-	m_VelocityY += tmpVelocityY;
+	if (m_bullets > 0)
+	{
+		cout << m_bullets << " bullets\n";
+		float tmpVelocityX = (m_Reticle->getPosition().x - getPosition().x) * m_recoil;
+		float tmpVelocityY = (m_Reticle->getPosition().y - getPosition().y) * m_recoil;
+		m_VelocityX += tmpVelocityX;
+		m_VelocityY += tmpVelocityY;
+		m_bullets--;
+	}
+	else
+	{
+		//Play empty gun sound
+	}
+	m_reloadProgress = 0;
 }
 
 void Player::Update(float tf)
@@ -59,13 +69,22 @@ void Player::Update(float tf)
 		{
 			m_VelocityY += m_airResistance * tf;
 		}
-	}
+	} 
 	if (m_VelocityX > 0)
 	{
 		m_VelocityX += m_airResistanceX * tf;
 	}
 	m_Sprite->move(m_VelocityX * tf, m_VelocityY * tf);
 	m_Reticle->Update(tf);
+	if (m_bullets < m_bulletsMax)
+	{
+		m_reloadProgress += tf;
+	}
+	if (m_reloadProgress >= m_reloadDelay)
+	{
+		m_reloadProgress = 0;
+		m_bullets++;
+	}
 }
 
 void Player::handleInput(sf::Event* event)

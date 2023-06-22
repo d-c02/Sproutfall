@@ -10,7 +10,7 @@ Reticle::Reticle(sf::Sprite* playerSprite, sf::RenderWindow* window)
 	}
 	m_Sprite = new sf::Sprite();
 	m_Sprite->setTexture(*m_Texture);
-	m_Sprite->setScale(4, 4);
+	m_Sprite->setScale(2, 2);
 	m_Sprite->setTextureRect(m_animList[m_animIndex]);
 	m_Sprite->setOrigin(4, 2);
 	m_playerSprite = playerSprite;

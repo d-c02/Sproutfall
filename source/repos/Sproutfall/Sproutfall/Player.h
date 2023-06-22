@@ -19,10 +19,14 @@ private:
 	const float ground = 800;
 	float m_accelerationX = 0;
 	float m_accelerationY = 0;
-	const float m_terminalVelocity = 500;
+	const float m_terminalVelocity = 1000;
 	const float m_airResistance = -500;
 	const float m_airResistanceX = -250;
-	const float m_recoil = -15;
+	const float m_recoil = -17.5;
 	const float m_gravity = 500;
+	float m_reloadProgress = 0;
+	const int m_bulletsMax = 4;
+	int m_bullets = m_bulletsMax;
+	const float m_reloadDelay = 1;
 	Reticle* m_Reticle;
 };
