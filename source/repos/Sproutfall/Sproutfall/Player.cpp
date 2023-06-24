@@ -70,11 +70,6 @@ void Player::Shoot()
 
 void Player::Update(float tf)
 {
-	if (m_Sprite->getPosition().y > ground)
-	{
-		m_Sprite->setPosition(m_Sprite->getPosition().x, ground);
-		m_VelocityY = 0;
-	}
 	if (m_Sprite->getPosition().x > 1180)
 	{
 		m_Sprite->setPosition(1180, m_Sprite->getPosition().y);
@@ -85,17 +80,14 @@ void Player::Update(float tf)
 		m_Sprite->setPosition(100, m_Sprite->getPosition().y);
 		m_VelocityX = 0;
 	}
-	if (m_Sprite->getPosition().y < ground)
+	if (m_VelocityY < m_terminalVelocity)
 	{
-		if (m_VelocityY < m_terminalVelocity)
-		{
-			m_VelocityY += m_gravity * tf;
-		}
-		else if (m_VelocityY > m_terminalVelocity)
-		{
-			m_VelocityY += m_airResistance * tf;
-		}
-	} 
+		m_VelocityY += m_gravity * tf;
+	}
+	else if (m_VelocityY > m_terminalVelocity)
+	{
+		m_VelocityY += m_airResistance * tf;
+	}
 	if (m_VelocityX > 0)
 	{
 		if ((m_airResistanceX * tf) > m_VelocityX)

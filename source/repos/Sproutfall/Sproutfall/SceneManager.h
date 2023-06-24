@@ -4,16 +4,22 @@
 class SceneManager : public sf::Drawable
 {
 public:
-	SceneManager(sf::IntRect view);
+	SceneManager(Player* player, float viewSizeX, float viewSizeY);
 	~SceneManager();
-	void addScene(int scene);
-	void setScene(int scene);
+	void loadScene(int scene);
 	void Update(float tf);
-	
 private:
+	void loadTitle();
+	void loadSpace();
+	void loadSky();
+	void loadGround();
+	void loadWin();
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-	vector<Scene*> m_Scenes;
-	int m_CurrentScene;
-	const int m_Level_Size = 10;
-	sf::IntRect* m_View;
+
+	Scene* m_Scene;
+	sf::View* m_View;
+	enum Scenes {TitleScreen, Space, Sky, Ground, Win};
+	float m_viewSizeX;
+	float m_viewSizeY;
+	Player* m_Player;
 };

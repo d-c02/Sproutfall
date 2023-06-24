@@ -3,6 +3,8 @@ C:\Users\djcas\source\repos\Sproutfall\Sproutfall\AnimationManager.cpp;C:\Users\
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BackgroundLayer.cpp;C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Debug\BackgroundLayer.obj
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Bullet.cpp;C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Debug\Bullet.obj
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.cpp;C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Debug\BulletManager.obj
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Enemy.cpp;C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Debug\Enemy.obj
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\EnemyManager.cpp;C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Debug\EnemyManager.obj
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Entity.cpp;C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Debug\Entity.obj
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Game.cpp;C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Debug\Game.obj
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.cpp;C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Debug\Player.obj

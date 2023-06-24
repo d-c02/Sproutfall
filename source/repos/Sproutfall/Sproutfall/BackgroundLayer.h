@@ -8,9 +8,11 @@ public:
 	~BackgroundLayer();
 	void Update(float tf);
 	void setScale(float x, float y);
+	void setParallax(bool parallax);
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	float m_ParallaxSpeed = 0;
+	int m_Parallax = 1;
 	sf::Texture* m_Texture;
 	sf::Sprite* m_Sprite;
 	sf::Sprite* m_Upper;

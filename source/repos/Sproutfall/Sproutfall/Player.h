@@ -19,7 +19,6 @@ protected:
 
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-	const float ground = 2800;
 	float m_accelerationX = 0;
 	float m_accelerationY = 0;
 	const float m_terminalVelocity = 300;
