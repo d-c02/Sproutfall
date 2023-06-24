@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <cstdlib>
 using namespace std;
 //SFML
 #include <SFML/Graphics.hpp>
