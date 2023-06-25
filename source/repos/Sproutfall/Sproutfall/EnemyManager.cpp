@@ -1,6 +1,6 @@
 #include "EnemyManager.h"
 
-EnemyManager::EnemyManager(sf::Vector2f viewSize)
+EnemyManager::EnemyManager(sf::Vector2f viewSize, Player* player)
 {
 	//m_numEnemies = 1 right now, change as enemies are added
 	for (int i = 0; i < m_numEnemies; i++)
@@ -15,7 +15,10 @@ EnemyManager::EnemyManager(sf::Vector2f viewSize)
 		}
 		else if (i == b_Squid)
 		{
-
+			if (!m_EnemyTextures[b_Squid]->loadFromFile("Textures/Enemies/squid.png"))
+			{
+				cout << "Textures/Enemies/squid.png load failure" << endl;
+			}
 		}
 		else if (i == b_Cloud)
 		{
@@ -36,6 +39,7 @@ EnemyManager::EnemyManager(sf::Vector2f viewSize)
 	}
 	m_ViewSizeX = viewSize.x;
 	m_ViewSizeY = viewSize.y;
+	m_Player = player;
 }
 EnemyManager::~EnemyManager()
 {
@@ -45,12 +49,13 @@ void EnemyManager::AddEnemy(int type, sf::Vector2f position)
 {
 	if (type == b_Asteroid)
 	{
-		m_Enemies.push_back(make_unique<Asteroid>(m_EnemyTextures[b_Asteroid].get()));
+		m_Enemies.push_back(make_unique<Asteroid>(m_EnemyTextures[b_Asteroid].get(), m_Player));
 		m_Enemies[m_Enemies.size() - 1]->setPosition(position);
 	}
 	else if (type == b_Squid)
 	{
-
+		m_Enemies.push_back(make_unique<Squid>(m_EnemyTextures[b_Squid].get(), m_Player));
+		m_Enemies[m_Enemies.size() - 1]->setPosition(position);
 	}
 	else if (type == b_Cloud)
 	{

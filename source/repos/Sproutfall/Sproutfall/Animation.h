@@ -8,10 +8,12 @@ public:
 	void Update(float tf);
 	sf::IntRect getFrame();
 	void Play();
+	bool isPlaying();
 private:
 	vector<std::unique_ptr<sf::IntRect>> m_Frames;
 	bool m_Autoplay;
 	int m_CurrentFrame;
 	float m_FrameDelay;
 	float m_FrameTime = 0;
+	bool m_Playing = false;
 };

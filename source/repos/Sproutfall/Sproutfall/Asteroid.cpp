@@ -1,6 +1,6 @@
 #include "Asteroid.h"
 
-Asteroid::Asteroid(sf::Texture* texture)
+Asteroid::Asteroid(sf::Texture* texture, Player* player)
 {
 	m_Sprite = make_unique<sf::Sprite>();
 	m_Sprite->setTexture(*texture);

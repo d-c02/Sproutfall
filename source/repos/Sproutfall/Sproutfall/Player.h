@@ -1,6 +1,7 @@
 #pragma once
 #include "SFML_Lib.h"
 #include "Entity.h"
+#include"Enemy.h"
 #include "Reticle.h"
 #include "BulletManager.h"
 #include "AnimationManager.h"
@@ -15,13 +16,15 @@ public:
 	sf::FloatRect getGlobalBounds();
 	void configureAnimations();
 	void setDirection();
+	void CheckBulletCollisions(Enemy* enemy);
+	void Die();
 protected:
 
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	float m_accelerationX = 0;
 	float m_accelerationY = 0;
-	const float m_terminalVelocity = 300;
+	const float m_terminalVelocity = 40;
 	const float m_airResistance = -500;
 	const float m_airResistanceX = -250;
 	const float m_recoil = -17.5;
@@ -36,7 +39,7 @@ private:
 	std::unique_ptr<BulletManager> m_bulletManager;
 	std::unique_ptr<AnimationManager> m_AnimationManager;
 	//sf::IntRect* m_Hitbox;
-	enum States {neutral, falling, falling_fast};
+	enum States {neutral, falling, falling_fast, dead};
 	int currentState = neutral;
 	vector<std::unique_ptr<sf::Sound>> m_ShotgunShootSounds;
 	vector<std::unique_ptr<sf::SoundBuffer>>m_ShotgunShootBuffers;

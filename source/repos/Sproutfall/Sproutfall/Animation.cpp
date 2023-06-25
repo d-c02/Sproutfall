@@ -10,6 +10,12 @@ Animation::Animation(vector<sf::IntRect> frames, bool autoplay, float frameDelay
 	m_FrameTime = 0;
 	m_Autoplay = autoplay;
 	m_CurrentFrame = 0;
+	if (m_Autoplay)
+	{
+		m_Playing = true;
+	}
+	else
+		m_Playing = false;
 }
 Animation::~Animation()
 {
@@ -30,6 +36,10 @@ void Animation::Update(float tf)
 		{
 			m_CurrentFrame = 0;
 		}
+		else
+		{
+			m_Playing = false;
+		}
 		m_FrameTime = 0;
 	}
 	m_FrameTime += tf;
@@ -38,9 +48,15 @@ void Animation::Update(float tf)
 void Animation::Play()
 {
 	m_CurrentFrame = 0;
+	m_Playing = true;
 }
 
 sf::IntRect Animation::getFrame()
 {
 	return *m_Frames[m_CurrentFrame];
+}
+
+bool Animation::isPlaying()
+{
+	return m_Playing;
 }

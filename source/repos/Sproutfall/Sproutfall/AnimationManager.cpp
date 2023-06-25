@@ -18,9 +18,15 @@ void AnimationManager::addState(int state, vector<sf::IntRect> frames, bool auto
 void AnimationManager::setState(int state)
 {
 	m_CurrentState = state;
+	m_States[m_CurrentState]->Play();
 }
 void AnimationManager::Update(float tf)
 {
 	m_States[m_CurrentState]->Update(tf);
 	m_Sprite->setTextureRect(m_States[m_CurrentState]->getFrame());
+}
+
+bool AnimationManager::isPlaying()
+{
+	return m_States[m_CurrentState]->isPlaying();
 }
