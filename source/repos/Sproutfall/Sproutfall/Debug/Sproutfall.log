@@ -1,3 +1,26 @@
-﻿  SceneManager.cpp
+﻿  Animation.cpp
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Animation.cpp(5,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Animation.cpp(25,22): warning C4018: '<': signed/unsigned mismatch
+  AnimationManager.cpp
+  BackgroundLayer.cpp
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.h(20,19): warning C4305: 'initializing': truncation from 'double' to 'float'
+  Player.cpp
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.h(20,19): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.cpp(38,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.cpp(140,13): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.cpp(155,54): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.cpp(157,54): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Scene.cpp
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.h(20,19): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Scene.cpp(12,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Scene.cpp(16,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Scene.cpp(48,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Scene.cpp(61,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Scene.cpp(65,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Scene.cpp(74,20): warning C4018: '<': signed/unsigned mismatch
+  SceneManager.cpp
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.h(20,19): warning C4305: 'initializing': truncation from 'double' to 'float'
+  Generating Code...
+  Game.cpp
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.h(20,19): warning C4305: 'initializing': truncation from 'double' to 'float'
   Sproutfall.vcxproj -> C:\Users\djcas\source\repos\Sproutfall\Debug\Sproutfall.exe

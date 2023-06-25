@@ -12,6 +12,6 @@ public:
 	void Update(float tf);
 private:
 	sf::Sprite* m_Sprite;
-	vector<Animation*> m_States;
+	vector<std::unique_ptr<Animation>> m_States;
 	int m_CurrentState = 0;
 };

@@ -4,7 +4,7 @@ Animation::Animation(vector<sf::IntRect> frames, bool autoplay, float frameDelay
 {
 	for (int i = 0; i < frames.size(); i++)
 	{
-		m_Frames.push_back(new sf::IntRect(frames[i].left, frames[i].top, frames[i].width, frames[i].height));
+		m_Frames.push_back(make_unique<sf::IntRect>(frames[i].left, frames[i].top, frames[i].width, frames[i].height));
 	}
 	m_FrameDelay = frameDelay;
 	m_FrameTime = 0;
@@ -13,10 +13,10 @@ Animation::Animation(vector<sf::IntRect> frames, bool autoplay, float frameDelay
 }
 Animation::~Animation()
 {
-	for (int i = 0; i < m_Frames.size(); i++)
+	/*for (int i = 0; i < m_Frames.size(); i++)
 	{
 		delete(m_Frames[i]);
-	}
+	}*/
 }
 void Animation::Update(float tf)
 {

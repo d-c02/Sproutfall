@@ -9,7 +9,7 @@ public:
 	sf::IntRect getFrame();
 	void Play();
 private:
-	vector<sf::IntRect*> m_Frames;
+	vector<std::unique_ptr<sf::IntRect>> m_Frames;
 	bool m_Autoplay;
 	int m_CurrentFrame;
 	float m_FrameDelay;
