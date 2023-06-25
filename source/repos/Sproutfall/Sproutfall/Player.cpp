@@ -13,7 +13,7 @@ Player::Player(sf::RenderWindow* window)
 	m_Sprite->setTexture(*m_Texture);
 	m_Sprite->setOrigin(2, 10);
 	m_Sprite->setScale(2, 2);
-	m_Sprite->setPosition(initialPositionX, initialPositionY);
+	m_Sprite->setPosition(m_initialPositionX, m_initialPositionY);
 	m_Reticle = make_unique<Reticle>(m_Sprite.get(), window);
 	m_bulletManager = make_unique<BulletManager>();
 	configureAnimations();

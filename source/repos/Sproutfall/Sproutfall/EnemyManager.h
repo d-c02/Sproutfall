@@ -1,15 +1,21 @@
 #pragma once
 #include "SFML_Lib.h"
 #include "Enemy.h"
-class EnemyManager
+#include "Asteroid.h"
+class EnemyManager : public sf::Drawable
 {
 public:
-	EnemyManager();
+	EnemyManager(sf::Vector2f viewSize);
 	~EnemyManager();
-	void AddEnemy(int type);
+	void generateEnemies(int type, float minYDistance, float maxYDistance, int numScreens);
 	void Update(float tf);
 private:
+	void AddEnemy(int type, sf::Vector2f position);
+	float m_ViewSizeX = 0;
+	float m_ViewSizeY = 0;
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+	std::vector<std::unique_ptr<sf::Texture>> m_EnemyTextures;
 	std::vector<std::unique_ptr<Enemy>> m_Enemies;
-	enum Behaviors {Asteroid, Squid, Cloud, Bird, Branch, Bug};
+	enum Behaviors {b_Asteroid, b_Squid, b_Cloud, b_Bird, b_Branch, b_Bug};
+	int m_numEnemies = 1;
 };

@@ -31,8 +31,8 @@ private:
 	int m_bullets = m_bulletsMax;
 	const float m_reloadDelay = 1;
 	std::unique_ptr<Reticle> m_Reticle;
-	float initialPositionX = 200;
-	float initialPositionY = 400;
+	float m_initialPositionX = 200;
+	float m_initialPositionY = 400;
 	std::unique_ptr<BulletManager> m_bulletManager;
 	std::unique_ptr<AnimationManager> m_AnimationManager;
 	//sf::IntRect* m_Hitbox;
