@@ -1,4 +1,6 @@
 ﻿  SceneManager.cpp
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.h(19,19): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(79,26): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(81,26): warning C4305: 'argument': truncation from 'double' to 'float'
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(83,26): warning C4305: 'argument': truncation from 'double' to 'float'
   Sproutfall.vcxproj -> C:\Users\djcas\source\repos\Sproutfall\Debug\Sproutfall.exe

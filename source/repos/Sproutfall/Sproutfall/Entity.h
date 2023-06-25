@@ -31,6 +31,8 @@ public:
 	void setHittable(bool hittable);
 
 	bool getHittable();
+
+	sf::FloatRect getGlobalBounds();
 protected:
 	std::unique_ptr<sf::Sprite> m_Sprite;
 	std::unique_ptr<sf::Texture> m_Texture;

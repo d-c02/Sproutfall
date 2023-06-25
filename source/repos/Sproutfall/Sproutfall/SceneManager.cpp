@@ -72,13 +72,13 @@ void SceneManager::loadTitle()
 void SceneManager::loadSpace()
 {
 	
-	m_Scene.reset(new Scene(m_Player, m_viewSizeX, m_viewSizeY, 2));
+	m_Scene.reset(new Scene(m_Player, m_viewSizeX, m_viewSizeY, 10));
 
-	m_Scene->addBackground(1, "Textures/space_stars_small.png");
+	m_Scene->addBackground(0, "Textures/space_stars_small.png");
 
-	m_Scene->addBackground(0.5, "Textures/space_stars_big.png");
+	m_Scene->addBackground(-0.4, "Textures/space_stars_big.png");
 
-	m_Scene->addBackground(0, "Textures/background_objects.png");
+	m_Scene->addBackground(-0.6, "Textures/background_objects.png");
 
 	m_Scene->addBackground(-0.99, "Textures/earth.png", -1);
 

@@ -25,7 +25,6 @@ void BulletManager::spawnVolley(sf::Vector2f direction, sf::Vector2f initialPos)
 {
 	for (int i = 0; i < m_volleySize; i++)
 	{
-
 		float scalingFactor = 1;
 		if (direction.x != 0)
 		{

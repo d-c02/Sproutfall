@@ -12,6 +12,11 @@ void Entity::setPosition(float x, float y)
 	m_Sprite->setPosition(x, y);
 }
 
+sf::FloatRect Entity::getGlobalBounds()
+{
+	return m_Sprite->getGlobalBounds();
+}
+
 sf::Vector2f Entity::getPosition()
 {
 	return m_Sprite->getPosition();
