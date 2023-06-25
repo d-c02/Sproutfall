@@ -1,10 +1,14 @@
 #include "BackgroundLayer.h"
-BackgroundLayer::BackgroundLayer(Player* player, float parallaxSpeed, float viewSizeX, float viewSizeY, sf::Texture* texture)
+BackgroundLayer::BackgroundLayer(Player* player, float parallaxSpeed, float viewSizeX, float viewSizeY, string texturePath)
 {
-	m_Sprite = new sf::Sprite();
-	m_Upper = new sf::Sprite();
-	m_Lower = new sf::Sprite();
-	m_Texture = texture;
+	m_Sprite = make_unique<sf::Sprite>();
+	m_Upper = make_unique<sf::Sprite>();
+	m_Lower = make_unique<sf::Sprite>();
+	m_Texture = make_unique<sf::Texture>();
+	if (!m_Texture->loadFromFile(texturePath))
+	{
+		cout << "Could not load texture " << texturePath << endl;
+	}
 	m_Sprite->setTexture(*m_Texture);
 	m_Upper->setTexture(*m_Texture);
 	m_Lower->setTexture(*m_Texture);
@@ -16,10 +20,7 @@ BackgroundLayer::BackgroundLayer(Player* player, float parallaxSpeed, float view
 }
 BackgroundLayer::~BackgroundLayer()
 {
-	delete(m_Sprite);
-	delete(m_Texture);
-	delete(m_Upper);
-	delete(m_Lower);
+
 }
 void BackgroundLayer::Update(float tf)
 {
@@ -50,8 +51,8 @@ void BackgroundLayer::setScale(float x, float y)
 
 void BackgroundLayer::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	float top = round(m_Player->getPosition().y - (m_ViewSizeY / 2));
-	float bottom = top + m_ViewSizeY;
+	//float top = round(m_Player->getPosition().y - (m_ViewSizeY / 2));
+	//float bottom = top + m_ViewSizeY;
 	target.draw(*m_Sprite);
 	target.draw(*m_Upper);
 	target.draw(*m_Lower);

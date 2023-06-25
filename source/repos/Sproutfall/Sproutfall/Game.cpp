@@ -14,11 +14,20 @@
 #include "SceneManager.h"
 
 enum Scenes{TitleScreen, Space, Sky, Ground, Win};
+int Game();
 int main()
 {
+    Game();
+    //_CrtDumpMemoryLeaks();
+    return 0;
+}
+
+int Game()
+{
+    //::_CrtSetDbgFlag(::_CrtSetDbgFlag(_CRTDBG_REPORT_FLAG) | _CRTDBG_LEAK_CHECK_DF);
     sf::RenderWindow window(sf::VideoMode(1280, 960), "Sproutfall");
     Player player(&window);
-    
+
     /*sf::View view;
     view.setSize(1280, 960);*/
 
@@ -39,12 +48,11 @@ int main()
         sceneManager.Update(tf);
         clock.restart();
         window.clear();
-        
+
         //window.draw(backgroundSprite);
         window.draw(sceneManager);
         window.draw(player);
         window.display();
     }
-    _CrtDumpMemoryLeaks();
     return 0;
 }

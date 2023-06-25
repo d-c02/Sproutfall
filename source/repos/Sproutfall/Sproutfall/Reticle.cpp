@@ -3,12 +3,12 @@
 
 Reticle::Reticle(sf::Sprite* playerSprite, sf::RenderWindow* window)
 {
-	m_Texture = new sf::Texture();
+	m_Texture = make_unique<sf::Texture>();
 	if (!m_Texture->loadFromFile("Textures/Reticle.png"))
 	{
 		cout << "Reticle texture load failure";
 	}
-	m_Sprite = new sf::Sprite();
+	m_Sprite = make_unique<sf::Sprite>();
 	m_Sprite->setTexture(*m_Texture);
 	m_Sprite->setScale(2, 2);
 	m_Sprite->setTextureRect(m_animList[m_animIndex]);
@@ -19,8 +19,7 @@ Reticle::Reticle(sf::Sprite* playerSprite, sf::RenderWindow* window)
 
 Reticle::~Reticle()
 {
-	delete(m_Texture);
-	delete(m_Sprite);
+
 }
 void Reticle::Update(float tf)
 {

@@ -1,7 +1,7 @@
 #include "Bullet.h"
 Bullet::Bullet(sf::Texture* Texture, sf::Vector2f direction, float degrees, sf::Vector2f initialPosition)
 {
-	m_Sprite = new sf::Sprite();
+	m_Sprite = make_unique<sf::Sprite>();
 	m_Texture = Texture;
 	m_Sprite->setTexture(*m_Texture);
 	m_directionX = direction.x;
@@ -12,7 +12,7 @@ Bullet::Bullet(sf::Texture* Texture, sf::Vector2f direction, float degrees, sf::
 
 Bullet::~Bullet()
 {
-	delete(m_Sprite);
+
 }
 
 void Bullet::Update(float tf)

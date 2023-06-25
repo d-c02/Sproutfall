@@ -4,8 +4,8 @@
 
 Player::Player(sf::RenderWindow* window)
 {
-	m_Sprite = new sf::Sprite();
-	m_Texture = new sf::Texture();
+	m_Sprite = make_unique<sf::Sprite>();
+	m_Texture = make_unique<sf::Texture>();
 	if (!m_Texture->loadFromFile("Textures/Player/PlayerSpriteSheet.png"))
 	{
 		cout << "Player texture load failure";
@@ -14,32 +14,24 @@ Player::Player(sf::RenderWindow* window)
 	m_Sprite->setOrigin(2, 10);
 	m_Sprite->setScale(2, 2);
 	m_Sprite->setPosition(initialPositionX, initialPositionY);
-	m_Reticle = new Reticle(m_Sprite, window);
-	m_bulletManager = new BulletManager();
+	m_Reticle = make_unique<Reticle>(m_Sprite.get(), window);
+	m_bulletManager = make_unique<BulletManager>();
 	configureAnimations();
 	for (int i = 0; i < 3; i++)
 	{
-		m_ShotgunShootBuffers.push_back(new sf::SoundBuffer);
+		m_ShotgunShootBuffers.push_back(make_unique<sf::SoundBuffer>());
 		if (!m_ShotgunShootBuffers[i]->loadFromFile("Sounds/Player/shotgun_shoot" + std::to_string(i + 1) + ".ogg"))
 		{
 			cout << "Shotgun shoot #" << i << " load failure\n";
 		}
-		m_ShotgunShootSounds.push_back(new sf::Sound());
+		m_ShotgunShootSounds.push_back(make_unique<sf::Sound>());
 		m_ShotgunShootSounds[i]->setBuffer(*m_ShotgunShootBuffers[i]);
 	}
 }
 
 Player::~Player()
 {
-	delete(m_Sprite);
-	delete(m_Texture);
-	delete(m_Reticle);
-	delete(m_AnimationManager);
-	for (int i = 0; i < m_ShotgunShootBuffers.size(); i++)
-	{
-		delete(m_ShotgunShootBuffers[i]);
-		delete(m_ShotgunShootSounds[i]);
-	}
+
 }
 
 void Player::Shoot()
@@ -186,7 +178,7 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 void Player::configureAnimations()
 {
-	m_AnimationManager = new AnimationManager(m_Sprite);
+	m_AnimationManager =  make_unique<AnimationManager>(m_Sprite.get());
 	vector<sf::IntRect> frameVector;
 	//Neutral state
 	frameVector.push_back(sf::IntRect(0, 0, 6, 13));

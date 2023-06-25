@@ -8,6 +8,7 @@ public:
 	~Bullet();
 	void Update(float tf);
 private:
+	sf::Texture* m_Texture;
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	float m_speed = 750;
 	float m_directionX;

@@ -16,8 +16,8 @@ private:
 	void loadWin();
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-	Scene* m_Scene;
-	sf::View* m_View;
+	std::unique_ptr<Scene> m_Scene;
+	std::unique_ptr<sf::View> m_View;
 	enum Scenes {TitleScreen, Space, Sky, Ground, Win};
 	float m_viewSizeX;
 	float m_viewSizeY;

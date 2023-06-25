@@ -4,7 +4,7 @@
 class BackgroundLayer : public sf::Drawable
 {
 public:
-	BackgroundLayer(Player* player, float parallaxSpeed, float viewSizeX, float viewSizeY, sf::Texture* texture);
+	BackgroundLayer(Player* player, float parallaxSpeed, float viewSizeX, float viewSizeY, string texturePath, bool drawUpper = true);
 	~BackgroundLayer();
 	void Update(float tf);
 	void setScale(float x, float y);
@@ -13,11 +13,12 @@ private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	float m_ParallaxSpeed = 0;
 	int m_Parallax = 1;
-	sf::Texture* m_Texture;
-	sf::Sprite* m_Sprite;
-	sf::Sprite* m_Upper;
-	sf::Sprite* m_Lower;
+	std::unique_ptr<sf::Texture> m_Texture;
+	std::unique_ptr<sf::Sprite> m_Sprite;
+	std::unique_ptr<sf::Sprite> m_Upper;
+	std::unique_ptr<sf::Sprite> m_Lower;
 	float m_ViewSizeX;
 	float m_ViewSizeY;
 	Player* m_Player;
+	bool m_drawUpper;
 };

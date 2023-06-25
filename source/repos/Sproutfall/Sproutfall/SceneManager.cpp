@@ -6,14 +6,13 @@ SceneManager::SceneManager(Player* player, float viewSizeX, float viewSizeY)
 	m_Player = player;
 	m_viewSizeX = viewSizeX;
 	m_viewSizeY = viewSizeY;
-	m_Scene = new Scene(player, m_viewSizeX, m_viewSizeY);
-	m_View = new sf::View();
+	m_Scene = make_unique<Scene>(player, m_viewSizeX, m_viewSizeY);
+	m_View = make_unique<sf::View>();
 	m_View->setSize(viewSizeX, viewSizeY);
 }
 SceneManager::~SceneManager()
 {
-	delete(m_Scene);
-	delete(m_View);
+
 }
 void SceneManager::loadScene(int scene)
 {
@@ -48,6 +47,10 @@ void SceneManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	if (m_Player->getPosition().y < (m_Scene->getLevelSize() * m_viewSizeY) - (m_viewSizeY / 2))
 	{
+		if (!m_Scene->getParallax())
+		{
+			m_Scene->setParallax(true);
+		}
 		target.setView(*m_View);
 	}
 	else
@@ -68,36 +71,16 @@ void SceneManager::loadTitle()
 
 void SceneManager::loadSpace()
 {
-	delete(m_Scene);
-	m_Scene = new Scene(m_Player, m_viewSizeX, m_viewSizeY, 10);
+	
+	m_Scene.reset(new Scene(m_Player, m_viewSizeX, m_viewSizeY, 2));
 
-	sf::Texture* farStarsTexture = new sf::Texture();
-	if (!farStarsTexture->loadFromFile("Textures/space_stars_small.png"))
-	{
-		cout << "space_stars_big.png failed to load!" << endl;
-	}
-	m_Scene->addBackground(0, farStarsTexture);
+	m_Scene->addBackground(1, "Textures/space_stars_small.png");
 
-	sf::Texture* closeStarsTexture = new sf::Texture();
-	if (!closeStarsTexture->loadFromFile("Textures/space_stars_big.png"))
-	{
-		cout << "space_stars_small.png failed to load!" << endl;
-	}
-	m_Scene->addBackground(0.5, closeStarsTexture);
+	m_Scene->addBackground(0.5, "Textures/space_stars_big.png");
 
-	sf::Texture* backgroundObjectTexture = new sf::Texture();
-	if (!backgroundObjectTexture->loadFromFile("Textures/background_objects.png"))
-	{
-		cout << "background_objects.png failed to load!" << endl;
-	}
-	m_Scene->addBackground(1, backgroundObjectTexture);
+	m_Scene->addBackground(0, "Textures/background_objects.png");
 
-	sf::Texture* earthTexture = new sf::Texture();
-	if (!earthTexture->loadFromFile("Textures/earth.png"))
-	{
-		cout << "earth.png failed to load!" << endl;
-	}
-	m_Scene->addBackground(1, earthTexture, 9);
+	m_Scene->addBackground(-0.99, "Textures/earth.png", -1);
 
 	m_Scene->setBackgroundFillColor(0x655057ff);
 }

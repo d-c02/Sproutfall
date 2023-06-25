@@ -32,8 +32,8 @@ public:
 
 	bool getHittable();
 protected:
-	sf::Sprite* m_Sprite;
-	sf::Texture* m_Texture;
+	std::unique_ptr<sf::Sprite> m_Sprite;
+	std::unique_ptr<sf::Texture> m_Texture;
 
 	float m_VelocityX;
 	float m_VelocityY;
