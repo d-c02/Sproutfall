@@ -10,6 +10,7 @@ public:
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	//virtual void Die();
+	bool m_getHittable = true;
 	const float m_terminalVelocity = 0;
 	const float m_airResistance = -250;
 	const float m_airResistanceX = -250;

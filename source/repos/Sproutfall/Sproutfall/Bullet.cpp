@@ -8,7 +8,7 @@ Bullet::Bullet(sf::Texture* Texture, sf::Vector2f direction, float degrees, sf::
 	m_directionY = direction.y;
 	m_Sprite->setPosition(initialPosition);
 	m_Sprite->setRotation(degrees);
-	m_AnimationManager = make_unique<AnimationManager>(m_Sprite.get());
+	m_Sprite->setScale(2, 2);
 	configureAnimations();
 }
 
@@ -20,6 +20,7 @@ Bullet::~Bullet()
 void Bullet::Update(float tf)
 {
 	m_Sprite->move(m_directionX * m_speed * tf, m_directionY * m_speed * tf);
+	m_AnimationManager->Update(tf);
 }
 
 void Bullet::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -29,6 +30,7 @@ void Bullet::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 void Bullet::configureAnimations()
 {
+	m_AnimationManager = make_unique<AnimationManager>(m_Sprite.get());
 	vector<sf::IntRect> frameVector;
 	//Neutral state
 	frameVector.push_back(sf::IntRect(0, 0, 13, 6));
@@ -66,5 +68,5 @@ void Bullet::checkCollision(Enemy* enemy)
 
 bool Bullet::canDespawn()
 {
-	return (m_AnimationManager->isPlaying() && m_Alive);
+	return (!!m_AnimationManager->isPlaying() && !m_Alive);
 }
