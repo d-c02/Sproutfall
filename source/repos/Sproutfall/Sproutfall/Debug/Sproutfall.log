@@ -1,26 +1,22 @@
-﻿  Animation.cpp
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Animation.cpp(5,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Animation.cpp(25,22): warning C4018: '<': signed/unsigned mismatch
-  AnimationManager.cpp
-  BackgroundLayer.cpp
+﻿  BulletManager.cpp
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.h(20,19): warning C4305: 'initializing': truncation from 'double' to 'float'
-  Player.cpp
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.h(20,19): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.cpp(38,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.cpp(140,13): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.cpp(155,54): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.cpp(157,54): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  Scene.cpp
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.h(20,19): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Scene.cpp(12,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Scene.cpp(16,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Scene.cpp(48,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Scene.cpp(61,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Scene.cpp(65,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Scene.cpp(74,20): warning C4018: '<': signed/unsigned mismatch
-  SceneManager.cpp
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.h(20,19): warning C4305: 'initializing': truncation from 'double' to 'float'
-  Generating Code...
-  Game.cpp
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.h(20,19): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.cpp(54,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.cpp(55,91): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.cpp(55,85): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.cpp(65,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.cpp(73,20): warning C4018: '<': signed/unsigned mismatch
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(3465,56): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.cpp(59,29): message : see reference to function template instantiation 'std::unique_ptr<Bullet,std::default_delete<Bullet>> std::make_unique<Bullet,sf::Texture*,sf::Vector2f,int,sf::Vector2f&,0>(sf::Texture *&&,sf::Vector2f &&,int &&,sf::Vector2f &)' being compiled
   Sproutfall.vcxproj -> C:\Users\djcas\source\repos\Sproutfall\Debug\Sproutfall.exe

@@ -1,7 +1,7 @@
 #include "BulletManager.h"
 BulletManager::BulletManager()
 {
-	m_bulletTexture = new sf::Texture();
+	m_bulletTexture = make_unique<sf::Texture>();
 	if (!m_bulletTexture->loadFromFile("Textures/Bullet.png"))
 	{
 		cout << "Bullet texture load failure\n";
@@ -9,21 +9,18 @@ BulletManager::BulletManager()
 }
 BulletManager::~BulletManager()
 {
-	for (int i = 0; i < m_bulletVector.size(); i++)
+	/*for (int i = 0; i < m_bulletVector.size(); i++)
 	{
 		delete(m_bulletVector[i]);
 	}
-	delete(m_bulletTexture);
-}
-void BulletManager::pushBullet(Bullet* bullet)
-{
-	m_bulletVector.push_back(bullet);
+	delete(m_bulletTexture);*/
 }
 void BulletManager::removeBullet(int index)
 {
-	delete(m_bulletVector[index]);
+	/*delete(m_bulletVector[index]);*/
 	m_bulletVector.erase(m_bulletVector.begin() + index);
 }
+
 void BulletManager::spawnVolley(sf::Vector2f direction, sf::Vector2f initialPos)
 {
 	for (int i = 0; i < m_volleySize; i++)
@@ -51,11 +48,11 @@ void BulletManager::spawnVolley(sf::Vector2f direction, sf::Vector2f initialPos)
 			double tmpx = (scalingFactor * cos(rads));
 			double tmpy = (scalingFactor * sin(rads));
 			float rotation = rotationMod + (rads * (180.0 / 3.141592653589793238463));
-			pushBullet(new Bullet(m_bulletTexture, sf::Vector2f(tmpx, tmpy), rotation, initialPos));
+			m_bulletVector.push_back(make_unique<Bullet>(m_bulletTexture.get(), sf::Vector2f(tmpx, tmpy), rotation, initialPos));
 		}
 		else
 		{
-			pushBullet(new Bullet(m_bulletTexture, sf::Vector2f(0, direction.y), -90, initialPos));
+			m_bulletVector.push_back(make_unique<Bullet>(m_bulletTexture.get(), sf::Vector2f(0, direction.y), -90, initialPos));
 		}
 	}
 }
