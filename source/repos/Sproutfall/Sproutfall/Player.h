@@ -16,7 +16,7 @@ public:
 	sf::FloatRect getGlobalBounds();
 	void configureAnimations();
 	void setDirection();
-	void CheckBulletCollisions(Enemy* enemy);
+	void CheckCollisions(Enemy* enemy);
 	void Die();
 protected:
 

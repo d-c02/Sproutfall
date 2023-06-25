@@ -60,6 +60,10 @@ void BulletManager::Update(float tf)
 	for (int i = 0; i < m_bulletVector.size(); i++)
 	{
 		m_bulletVector[i]->Update(tf);
+		if (m_bulletVector[i]->canDespawn())
+		{
+			removeBullet(i);
+		}
 	}
 }
 
@@ -68,5 +72,13 @@ void BulletManager::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 	for (int i = 0; i < m_bulletVector.size(); i++)
 	{
 		target.draw(*m_bulletVector[i]);
+	}
+}
+
+void BulletManager::checkCollisions(Enemy* enemy)
+{
+	for (int i = 0; i < m_bulletVector.size(); i++)
+	{
+		m_bulletVector[i]->checkCollision(enemy);
 	}
 }

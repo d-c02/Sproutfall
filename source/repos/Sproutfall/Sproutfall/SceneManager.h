@@ -5,10 +5,11 @@
 class SceneManager : public sf::Drawable
 {
 public:
-	SceneManager(Player* player, float viewSizeX, float viewSizeY);
+	SceneManager(float viewSizeX, float viewSizeY, sf::RenderWindow* window);
 	~SceneManager();
 	void loadScene(int scene);
 	void Update(float tf);
+	void handleInput(sf::Event* event);
 private:
 	void loadTitle();
 	void loadSpace();
@@ -25,6 +26,6 @@ private:
 	int m_CurrentScene = 0;
 	float m_viewSizeX;
 	float m_viewSizeY;
-	Player* m_Player;
+	std::unique_ptr<Player> m_Player;
 	bool m_loadNextScene = false;
 };

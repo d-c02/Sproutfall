@@ -30,8 +30,7 @@ int Game()
     srand(time(NULL));
     //::_CrtSetDbgFlag(::_CrtSetDbgFlag(_CRTDBG_REPORT_FLAG) | _CRTDBG_LEAK_CHECK_DF);
     sf::RenderWindow window(sf::VideoMode(1280, 960), "Sproutfall");
-    Player player(&window);
-    SceneManager sceneManager(&player, 1280, 960);
+    SceneManager sceneManager(1280, 960, &window);
     sceneManager.loadScene(Space);
     sf::Clock clock;
     while (window.isOpen())
@@ -41,16 +40,14 @@ int Game()
         {
             if (event.type == sf::Event::Closed)
                 window.close();
-            player.handleInput(&event);
+            sceneManager.handleInput(&event);
         }
         float tf = clock.getElapsedTime().asSeconds();
-        player.Update(tf);
         sceneManager.Update(tf);
         clock.restart();
         window.clear();
 
         window.draw(sceneManager);
-        window.draw(player);
         window.display();
     }
     return 0;

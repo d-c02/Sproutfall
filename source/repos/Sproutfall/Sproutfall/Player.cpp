@@ -200,3 +200,12 @@ void Player::configureAnimations()
 
 	m_AnimationManager->setState(falling);
 }
+
+void Player::CheckCollisions(Enemy* enemy)
+{
+	m_bulletManager->checkCollisions(enemy);
+}
+void Player::Die()
+{
+
+}

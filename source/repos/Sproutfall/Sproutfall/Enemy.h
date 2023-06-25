@@ -9,6 +9,7 @@ public:
 	virtual void configureAnimations();
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+	//virtual void Die();
 	const float m_terminalVelocity = 0;
 	const float m_airResistance = -250;
 	const float m_airResistanceX = -250;
