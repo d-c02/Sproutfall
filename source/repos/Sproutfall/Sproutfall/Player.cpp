@@ -111,6 +111,7 @@ void Player::Update(float tf)
 		m_bullets++;
 	}
 	m_bulletManager->Update(tf);
+	tf = 1.5;
 	m_AnimationManager->Update(tf);
 	if (m_VelocityX < neutralThreshold && m_VelocityY < neutralThreshold)
 	{
@@ -195,10 +196,10 @@ void Player::configureAnimations()
 	//Falling fast state
 	frameVector.push_back(sf::IntRect(24, 0, 6, 13));
 	frameVector.push_back(sf::IntRect(30, 0, 6, 13));
-	m_AnimationManager->addState(falling, frameVector, true, 0.1f);
+	m_AnimationManager->addState(falling_fast, frameVector, true, 0.1f);
 	frameVector.clear();
 
-	m_AnimationManager->setState(falling);
+	m_AnimationManager->setState(neutral);
 }
 
 void Player::CheckCollisions(Enemy* enemy)

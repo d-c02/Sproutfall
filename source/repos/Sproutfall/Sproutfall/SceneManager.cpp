@@ -81,7 +81,8 @@ void SceneManager::loadTitle()
 void SceneManager::loadSpace()
 {
 	m_CurrentScene = Space;
-	m_Scene.reset(new Scene(m_Player.get(), m_viewSizeX, m_viewSizeY, 10));
+	m_Scene.reset();
+	m_Scene = make_unique<Scene>(m_Player.get(), m_viewSizeX, m_viewSizeY, 10);
 
 	m_Scene->addBackground(0, "Textures/space_stars_small.png");
 

@@ -21,14 +21,14 @@ int Game();
 int main()
 {
     Game();
-    //_CrtDumpMemoryLeaks();
+    _CrtDumpMemoryLeaks();
     return 0;
 }
 
 int Game()
 {
     srand(time(NULL));
-    //::_CrtSetDbgFlag(::_CrtSetDbgFlag(_CRTDBG_REPORT_FLAG) | _CRTDBG_LEAK_CHECK_DF);
+    ::_CrtSetDbgFlag(::_CrtSetDbgFlag(_CRTDBG_REPORT_FLAG) | _CRTDBG_LEAK_CHECK_DF);
     sf::RenderWindow window(sf::VideoMode(1280, 960), "Sproutfall");
     SceneManager sceneManager(1280, 960, &window);
     sceneManager.loadScene(Space);
