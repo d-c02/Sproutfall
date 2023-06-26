@@ -18,8 +18,13 @@ void AnimationManager::addState(int state, vector<sf::IntRect> frames, bool auto
 void AnimationManager::setState(int state)
 {
 	m_CurrentState = state;
-	m_States[m_CurrentState]->Play();
+	if (!m_States[m_CurrentState]->getAutoplay())
+	{
+		m_States[m_CurrentState]->Play();
+	}
 }
+
+
 void AnimationManager::Update(float tf)
 {
 	m_States[m_CurrentState]->Update(tf);

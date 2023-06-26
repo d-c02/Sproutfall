@@ -111,7 +111,6 @@ void Player::Update(float tf)
 		m_bullets++;
 	}
 	m_bulletManager->Update(tf);
-	tf = 1.5;
 	m_AnimationManager->Update(tf);
 	if (m_VelocityX < neutralThreshold && m_VelocityY < neutralThreshold)
 	{

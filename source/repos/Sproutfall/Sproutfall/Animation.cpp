@@ -24,6 +24,13 @@ Animation::~Animation()
 		delete(m_Frames[i]);
 	}*/
 }
+
+bool Animation::getAutoplay()
+{
+	return m_Autoplay;
+}
+
+
 void Animation::Update(float tf)
 {
 	if (m_FrameTime >= m_FrameDelay)

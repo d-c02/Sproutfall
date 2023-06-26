@@ -9,6 +9,7 @@ public:
 	sf::IntRect getFrame();
 	void Play();
 	bool isPlaying();
+	bool getAutoplay();
 private:
 	vector<std::unique_ptr<sf::IntRect>> m_Frames;
 	bool m_Autoplay;
