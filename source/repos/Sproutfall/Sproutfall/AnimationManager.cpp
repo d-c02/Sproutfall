@@ -24,6 +24,10 @@ void AnimationManager::setState(int state)
 	}
 }
 
+void AnimationManager::Play()
+{
+	m_States[m_CurrentState]->Play();
+}
 
 void AnimationManager::Update(float tf)
 {

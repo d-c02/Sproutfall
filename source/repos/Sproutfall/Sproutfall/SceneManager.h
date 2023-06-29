@@ -16,6 +16,7 @@ private:
 	void loadSky();
 	void loadGround();
 	void loadWin();
+	void removeBullet(int index);
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	std::unique_ptr<Scene> m_Scene;
@@ -28,4 +29,7 @@ private:
 	float m_viewSizeY;
 	std::unique_ptr<Player> m_Player;
 	bool m_loadNextScene = false;
+	std::unique_ptr<sf::Sprite> m_playerSmoke;
+	std::unique_ptr<sf::Texture> m_smokeTexture;
+	std::unique_ptr<AnimationManager> m_smokeAnimationManager;
 };

@@ -3,19 +3,27 @@ Squid::Squid(sf::Texture* texture, Player* player)
 {
 	m_Sprite = make_unique<sf::Sprite>();
 	m_Sprite->setTexture(*texture);
-	m_Sprite->setOrigin(13, 12);
+	m_Sprite->setOrigin(12, 13);
 	m_Sprite->setScale(2, 2);
 	configureAnimations();
 	m_Player = player;
-	
+	setHittable(true);
+	auto circ = make_unique<sf::CircleShape>();
+	circ->setRadius(12);
+	circ->setScale(m_Sprite->getScale());
+	circ->setFillColor(sf::Color(0xff0000aa));
+	circ->setOrigin(circ->getGlobalBounds().left + circ->getRadius(), circ->getGlobalBounds().top + circ->getRadius());
+	m_Hitbox = std::move(circ);
+	m_health = 4;
 }
 Squid::~Squid()
 {
 
 }
+
 void Squid::Update(float tf)
 {
-	sf::Vector2f diff(m_Player->getPosition().x - getPosition().x, m_Player->getPosition().y - getPosition().y);
+	sf::Vector2f diff((m_Player->getPosition().x /*+ (m_Player->getVelocity().x)*/) - getPosition().x, m_Player->getPosition().y + (m_Player->getVelocity().y / 2) - getPosition().y);
 	float length = sqrt(pow(diff.x, 2) + pow(diff.y, 2));
 	if (m_State == neutral)
 	{
@@ -61,6 +69,7 @@ void Squid::Update(float tf)
 		m_Sprite->setRotation(m_RotationDegrees);
 	}
 	m_Sprite->move(m_VelocityX * tf, m_VelocityY * tf);
+	m_Hitbox->setPosition(m_Sprite->getPosition());
 }
 void Squid::configureAnimations()
 {
@@ -74,7 +83,7 @@ void Squid::configureAnimations()
 
 	//Start dashing state
 	frameVector.push_back(sf::IntRect(0, 0, 25, 25));
-	m_AnimationManager->addState(startDash, frameVector, false, 1.0f);
+	m_AnimationManager->addState(startDash, frameVector, false, 0.25f);
 	frameVector.clear();
 
 	//In dash state
@@ -82,7 +91,7 @@ void Squid::configureAnimations()
 	frameVector.push_back(sf::IntRect(71, 0, 18, 31));
 	frameVector.push_back(sf::IntRect(71, 0, 18, 31));
 	frameVector.push_back(sf::IntRect(71, 0, 18, 31));
-	m_AnimationManager->addState(inDash, frameVector, false, 0.05f);
+	m_AnimationManager->addState(inDash, frameVector, false, 0.025f);
 	frameVector.clear();
 
 	//End dashing state
@@ -97,4 +106,5 @@ void Squid::configureAnimations()
 void Squid::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(*m_Sprite);
+	//target.draw(*m_Hitbox);
 }

@@ -43,6 +43,8 @@ int Game()
             sceneManager.handleInput(&event);
         }
         float tf = clock.getElapsedTime().asSeconds();
+        if (tf > 0.15)
+            tf = 0.15;
         sceneManager.Update(tf);
         clock.restart();
         window.clear();

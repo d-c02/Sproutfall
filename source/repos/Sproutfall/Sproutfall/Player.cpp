@@ -11,7 +11,7 @@ Player::Player(sf::RenderWindow* window)
 		cout << "Player texture load failure";
 	}
 	m_Sprite->setTexture(*m_Texture);
-	m_Sprite->setOrigin(2, 10);
+	m_Sprite->setOrigin(3, 10);
 	m_Sprite->setScale(2, 2);
 	m_Sprite->setPosition(m_initialPositionX, m_initialPositionY);
 	m_Reticle = make_unique<Reticle>(m_Sprite.get(), window);
@@ -27,6 +27,16 @@ Player::Player(sf::RenderWindow* window)
 		m_ShotgunShootSounds.push_back(make_unique<sf::Sound>());
 		m_ShotgunShootSounds[i]->setBuffer(*m_ShotgunShootBuffers[i]);
 	}
+
+	setHittable(true);
+	auto circ = make_unique<sf::CircleShape>();
+	circ->setRadius(3);
+	circ->setScale(m_Sprite->getScale());
+	circ->setFillColor(sf::Color(0xff0000aa));
+	circ->setOrigin(circ->getGlobalBounds().left + circ->getRadius(), circ->getGlobalBounds().top + circ->getRadius());
+	m_Hitbox = std::move(circ);
+	m_RenderWindow = window;
+	m_Alive = true;
 }
 
 Player::~Player()
@@ -62,6 +72,10 @@ void Player::Shoot()
 
 void Player::Update(float tf)
 {
+	if (m_Health <= 0)
+	{
+		m_Alive = false;
+	}
 	if (m_Sprite->getPosition().x > 1180)
 	{
 		m_Sprite->setPosition(1180, m_Sprite->getPosition().y);
@@ -112,19 +126,38 @@ void Player::Update(float tf)
 	}
 	m_bulletManager->Update(tf);
 	m_AnimationManager->Update(tf);
-	if (m_VelocityX < neutralThreshold && m_VelocityY < neutralThreshold)
+	if (m_CurrentState != hurt && m_CurrentState != dead)
 	{
-		m_AnimationManager->setState(neutral);
-	}
-	else if (m_VelocityX < fallingThreshold && m_VelocityY < fallingThreshold)
-	{
-		m_AnimationManager->setState(falling);
+		if (m_VelocityX < neutralThreshold && m_VelocityY < neutralThreshold)
+		{
+			m_AnimationManager->setState(neutral);
+			m_CurrentState = neutral;
+		}
+		else if (m_VelocityX < fallingThreshold && m_VelocityY < fallingThreshold)
+		{
+			m_AnimationManager->setState(falling);
+			m_CurrentState = falling;
+		}
+		else
+		{
+			m_AnimationManager->setState(falling_fast);
+			m_CurrentState = falling_fast;
+		}
 	}
 	else
 	{
-		m_AnimationManager->setState(falling_fast);
+		if (m_CurrentState == hurt)
+		{
+			if (!m_AnimationManager->isPlaying())
+			{
+				m_AnimationManager->setState(neutral);
+				m_CurrentState = neutral;
+				setHittable(true);
+			}
+		}
 	}
 	setDirection();
+	m_Hitbox->setPosition(m_Sprite->getPosition());
 }
 
 void Player::setDirection()
@@ -164,6 +197,10 @@ void Player::handleInput(sf::Event* event)
 	}
 }
 
+bool Player::getStatus() {
+	return m_Alive;
+}
+
 sf::FloatRect Player::getGlobalBounds()
 {
 	return m_Sprite->getGlobalBounds();
@@ -174,6 +211,7 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(*m_Sprite);
 	target.draw(*m_Reticle);
 	target.draw(*m_bulletManager);
+	//target.draw(*m_Hitbox);
 }
 
 void Player::configureAnimations()
@@ -195,7 +233,18 @@ void Player::configureAnimations()
 	//Falling fast state
 	frameVector.push_back(sf::IntRect(24, 0, 6, 13));
 	frameVector.push_back(sf::IntRect(30, 0, 6, 13));
-	m_AnimationManager->addState(falling_fast, frameVector, true, 0.1f);
+	m_AnimationManager->addState(falling_fast, frameVector, true, 0.01f);
+	frameVector.clear();
+
+	frameVector.push_back(sf::IntRect(36, 0, 6, 13));
+	frameVector.push_back(sf::IntRect(42, 0, 6, 13));
+	frameVector.push_back(sf::IntRect(36, 0, 6, 13));
+	frameVector.push_back(sf::IntRect(42, 0, 6, 13));
+	frameVector.push_back(sf::IntRect(36, 0, 6, 13));
+	frameVector.push_back(sf::IntRect(42, 0, 6, 13));
+	frameVector.push_back(sf::IntRect(36, 0, 6, 13));
+	frameVector.push_back(sf::IntRect(42, 0, 6, 13));
+	m_AnimationManager->addState(hurt, frameVector, false, 0.1f);
 	frameVector.clear();
 
 	m_AnimationManager->setState(neutral);
@@ -203,9 +252,54 @@ void Player::configureAnimations()
 
 void Player::CheckCollisions(Enemy* enemy)
 {
-	m_bulletManager->checkCollisions(enemy);
+	if (m_IsHittable && enemy->getHittable())
+	{
+		m_bulletManager->checkCollisions(enemy);
+		if (HitboxIsCircular(enemy->getHitbox()))
+		{
+			sf::CircleShape* enemyHitbox = dynamic_cast<sf::CircleShape*>(enemy->getHitbox());
+			if (calculateCollision(m_Hitbox.get(), enemyHitbox))
+			{
+				if (m_Health > 0)
+				{
+					m_CurrentState = hurt;
+					m_VelocityX = m_VelocityX * m_CollisionSlowdown;
+					m_VelocityY = m_VelocityY * m_CollisionSlowdown;
+					m_AnimationManager->setState(hurt);
+					m_Health--;
+				}
+				else
+				{
+					m_CurrentState = dead;
+					m_VelocityX = 0;
+					m_VelocityY = 0;
+				}
+				setHittable(false);
+			}
+		}
+		else
+		{
+			sf::RectangleShape* enemyHitbox = dynamic_cast<sf::RectangleShape*>(enemy->getHitbox());
+			if (calculateCollision(m_Hitbox.get(), enemyHitbox))
+			{
+				enemyHitbox->setFillColor(sf::Color(0x00ff00aa));
+				m_CurrentState = hurt;
+				m_VelocityX = m_VelocityX * m_CollisionSlowdown;
+				m_VelocityY = m_VelocityY * m_CollisionSlowdown;
+				m_AnimationManager->setState(hurt);
+				m_Health--;
+				setHittable(false);
+			}
+		}
+	}
+
 }
 void Player::Die()
 {
 
+}
+
+sf::Vector2f Player::getPosition()
+{
+	return m_Sprite->getPosition();
 }

@@ -3,7 +3,6 @@
 class Entity
 {
 public:
-
 	virtual void Update(float tf) = 0;
 
 	//Position
@@ -32,11 +31,27 @@ public:
 
 	bool getHittable();
 
+	bool calculateCollision(sf::CircleShape* circle, sf::CircleShape* other);
+
+	bool calculateCollision(sf::CircleShape* circle, sf::RectangleShape* other);
+
+	bool calculateCollision(sf::RectangleShape* rect, sf::CircleShape* other);
+
+	bool calculateCollision(sf::RectangleShape* rect, sf::RectangleShape* other);
+
+	sf::Sprite* getSprite();
+
 	sf::FloatRect getGlobalBounds();
+
+	bool HitboxIsCircular(sf::Shape* shape);
+
+	sf::Shape* getHitbox();
+
+	//virtual void getHitbox();
 protected:
 	std::unique_ptr<sf::Sprite> m_Sprite;
 	std::unique_ptr<sf::Texture> m_Texture;
-
+	std::unique_ptr<sf::Shape> m_Hitbox;
 	float m_VelocityX;
 	float m_VelocityY;
 	bool m_IsHittable;

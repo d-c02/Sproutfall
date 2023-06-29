@@ -17,3 +17,13 @@ void Enemy::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(*m_Sprite);
 }
+
+void Enemy::Hurt()
+{
+	m_health--;
+}
+
+int Enemy::getHealth()
+{
+	return m_health;
+}

@@ -14,8 +14,8 @@ Animation::Animation(vector<sf::IntRect> frames, bool autoplay, float frameDelay
 	{
 		m_Playing = true;
 	}
-	else
-		m_Playing = false;
+	//else
+	//	m_Playing = false;
 }
 Animation::~Animation()
 {

@@ -11,6 +11,7 @@ public:
 	void setState(int state);
 	void Update(float tf);
 	bool isPlaying();
+	void Play();
 private:
 	sf::Sprite* m_Sprite;
 	vector<std::unique_ptr<Animation>> m_States;

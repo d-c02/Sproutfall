@@ -18,9 +18,10 @@ private:
 	const float m_airResistance = -250;
 	const float m_airResistanceX = -250;
 	const float m_gravity = 250;
-	const float m_Speed = 400;
+	const float m_Speed = 500;
 	enum States {neutral, startDash, inDash, endDash};
 	Player* m_Player;
 	const float m_attackRange = 400;
 	int m_State = neutral;
+	//std::unique_ptr<sf::CircleShape> m_Hitbox;
 };

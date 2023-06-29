@@ -12,6 +12,7 @@ public:
 	void configureAnimations();
 	void checkCollision(Enemy* enemy);
 	bool canDespawn();
+	sf::CircleShape* getHitbox();
 private:
 	sf::Texture* m_Texture;
 	std::unique_ptr<AnimationManager> m_AnimationManager;
@@ -20,6 +21,9 @@ private:
 	float m_speed = 750;
 	float m_directionX;
 	float m_directionY;
+	float m_travelTime = 0;
+	float m_maxTravelTime = 1.0;
 	bool m_Alive = true;
 	int m_CurrentState;
+	std::unique_ptr<sf::CircleShape> m_Hitbox;
 };
