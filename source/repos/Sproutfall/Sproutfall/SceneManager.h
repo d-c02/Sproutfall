@@ -38,4 +38,5 @@ private:
 	std::unique_ptr<sf::Sprite> m_playerSmoke;
 	std::unique_ptr<sf::Texture> m_smokeTexture;
 	std::unique_ptr<AnimationManager> m_smokeAnimationManager;
+	sf::RenderWindow* m_renderWindow;
 };

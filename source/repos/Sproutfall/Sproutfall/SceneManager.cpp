@@ -3,6 +3,7 @@
 
 SceneManager::SceneManager(float viewSizeX, float viewSizeY, sf::RenderWindow* window)
 {
+	m_renderWindow = window;
 	m_Player = make_unique<Player>(window);
 	m_viewSizeX = viewSizeX;
 	m_viewSizeY = viewSizeY;
@@ -33,21 +34,16 @@ SceneManager::SceneManager(float viewSizeX, float viewSizeY, sf::RenderWindow* w
 	m_smokeAnimationManager->Play();
 
 	m_LeftBorder = make_unique<sf::RectangleShape>();
-	m_LeftBorder->setFillColor(sf::Color::Blue);
+	m_LeftBorder->setFillColor(sf::Color(0x655057ff));
 
 	m_RightBorder = make_unique<sf::RectangleShape>();
-	m_RightBorder->setFillColor(sf::Color::Red);
+	m_RightBorder->setFillColor(sf::Color(0x655057ff));
 
 	m_UpperBorder = make_unique<sf::RectangleShape>();
-	m_UpperBorder->setFillColor(sf::Color::Yellow);
+	m_UpperBorder->setFillColor(sf::Color(0x655057ff));
 
 	m_LowerBorder = make_unique<sf::RectangleShape>();
-	m_LowerBorder->setFillColor(sf::Color::Green);
-
-	m_LeftBorder->setSize(sf::Vector2f(100, 100));
-	m_UpperBorder->setSize(sf::Vector2f(100, 100));
-	m_RightBorder->setSize(sf::Vector2f(100, 100));
-	m_LowerBorder->setSize(sf::Vector2f(100, 100));
+	m_LowerBorder->setFillColor(sf::Color(0x655057ff));
 }
 SceneManager::~SceneManager()
 {
@@ -97,20 +93,15 @@ void SceneManager::Update(float tf)
 	{
 		m_smokeAnimationManager->Update(tf);
 	}
-
-	m_UpperBorder->setPosition(m_View->getCenter().x - (m_View->getSize().x / 2), m_View->getCenter().y - (m_View->getSize().y / 2));
+	
+	m_UpperBorder->setPosition(m_View->getCenter().x - (m_View->getSize().x / 2), m_View->getCenter().y - (m_View->getSize().y / 2));	
 	m_LeftBorder->setPosition(m_View->getCenter().x - (m_View->getSize().x / 2), m_View->getCenter().y - (m_View->getSize().y / 2));
-
 	m_LowerBorder->setPosition(m_View->getCenter().x - (m_View->getSize().x / 2), m_View->getCenter().y + (m_View->getSize().y / 2) - m_LowerBorder->getSize().y);
-	m_RightBorder->setPosition(m_View->getCenter().x + (m_View->getSize().x / 2) - m_LowerBorder->getSize().x, m_View->getCenter().y - (m_View->getSize().y / 2));
+	m_RightBorder->setPosition(m_View->getCenter().x + (m_View->getSize().x / 2) - m_RightBorder->getSize().x, m_View->getCenter().y - (m_View->getSize().y / 2));
 }
 
 void SceneManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	target.draw(*m_UpperBorder.get());
-	target.draw(*m_LowerBorder.get());
-	target.draw(*m_RightBorder.get());
-	target.draw(*m_LeftBorder.get());
 	if (m_Player->getPosition().y < (m_Scene->getLevelSize() * m_viewSizeY) - (m_viewSizeY / 2))
 	{
 		if (!m_Scene->getParallax())
@@ -130,6 +121,10 @@ void SceneManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		m_playerSmoke->setPosition(m_Player->getPosition());
 		target.draw(*m_playerSmoke);
 	}
+	target.draw(*m_UpperBorder.get());
+	target.draw(*m_LowerBorder.get());
+	target.draw(*m_RightBorder.get());
+	target.draw(*m_LeftBorder.get());
 }
 
 void SceneManager::loadTitle()
@@ -203,5 +198,8 @@ void SceneManager::handleResize(int width, int height)
 	{
 		m_View->setSize(m_viewSizeX, m_viewSizeY * normalizedHeight / normalizedWidth);
 	}
-	//If we hit bugs, update m_viewsizex and m_viewsizey
+	m_UpperBorder->setSize(sf::Vector2f(m_viewSizeX, (m_View->getSize().y - m_viewSizeY) / 2));
+	m_LowerBorder->setSize(sf::Vector2f(m_viewSizeX, (m_View->getSize().y - m_viewSizeY) / 2));
+	m_LeftBorder->setSize(sf::Vector2f((m_View->getSize().x - m_viewSizeX) / 2, m_viewSizeY));
+	m_RightBorder->setSize(sf::Vector2f((m_View->getSize().x - m_viewSizeX) / 2, m_viewSizeY));
 }
