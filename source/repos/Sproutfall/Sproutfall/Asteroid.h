@@ -18,6 +18,7 @@ private:
 	const float m_terminalVelocity = 0;
 	const float m_airResistance = -250;
 	const float m_airResistanceX = -250;
+	bool m_CollidingRebounding = false;
 	std::unique_ptr <sf::RectangleShape> m_LeftBound;
 	std::unique_ptr <sf::RectangleShape> m_RightBound;
 };

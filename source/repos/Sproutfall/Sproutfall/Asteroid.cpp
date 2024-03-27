@@ -47,8 +47,16 @@ void Asteroid::Update(float tf)
 	sf::CircleShape* hitbox = dynamic_cast<sf::CircleShape*>(getHitbox());
 	if (calculateCollision(hitbox, m_LeftBound.get()) || calculateCollision(hitbox, m_RightBound.get()))
 	{
-		m_VelocityX = m_VelocityX * -1;
+		if (!m_CollidingRebounding)
+		{
+			m_VelocityX = m_VelocityX * -1;
+			m_CollidingRebounding = true;
+		}
 		// m_RotationDegrees = m_RotationDegrees * -1;
+	}
+	else
+	{
+		m_CollidingRebounding = false;
 	}
 	m_Sprite->move(m_VelocityX * tf, m_VelocityY * tf);
 	m_Sprite->rotate(m_RotationDegrees * tf);
