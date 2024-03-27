@@ -31,6 +31,23 @@ SceneManager::SceneManager(float viewSizeX, float viewSizeY, sf::RenderWindow* w
 	m_smokeAnimationManager->addState(0, frameVector, false, 0.07f);
 	frameVector.clear();
 	m_smokeAnimationManager->Play();
+
+	m_LeftBorder = make_unique<sf::RectangleShape>();
+	m_LeftBorder->setFillColor(sf::Color::Blue);
+
+	m_RightBorder = make_unique<sf::RectangleShape>();
+	m_RightBorder->setFillColor(sf::Color::Red);
+
+	m_UpperBorder = make_unique<sf::RectangleShape>();
+	m_UpperBorder->setFillColor(sf::Color::Yellow);
+
+	m_LowerBorder = make_unique<sf::RectangleShape>();
+	m_LowerBorder->setFillColor(sf::Color::Green);
+
+	m_LeftBorder->setSize(sf::Vector2f(100, 100));
+	m_UpperBorder->setSize(sf::Vector2f(100, 100));
+	m_RightBorder->setSize(sf::Vector2f(100, 100));
+	m_LowerBorder->setSize(sf::Vector2f(100, 100));
 }
 SceneManager::~SceneManager()
 {
@@ -64,14 +81,14 @@ void SceneManager::Update(float tf)
 {
 	if (m_Player->getStatus())
 	{
-		if (m_Player->getPosition().y < (m_Scene->getLevelSize() * m_viewSizeY) - (m_viewSizeY / 2))
+		if (m_Player->getPosition().y < (m_Scene->getLevelSize()) - (m_viewSizeY / 2))
 			m_Scene->Update(tf);
 		m_Player->Update(tf);
 		m_EnemyManager->Update(tf);
 
-		m_View->setCenter(640, m_Player->getPosition().y);
+		m_View->setCenter(m_viewSizeX / 2, m_Player->getPosition().y);
 
-		if (m_Player->getPosition().y >= (m_Scene->getLevelSize() * m_viewSizeY))
+		if (m_Player->getPosition().y >= (m_Scene->getLevelSize()))
 		{
 			loadScene(m_CurrentScene + 1);
 		}
@@ -80,10 +97,20 @@ void SceneManager::Update(float tf)
 	{
 		m_smokeAnimationManager->Update(tf);
 	}
+
+	m_UpperBorder->setPosition(m_View->getCenter().x - (m_View->getSize().x / 2), m_View->getCenter().y - (m_View->getSize().y / 2));
+	m_LeftBorder->setPosition(m_View->getCenter().x - (m_View->getSize().x / 2), m_View->getCenter().y - (m_View->getSize().y / 2));
+
+	m_LowerBorder->setPosition(m_View->getCenter().x - (m_View->getSize().x / 2), m_View->getCenter().y + (m_View->getSize().y / 2) - m_LowerBorder->getSize().y);
+	m_RightBorder->setPosition(m_View->getCenter().x + (m_View->getSize().x / 2) - m_LowerBorder->getSize().x, m_View->getCenter().y - (m_View->getSize().y / 2));
 }
 
 void SceneManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+	target.draw(*m_UpperBorder.get());
+	target.draw(*m_LowerBorder.get());
+	target.draw(*m_RightBorder.get());
+	target.draw(*m_LeftBorder.get());
 	if (m_Player->getPosition().y < (m_Scene->getLevelSize() * m_viewSizeY) - (m_viewSizeY / 2))
 	{
 		if (!m_Scene->getParallax())
@@ -114,7 +141,7 @@ void SceneManager::loadSpace()
 {
 	m_CurrentScene = Space;
 	m_Scene.reset();
-	m_Scene = make_unique<Scene>(m_Player.get(), m_viewSizeX, m_viewSizeY, 10);
+	m_Scene = make_unique<Scene>(m_Player.get(), m_viewSizeX, m_viewSizeY, 10 * 960);
 
 	m_Scene->addBackground(-0.7, "Textures/space_stars_small.png");
 
@@ -151,4 +178,30 @@ void SceneManager::loadWin()
 void SceneManager::handleInput(sf::Event* event)
 {
 	m_Player->handleInput(event);
+}
+
+
+void SceneManager::borderView(int width, int height)
+{
+
+}
+
+void SceneManager::handleResize(int width, int height)
+{
+	int basis;
+	int normalizedWidth = width / 4;
+	int normalizedHeight = height / 3;
+	if (normalizedWidth == normalizedHeight)
+	{
+		m_View->setSize(m_viewSizeX, m_viewSizeY);
+	}
+	else if (normalizedWidth > normalizedHeight)
+	{
+		m_View->setSize(m_viewSizeX * normalizedWidth / normalizedHeight, m_viewSizeY);
+	}
+	else
+	{
+		m_View->setSize(m_viewSizeX, m_viewSizeY * normalizedHeight / normalizedWidth);
+	}
+	//If we hit bugs, update m_viewsizex and m_viewsizey
 }

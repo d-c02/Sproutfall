@@ -4,7 +4,7 @@
 class Scene : public sf::Drawable
 {
 public:
-	Scene(Player* player, float viewSizeX, float viewSizeY, int numScreens = 0);
+	Scene(Player* player, float viewSizeX, float viewSizeY, int levelSize = 0);
 	~Scene();
 	void addBackground(float parallaxSpeed, string texturePath, int m_screenNumber = -1);
 	void setBackgroundFillColor(unsigned int color);
@@ -19,7 +19,7 @@ private:
 	Player* m_Player;
 	float m_viewSizeX;
 	float m_viewSizeY;
-	int m_NumScreens;
+	int m_LevelSize;
 	vector<std::unique_ptr<sf::Sprite>> m_BackgroundSprites;
 	vector<std::unique_ptr<sf::Texture>> m_BackgroundTextures;
 	bool m_Parallax = true;

@@ -10,6 +10,7 @@ public:
 	void loadScene(int scene);
 	void Update(float tf);
 	void handleInput(sf::Event* event);
+	void handleResize(int width, int height);
 private:
 	void loadTitle();
 	void loadSpace();
@@ -17,8 +18,13 @@ private:
 	void loadGround();
 	void loadWin();
 	void removeBullet(int index);
+	void borderView(int width, int height);
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
+	std::unique_ptr<sf::RectangleShape> m_LeftBorder;
+	std::unique_ptr<sf::RectangleShape> m_RightBorder;
+	std::unique_ptr<sf::RectangleShape> m_UpperBorder;
+	std::unique_ptr<sf::RectangleShape> m_LowerBorder;
 	std::unique_ptr<Scene> m_Scene;
 	std::unique_ptr<sf::View> m_View;
 	std::unique_ptr<EnemyManager> m_EnemyManager;

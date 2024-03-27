@@ -86,6 +86,11 @@ void Player::Update(float tf)
 		m_Sprite->setPosition(100, m_Sprite->getPosition().y);
 		m_VelocityX = 0;
 	}
+	if (m_Sprite->getPosition().y < -3000)
+	{
+		m_Sprite->setPosition(m_Sprite->getPosition().x, -3000);
+		m_VelocityY = 0;
+	}
 	if (m_VelocityY < m_terminalVelocity)
 	{
 		m_VelocityY += m_gravity * tf;

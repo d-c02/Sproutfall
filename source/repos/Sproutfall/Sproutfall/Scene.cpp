@@ -1,11 +1,11 @@
 #include "Scene.h"
 
-Scene::Scene(Player* player, float viewSizeX, float viewSizeY, int numScreens)
+Scene::Scene(Player* player, float viewSizeX, float viewSizeY, int levelSize)
 {
 	m_Player = player;
 	m_viewSizeX = viewSizeX;
 	m_viewSizeY = viewSizeY;
-	m_NumScreens = numScreens;
+	m_LevelSize = levelSize;
 }
 Scene::~Scene()
 {
@@ -44,7 +44,7 @@ void Scene::Update(float tf)
 
 int Scene::getLevelSize()
 {
-	return m_NumScreens;
+	return m_LevelSize;
 }
 void Scene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
