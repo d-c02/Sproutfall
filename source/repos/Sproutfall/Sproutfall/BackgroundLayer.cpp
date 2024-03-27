@@ -40,6 +40,8 @@ void BackgroundLayer::Update(float tf)
 	m_Upper->setPosition(0, spritePosY - textureSize);
 	m_Lower->setPosition(0, spritePosY + textureSize);
 	m_Sprite->move(0, -m_Player->getVelocity().y * tf * m_ParallaxSpeed * m_Parallax);
+	m_Upper->move(0, -m_Player->getVelocity().y * tf * m_ParallaxSpeed * m_Parallax);
+	m_Lower->move(0, -m_Player->getVelocity().y * tf * m_ParallaxSpeed * m_Parallax);
 }
 
 void BackgroundLayer::setScale(float x, float y)
