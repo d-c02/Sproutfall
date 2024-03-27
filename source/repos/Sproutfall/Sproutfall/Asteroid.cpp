@@ -4,6 +4,12 @@ Asteroid::Asteroid(sf::Texture* texture, Player* player)
 {
 	m_Sprite = make_unique<sf::Sprite>();
 	m_Sprite->setTexture(*texture);
+	m_LeftBound = make_unique<sf::RectangleShape>();
+	m_LeftBound->setSize(sf::Vector2f(1, 10000000));
+	m_LeftBound->setPosition(sf::Vector2f(-1, -10000));
+	m_RightBound = make_unique<sf::RectangleShape>();
+	m_RightBound->setSize(sf::Vector2f(1, 10000000));
+	m_RightBound->setPosition(sf::Vector2f(1279, -10000));
 	m_VelocityX = ((float)rand() / (float)(RAND_MAX)) * m_MaxVelocityX;
 	m_VelocityY = ((float)rand() / (float)(RAND_MAX)) * m_MaxVelocityY;
 	m_RotationDegrees = ((float)rand() / (float)(RAND_MAX)) * m_MaxRotation;
@@ -38,7 +44,8 @@ Asteroid::~Asteroid()
 
 void Asteroid::Update(float tf)
 {
-	if (m_Sprite->getGlobalBounds().intersects(sf::FloatRect(-1, -10000, 1, 10000000)) || m_Sprite->getGlobalBounds().intersects(sf::FloatRect(1279, -10000, 1, 10000000)))
+	sf::CircleShape* hitbox = dynamic_cast<sf::CircleShape*>(getHitbox());
+	if (calculateCollision(hitbox, m_LeftBound.get()) || calculateCollision(hitbox, m_RightBound.get()))
 	{
 		m_VelocityX = m_VelocityX * -1;
 		// m_RotationDegrees = m_RotationDegrees * -1;
