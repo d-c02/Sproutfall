@@ -1,15 +1,7 @@
-﻿  SceneManager.cpp
+﻿  Player.cpp
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.h(19,19): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.h(52,36): warning C4305: 'initializing': truncation from 'double' to 'const float'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Asteroid.h(5,25): warning C4584: 'Asteroid': base-class 'sf::Drawable' is already a base-class of 'Enemy'
-C:\SFML-2.5.1\include\SFML\Graphics\RenderTarget.hpp(45,7): message : see declaration of 'sf::Drawable'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Enemy.h(4,7): message : see declaration of 'Enemy'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Squid.h(6,26): warning C4584: 'Squid': base-class 'sf::Drawable' is already a base-class of 'Enemy'
-C:\SFML-2.5.1\include\SFML\Graphics\RenderTarget.hpp(45,7): message : see declaration of 'sf::Drawable'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Enemy.h(4,7): message : see declaration of 'Enemy'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(141,26): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(143,26): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(145,26): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(147,26): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(186,6): warning C4101: 'basis': unreferenced local variable
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.cpp(170,13): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.cpp(185,54): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.cpp(187,54): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   Sproutfall.vcxproj -> C:\Users\djcas\source\repos\Sproutfall\Debug\Sproutfall.exe

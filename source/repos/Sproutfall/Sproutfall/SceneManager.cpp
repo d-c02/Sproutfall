@@ -82,7 +82,10 @@ void SceneManager::Update(float tf)
 		m_Player->Update(tf);
 		m_EnemyManager->Update(tf);
 
-		m_View->setCenter(m_viewSizeX / 2, m_Player->getPosition().y);
+		if (m_Player->getPosition().y < (m_Scene->getLevelSize()) - (m_viewSizeY / 2))
+		{
+			m_View->setCenter(m_viewSizeX / 2, m_Player->getPosition().y);
+		}
 
 		if (m_Player->getPosition().y >= (m_Scene->getLevelSize()))
 		{
