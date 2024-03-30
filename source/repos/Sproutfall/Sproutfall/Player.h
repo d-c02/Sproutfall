@@ -5,6 +5,8 @@
 #include "Reticle.h"
 #include "BulletManager.h"
 #include "AnimationManager.h"
+#include "ShellManager.h"
+
 class Player : public sf::Drawable, public Entity
 {
 public:
@@ -53,4 +55,5 @@ private:
 	int m_Health = 3;
 	sf::RenderWindow* m_RenderWindow;
 	bool m_Alive = true;
+	std::unique_ptr<ShellManager> m_ShellManager;
 };

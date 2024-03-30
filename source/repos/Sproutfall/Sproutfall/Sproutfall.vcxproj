@@ -162,6 +162,8 @@
     <ClCompile Include="Reticle.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Shell.cpp" />
+    <ClCompile Include="ShellManager.cpp" />
     <ClCompile Include="Squid.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -179,6 +181,8 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SFML_Lib.h" />
+    <ClInclude Include="Shell.h" />
+    <ClInclude Include="ShellManager.h" />
     <ClInclude Include="Squid.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

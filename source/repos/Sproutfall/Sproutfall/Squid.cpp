@@ -23,6 +23,9 @@ Squid::~Squid()
 
 void Squid::Update(float tf)
 {
+	//DELETE
+	sf::Color c = m_Sprite->getColor();
+
 	sf::Vector2f diff((m_Player->getPosition().x /*+ (m_Player->getVelocity().x)*/) - getPosition().x, m_Player->getPosition().y + (m_Player->getVelocity().y / 2) - getPosition().y);
 	float length = sqrt(pow(diff.x, 2) + pow(diff.y, 2));
 	if (m_State == neutral)

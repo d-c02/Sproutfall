@@ -37,6 +37,7 @@ Player::Player(sf::RenderWindow* window)
 	m_Hitbox = std::move(circ);
 	m_RenderWindow = window;
 	m_Alive = true;
+	m_ShellManager = make_unique<ShellManager>();
 }
 
 Player::~Player()
@@ -63,6 +64,12 @@ void Player::Shoot()
 		sf::Vector2f bulletDirection = sf::Vector2f(bulletDirX / length, bulletDirY / length);
 		m_bulletManager->spawnVolley(bulletDirection, m_Reticle->getPosition());
 		m_ShotgunShootSounds[rand() % m_ShotgunShootSounds.size()]->play();
+
+		sf::Vector2f dif = (m_Reticle->getPosition() - getPosition());
+		dif = dif / sqrtf(dif.x * dif.x + dif.y * dif.y);
+		dif.x = -1 * dif.x;
+		dif.y = -1 * abs(dif.y);
+		m_ShellManager->CreateShell(m_Sprite->getPosition(),  dif);
 	}
 	else
 	{
@@ -163,6 +170,7 @@ void Player::Update(float tf)
 	}
 	setDirection();
 	m_Hitbox->setPosition(m_Sprite->getPosition());
+	m_ShellManager->Update(tf);
 }
 
 void Player::setDirection()
@@ -213,6 +221,7 @@ sf::FloatRect Player::getGlobalBounds()
 
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+	target.draw(*m_ShellManager);
 	target.draw(*m_Sprite);
 	target.draw(*m_Reticle);
 	target.draw(*m_bulletManager);
