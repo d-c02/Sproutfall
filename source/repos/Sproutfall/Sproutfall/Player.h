@@ -22,6 +22,8 @@ public:
 	void Die();
 	bool getStatus();
 	sf::Vector2f getPosition();
+	void SetShellColor(sf::Color color);
+	void SetShellGravity(float gravity);
 protected:
 
 private:

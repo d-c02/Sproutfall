@@ -317,3 +317,13 @@ sf::Vector2f Player::getPosition()
 {
 	return m_Sprite->getPosition();
 }
+
+void Player::SetShellColor(sf::Color color)
+{
+	m_ShellManager->SetColor(color);
+}
+
+void Player::SetShellGravity(float gravity)
+{
+	m_ShellManager->SetGravity(gravity);
+}

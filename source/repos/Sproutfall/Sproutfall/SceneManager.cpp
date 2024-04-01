@@ -154,6 +154,10 @@ void SceneManager::loadSpace()
 	m_EnemyManager->generateEnemies(b_Squid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
 
 	m_EnemyManager->generateEnemies(b_Asteroid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
+
+	m_Player->setPosition(640, 200);
+	m_Player->SetShellColor(sf::Color(0xf6edcdff));
+	m_Player->SetShellGravity(0);
 }
 
 void SceneManager::loadSky()
