@@ -36,7 +36,7 @@ private:
 	const float m_recoil = -17.5;
 	const float m_gravity = 500;
 	float m_reloadProgress = 0;
-	const int m_bulletsMax = 4;
+	const int m_bulletsMax = 40000;
 	int m_bullets = m_bulletsMax;
 	const float m_reloadDelay = 0.75;
 	std::unique_ptr<Reticle> m_Reticle;

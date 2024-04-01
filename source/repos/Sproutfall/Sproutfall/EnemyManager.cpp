@@ -151,6 +151,11 @@ void EnemyManager::Update(float tf)
 	checkCollisions();
 }
 
+void EnemyManager::Clear()
+{
+	m_Enemies.clear();
+}
+
 void EnemyManager::checkCollisions()
 {
 	for (int i = 0; i < m_Enemies.size(); i++)

@@ -12,11 +12,11 @@ Scene::~Scene()
 
 }
 
-void Scene::addBackground(float parallaxSpeed, string texturePath, int screenNumber)
+void Scene::addBackground(float parallaxSpeed, string texturePath, int screenNumber, bool drawOthers)
 {
 	if (screenNumber < 0)
 	{
-		m_Backgrounds.push_back(make_unique<BackgroundLayer>(m_Player, parallaxSpeed, m_viewSizeX, m_viewSizeY, texturePath));
+		m_Backgrounds.push_back(make_unique<BackgroundLayer>(m_Player, parallaxSpeed, m_viewSizeX, m_viewSizeY, texturePath, drawOthers));
 		m_Backgrounds[m_Backgrounds.size() - 1]->setScale(2, 2);
 	}
 	else

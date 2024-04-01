@@ -139,21 +139,30 @@ void SceneManager::loadSpace()
 {
 	m_CurrentScene = Space;
 	m_Scene.reset();
+	m_EnemyManager->Clear();
 	m_Scene = make_unique<Scene>(m_Player.get(), m_viewSizeX, m_viewSizeY, 10 * 960);
 
-	m_Scene->addBackground(-0.7, "Textures/space_stars_small.png");
+	//m_Scene->addBackground(-0.7, "Textures/space_stars_small.png");
 
-	m_Scene->addBackground(-0.8, "Textures/space_stars_big.png");
+	//m_Scene->addBackground(-0.8, "Textures/space_stars_big.png");
 
-	m_Scene->addBackground(-0.92, "Textures/background_objects.png");
+	//m_Scene->addBackground(-0.92, "Textures/background_objects.png");
 
-	m_Scene->addBackground(-0.99, "Textures/earth.png", -1);
+	//m_Scene->addBackground(-0.99, "Textures/earth.png", -1);
+
+	m_Scene->addBackground(-0.999, "Textures/space_stars_small.png");
+
+	m_Scene->addBackground(-0.997, "Textures/space_stars_big.png");
+
+	m_Scene->addBackground(-0.995, "Textures/background_objects.png");
+
+	m_Scene->addBackground(-0.97, "Textures/earth.png", -1, false);
 
 	m_Scene->setBackgroundFillColor(0x655057ff);
 
-	m_EnemyManager->generateEnemies(b_Squid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
+	//m_EnemyManager->generateEnemies(b_Squid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
 
-	m_EnemyManager->generateEnemies(b_Asteroid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
+	//m_EnemyManager->generateEnemies(b_Asteroid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
 
 	m_Player->setPosition(640, 200);
 	m_Player->SetShellColor(sf::Color(0xf6edcdff));
@@ -163,8 +172,13 @@ void SceneManager::loadSpace()
 void SceneManager::loadSky()
 {
 	m_CurrentScene = Sky;
+	m_Scene.reset();
+	m_EnemyManager->Clear();
+	
+	m_Scene = make_unique<Scene>(m_Player.get(), m_viewSizeX, m_viewSizeY, 10 * 960);
+	m_Scene->setBackgroundFillColor(0x6d8d8aff);
 	//m_Scene.reset();
-	m_Player->setPosition(100, 100);
+	m_Player->setPosition(640, 200);
 }
 
 void SceneManager::loadGround()

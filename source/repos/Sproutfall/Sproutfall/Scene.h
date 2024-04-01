@@ -6,7 +6,7 @@ class Scene : public sf::Drawable
 public:
 	Scene(Player* player, float viewSizeX, float viewSizeY, int levelSize = 0);
 	~Scene();
-	void addBackground(float parallaxSpeed, string texturePath, int m_screenNumber = -1);
+	void addBackground(float parallaxSpeed, string texturePath, int m_screenNumber = -1, bool drawOthers = true);
 	void setBackgroundFillColor(unsigned int color);
 	void Update(float tf);
 	int getLevelSize();

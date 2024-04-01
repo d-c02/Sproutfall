@@ -10,6 +10,7 @@ public:
 	~EnemyManager();
 	void generateEnemies(int type, float minYDistance, float maxYDistance, int numScreens);
 	void Update(float tf);
+	void Clear();
 private:
 	void removeEnemy(int index);
 	void removeSmoke(int index);

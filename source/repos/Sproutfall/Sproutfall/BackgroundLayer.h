@@ -4,7 +4,7 @@
 class BackgroundLayer : public sf::Drawable
 {
 public:
-	BackgroundLayer(Player* player, float parallaxSpeed, float viewSizeX, float viewSizeY, string texturePath);
+	BackgroundLayer(Player* player, float parallaxSpeed, float viewSizeX, float viewSizeY, string texturePath, bool drawOthers);
 	~BackgroundLayer();
 	void Update(float tf);
 	void setScale(float x, float y);
@@ -20,4 +20,5 @@ private:
 	float m_ViewSizeX;
 	float m_ViewSizeY;
 	Player* m_Player;
+	bool m_drawOthers;
 };

@@ -1,5 +1,5 @@
 #include "BackgroundLayer.h"
-BackgroundLayer::BackgroundLayer(Player* player, float parallaxSpeed, float viewSizeX, float viewSizeY, string texturePath)
+BackgroundLayer::BackgroundLayer(Player* player, float parallaxSpeed, float viewSizeX, float viewSizeY, string texturePath, bool drawOthers)
 {
 	m_Sprite = make_unique<sf::Sprite>();
 	m_Upper = make_unique<sf::Sprite>();
@@ -17,6 +17,7 @@ BackgroundLayer::BackgroundLayer(Player* player, float parallaxSpeed, float view
 	m_Player = player;
 	m_ParallaxSpeed = parallaxSpeed;
 	m_Parallax = 1;
+	m_drawOthers = drawOthers;
 }
 BackgroundLayer::~BackgroundLayer()
 {
@@ -56,8 +57,11 @@ void BackgroundLayer::draw(sf::RenderTarget& target, sf::RenderStates states) co
 	//float top = round(m_Player->getPosition().y - (m_ViewSizeY / 2));
 	//float bottom = top + m_ViewSizeY;
 	target.draw(*m_Sprite);
-	target.draw(*m_Upper);
-	target.draw(*m_Lower);
+	if (m_drawOthers)
+	{
+		target.draw(*m_Upper);
+		target.draw(*m_Lower);
+	}
 }
 
 void BackgroundLayer::setParallax(bool parallax)
