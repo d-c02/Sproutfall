@@ -31,6 +31,7 @@ SceneManager::SceneManager(float viewSizeX, float viewSizeY, sf::RenderWindow* w
 	m_playerSmoke->setScale(2, 2);
 	m_smokeAnimationManager->addState(0, frameVector, false, 0.07f);
 	frameVector.clear();
+	m_playerSmoke->setTextureRect(sf::IntRect(0, 0, 19, 17));
 	m_smokeAnimationManager->Play();
 
 	m_LeftBorder = make_unique<sf::RectangleShape>();
@@ -96,7 +97,9 @@ void SceneManager::Update(float tf)
 	{
 		m_smokeAnimationManager->Update(tf);
 	}
-	
+
+	m_playerSmoke->setPosition(m_Player->getPosition());
+
 	m_UpperBorder->setPosition(m_View->getCenter().x - (m_View->getSize().x / 2), m_View->getCenter().y - (m_View->getSize().y / 2));	
 	m_LeftBorder->setPosition(m_View->getCenter().x - (m_View->getSize().x / 2), m_View->getCenter().y - (m_View->getSize().y / 2));
 	m_LowerBorder->setPosition(m_View->getCenter().x - (m_View->getSize().x / 2), m_View->getCenter().y + (m_View->getSize().y / 2) - m_LowerBorder->getSize().y);
@@ -121,7 +124,6 @@ void SceneManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	}
 	else if (m_smokeAnimationManager->isPlaying())
 	{
-		m_playerSmoke->setPosition(m_Player->getPosition());
 		target.draw(*m_playerSmoke);
 	}
 	target.draw(*m_UpperBorder.get());
@@ -152,17 +154,17 @@ void SceneManager::loadSpace()
 
 	m_Scene->addBackground(-0.999, "Textures/space_stars_small.png");
 
-	m_Scene->addBackground(-0.997, "Textures/space_stars_big.png");
+	m_Scene->addBackground(-0.99, "Textures/space_stars_big.png");
 
-	m_Scene->addBackground(-0.995, "Textures/background_objects.png");
+	m_Scene->addBackground(-0.98, "Textures/background_objects.png");
 
 	m_Scene->addBackground(-0.97, "Textures/earth.png", -1, false);
 
 	m_Scene->setBackgroundFillColor(0x655057ff);
 
-	//m_EnemyManager->generateEnemies(b_Squid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
+	m_EnemyManager->generateEnemies(b_Squid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
 
-	//m_EnemyManager->generateEnemies(b_Asteroid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
+	m_EnemyManager->generateEnemies(b_Asteroid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
 
 	m_Player->setPosition(640, 200);
 	m_Player->SetShellColor(sf::Color(0xf6edcdff));

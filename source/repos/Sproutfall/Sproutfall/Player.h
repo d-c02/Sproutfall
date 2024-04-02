@@ -36,7 +36,7 @@ private:
 	const float m_recoil = -17.5;
 	const float m_gravity = 500;
 	float m_reloadProgress = 0;
-	const int m_bulletsMax = 40000;
+	const int m_bulletsMax = 4;
 	int m_bullets = m_bulletsMax;
 	const float m_reloadDelay = 0.75;
 	std::unique_ptr<Reticle> m_Reticle;
@@ -54,7 +54,7 @@ private:
 	bool m_SpriteFlipped = false;
 	std::unique_ptr<sf::CircleShape> m_Hitbox;
 	const float m_CollisionSlowdown = 0.2;
-	int m_Health = 3;
+	int m_Health = 4;
 	sf::RenderWindow* m_RenderWindow;
 	bool m_Alive = true;
 	std::unique_ptr<ShellManager> m_ShellManager;
