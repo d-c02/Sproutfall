@@ -45,6 +45,12 @@ EnemyManager::EnemyManager(sf::Vector2f viewSize, Player* player)
 	{
 		cout << "Enemy smoke texture load failure" << endl;
 	}
+	m_whiteShader = make_unique<sf::Shader>();
+	if (!m_whiteShader->loadFromMemory(m_whiteShaderCode, sf::Shader::Fragment))
+	{
+		cout << "Failure to load shader" << endl;
+	}
+	m_whiteShader->setUniform("texture", sf::Shader::CurrentTexture);
 }
 EnemyManager::~EnemyManager()
 {
@@ -59,7 +65,7 @@ void EnemyManager::AddEnemy(int type, sf::Vector2f position)
 	}
 	else if (type == b_Squid)
 	{
-		m_Enemies.push_back(make_unique<Squid>(m_EnemyTextures[b_Squid].get(), m_Player));
+		m_Enemies.push_back(make_unique<Squid>(m_EnemyTextures[b_Squid].get(), m_Player, m_whiteShader.get()));
 		m_Enemies[m_Enemies.size() - 1]->setPosition(position);
 	}
 	else if (type == b_Cloud)
@@ -167,6 +173,7 @@ void EnemyManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	for (int i = 0; i < m_Enemies.size(); i++)
 	{
+		
 		target.draw(*m_Enemies[i]);
 	}
 	for (int i = 0; i < m_SmokeSprites.size(); i++)

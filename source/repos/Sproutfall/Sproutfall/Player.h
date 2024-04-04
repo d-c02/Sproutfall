@@ -54,7 +54,7 @@ private:
 	bool m_SpriteFlipped = false;
 	std::unique_ptr<sf::CircleShape> m_Hitbox;
 	const float m_CollisionSlowdown = 0.2;
-	int m_Health = 4;
+	int m_Health = 3;
 	sf::RenderWindow* m_RenderWindow;
 	bool m_Alive = true;
 	std::unique_ptr<ShellManager> m_ShellManager;

@@ -1,5 +1,7 @@
 c:\users\djcas\source\repos\sproutfall\sproutfall\release\vc143.pdb
 c:\users\djcas\source\repos\sproutfall\sproutfall\release\squid.obj
+c:\users\djcas\source\repos\sproutfall\sproutfall\release\shellmanager.obj
+c:\users\djcas\source\repos\sproutfall\sproutfall\release\shell.obj
 c:\users\djcas\source\repos\sproutfall\sproutfall\release\scenemanager.obj
 c:\users\djcas\source\repos\sproutfall\sproutfall\release\scene.obj
 c:\users\djcas\source\repos\sproutfall\sproutfall\release\reticle.obj
@@ -13,8 +15,6 @@ c:\users\djcas\source\repos\sproutfall\sproutfall\release\backgroundlayer.obj
 c:\users\djcas\source\repos\sproutfall\sproutfall\release\asteroid.obj
 c:\users\djcas\source\repos\sproutfall\sproutfall\release\animationmanager.obj
 c:\users\djcas\source\repos\sproutfall\sproutfall\release\animation.obj
-c:\users\djcas\source\repos\sproutfall\sproutfall\release\shellmanager.obj
-c:\users\djcas\source\repos\sproutfall\sproutfall\release\shell.obj
 c:\users\djcas\source\repos\sproutfall\sproutfall\release\game.obj
 c:\users\djcas\source\repos\sproutfall\release\sproutfall.exe
 c:\users\djcas\source\repos\sproutfall\sproutfall\release\sproutfall.ipdb

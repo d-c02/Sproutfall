@@ -1,5 +1,5 @@
 #include "Squid.h"
-Squid::Squid(sf::Texture* texture, Player* player)
+Squid::Squid(sf::Texture* texture, Player* player, sf::Shader* whiteShader)
 {
 	m_Sprite = make_unique<sf::Sprite>();
 	m_Sprite->setTexture(*texture);
@@ -15,6 +15,7 @@ Squid::Squid(sf::Texture* texture, Player* player)
 	circ->setOrigin(circ->getGlobalBounds().left + circ->getRadius(), circ->getGlobalBounds().top + circ->getRadius());
 	m_Hitbox = std::move(circ);
 	m_health = 4;
+	m_whiteShader = whiteShader;
 }
 Squid::~Squid()
 {
@@ -23,9 +24,6 @@ Squid::~Squid()
 
 void Squid::Update(float tf)
 {
-	//DELETE
-	sf::Color c = m_Sprite->getColor();
-
 	sf::Vector2f diff((m_Player->getPosition().x /*+ (m_Player->getVelocity().x)*/) - getPosition().x, m_Player->getPosition().y + (m_Player->getVelocity().y / 2) - getPosition().y);
 	float length = sqrt(pow(diff.x, 2) + pow(diff.y, 2));
 	if (m_State == neutral)
@@ -73,6 +71,11 @@ void Squid::Update(float tf)
 	}
 	m_Sprite->move(m_VelocityX * tf, m_VelocityY * tf);
 	m_Hitbox->setPosition(m_Sprite->getPosition());
+
+	if (m_blinking)
+	{
+		Blink(tf);
+	}
 }
 void Squid::configureAnimations()
 {
@@ -108,6 +111,20 @@ void Squid::configureAnimations()
 
 void Squid::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	target.draw(*m_Sprite);
+	if (m_blinking)
+	{
+		if (m_blinkBit)
+		{
+			target.draw(*m_Sprite, m_whiteShader);
+		}
+		else
+		{
+			target.draw(*m_Sprite);
+		}
+	}
+	else
+	{
+		target.draw(*m_Sprite);
+	}
 	//target.draw(*m_Hitbox);
 }

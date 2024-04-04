@@ -1,13 +1,3 @@
-
-#define _CRTDBG_MAP_ALLOC
-#include <stdlib.h>
-#include <crtdbg.h>
-#ifdef _DEBUG
-#ifndef DBG_NEW
-#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
-#define new DBG_NEW
-#endif
-#endif  // _DEBUG
 #include <SFML/Graphics.hpp>
 #include "Player.h"
 #include "BackgroundLayer.h"
@@ -21,14 +11,12 @@ int Game();
 int main()
 {
     Game();
-    _CrtDumpMemoryLeaks();
     return 0;
 }
 
 int Game()
 {
     srand(time(NULL));
-    //::_CrtSetDbgFlag(::_CrtSetDbgFlag(_CRTDBG_REPORT_FLAG) | _CRTDBG_LEAK_CHECK_DF);
     sf::RenderWindow window(sf::VideoMode(1280, 960), "Sproutfall");
     SceneManager sceneManager(1280, 960, &window);
     sceneManager.loadScene(Space);

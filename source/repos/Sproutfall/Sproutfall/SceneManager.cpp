@@ -144,14 +144,6 @@ void SceneManager::loadSpace()
 	m_EnemyManager->Clear();
 	m_Scene = make_unique<Scene>(m_Player.get(), m_viewSizeX, m_viewSizeY, 10 * 960);
 
-	//m_Scene->addBackground(-0.7, "Textures/space_stars_small.png");
-
-	//m_Scene->addBackground(-0.8, "Textures/space_stars_big.png");
-
-	//m_Scene->addBackground(-0.92, "Textures/background_objects.png");
-
-	//m_Scene->addBackground(-0.99, "Textures/earth.png", -1);
-
 	m_Scene->addBackground(-0.999, "Textures/space_stars_small.png");
 
 	m_Scene->addBackground(-0.99, "Textures/space_stars_big.png");

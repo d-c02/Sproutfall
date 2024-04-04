@@ -6,7 +6,7 @@
 class Squid : public sf::Drawable, public Enemy
 {
 public:
-	Squid(sf::Texture* texture, Player* player);
+	Squid(sf::Texture* texture, Player* player, sf::Shader* whiteShader);
 	~Squid();
 	void Update(float tf);
 	void configureAnimations();
@@ -23,5 +23,7 @@ private:
 	Player* m_Player;
 	const float m_attackRange = 400;
 	int m_State = neutral;
+	sf::Shader* m_whiteShader;
 	//std::unique_ptr<sf::CircleShape> m_Hitbox;
+
 };

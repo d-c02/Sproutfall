@@ -203,7 +203,7 @@ void Player::handleInput(sf::Event* event)
 {
 	if (event->type == sf::Event::MouseButtonPressed)
 	{
-		if (event->key.code == sf::Mouse::Left)
+		if (event->mouseButton.button == sf::Mouse::Left)
 		{
 			Shoot();
 		}

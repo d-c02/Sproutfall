@@ -9,8 +9,15 @@ public:
 	virtual void configureAnimations();
 	void Hurt();
 	int getHealth();
+	void Blink(float tf);
 protected:
 	float m_health;
+	bool m_blinking = false;
+	bool m_blinkBit = true;
+	float m_totalBlinkTime = 0.0f;
+	float m_maxTotalBlinkTime = 0.5f;
+	float m_blinkDuration = 0.1f;
+	float m_currentBlinkDuration = 0.0f;
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	//virtual void Die();
