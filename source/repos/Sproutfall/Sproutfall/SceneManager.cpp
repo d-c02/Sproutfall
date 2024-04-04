@@ -45,6 +45,12 @@ SceneManager::SceneManager(float viewSizeX, float viewSizeY, sf::RenderWindow* w
 
 	m_LowerBorder = make_unique<sf::RectangleShape>();
 	m_LowerBorder->setFillColor(sf::Color(0x655057ff));
+
+	m_FPSCtr = sf::Text();
+	m_FPSCtrFont = sf::Font();
+	if (!m_FPSCtrFont.loadFromFile("Fonts/Minecraft.ttf"))
+		cout << "Font load error" << endl;
+	m_FPSCtr.setFont(m_FPSCtrFont);
 }
 SceneManager::~SceneManager()
 {
@@ -104,6 +110,18 @@ void SceneManager::Update(float tf)
 	m_LeftBorder->setPosition(m_View->getCenter().x - (m_View->getSize().x / 2), m_View->getCenter().y - (m_View->getSize().y / 2));
 	m_LowerBorder->setPosition(m_View->getCenter().x - (m_View->getSize().x / 2), m_View->getCenter().y + (m_View->getSize().y / 2) - m_LowerBorder->getSize().y);
 	m_RightBorder->setPosition(m_View->getCenter().x + (m_View->getSize().x / 2) - m_RightBorder->getSize().x, m_View->getCenter().y - (m_View->getSize().y / 2));
+	
+	m_FPS++;
+	m_FPSTime += tf;
+	if (m_FPSTime > 1.0f)
+	{
+		m_PrevFPS = m_FPS;
+		m_FPS = 0;
+		m_FPSTime = 0.0f;
+		m_FPSCtr.setString(std::to_string(m_PrevFPS) + " FPS");
+	}
+
+	m_FPSCtr.setPosition(m_UpperBorder->getPosition());
 }
 
 void SceneManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -130,6 +148,7 @@ void SceneManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(*m_LowerBorder.get());
 	target.draw(*m_RightBorder.get());
 	target.draw(*m_LeftBorder.get());
+	target.draw(m_FPSCtr);
 }
 
 void SceneManager::loadTitle()

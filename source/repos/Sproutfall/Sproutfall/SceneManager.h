@@ -39,4 +39,9 @@ private:
 	std::unique_ptr<sf::Texture> m_smokeTexture;
 	std::unique_ptr<AnimationManager> m_smokeAnimationManager;
 	sf::RenderWindow* m_renderWindow;
+	sf::Text m_FPSCtr;
+	sf::Font m_FPSCtrFont;
+	int m_FPS = 0;
+	int m_PrevFPS = 0;
+	float m_FPSTime = 0.0f;
 };
