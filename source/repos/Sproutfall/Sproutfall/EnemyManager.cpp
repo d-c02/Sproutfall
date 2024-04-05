@@ -60,7 +60,7 @@ void EnemyManager::AddEnemy(int type, sf::Vector2f position)
 {
 	if (type == b_Asteroid)
 	{
-		m_Enemies.push_back(make_unique<Asteroid>(m_EnemyTextures[b_Asteroid].get(), m_Player));
+		m_Enemies.push_back(make_unique<Asteroid>(m_EnemyTextures[b_Asteroid].get(), m_Player, m_whiteShader.get()));
 		m_Enemies[m_Enemies.size() - 1]->setPosition(position);
 	}
 	else if (type == b_Squid)
@@ -139,7 +139,7 @@ void EnemyManager::Update(float tf)
 	for (int i = 0; i < m_Enemies.size(); i++)
 	{
 		m_Enemies[i]->Update(tf);
-		if (m_Enemies[i]->getHealth() <= 0)
+		if (!m_Enemies[i]->GetStatus())
 		{
 			addSmoke(m_Enemies[i]->getPosition());
 			m_SmokeAnimationManagers[m_SmokeAnimationManagers.size() - 1]->Play();

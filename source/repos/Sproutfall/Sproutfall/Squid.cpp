@@ -24,59 +24,88 @@ Squid::~Squid()
 
 void Squid::Update(float tf)
 {
-	sf::Vector2f diff((m_Player->getPosition().x /*+ (m_Player->getVelocity().x)*/) - getPosition().x, m_Player->getPosition().y + (m_Player->getVelocity().y / 2) - getPosition().y);
-	float length = sqrt(pow(diff.x, 2) + pow(diff.y, 2));
-	if (m_State == neutral)
+	if (m_health >= 0)
 	{
+		sf::Vector2f diff((m_Player->getPosition().x /*+ (m_Player->getVelocity().x)*/) - getPosition().x, m_Player->getPosition().y + (m_Player->getVelocity().y / 2) - getPosition().y);
+		float length = sqrt(pow(diff.x, 2) + pow(diff.y, 2));
+		if (m_State == neutral)
+		{
+			if (length <= m_attackRange)
+			{
+				m_State = startDash;
+				m_AnimationManager->setState(m_State);
+				m_RotationDegrees = atan2f(diff.y, diff.x) * (180.0 / 3.141592653589793238463);
+			}
+		}
+		else if (m_State != neutral && m_AnimationManager->isPlaying() == false)
+		{
+			if (m_State == startDash)
+			{
+				m_State = inDash;
+				m_VelocityX = cosf(m_RotationDegrees * (3.141592653589793238463 / 180.0));
+				m_VelocityY = sinf(m_RotationDegrees * (3.141592653589793238463 / 180.0));
+				float vlength = sqrt(pow(m_VelocityX, 2) + pow(m_VelocityY, 2));
+				m_VelocityX = m_VelocityX / vlength * m_Speed;
+				m_VelocityY = m_VelocityY / vlength * m_Speed;
+			}
+			else if (m_State == inDash)
+			{
+				m_State = endDash;
+			}
+			else if (m_State == endDash)
+			{
+				m_State = neutral;
+				m_VelocityX = 0;
+				m_VelocityY = 0;
+			}
+			m_AnimationManager->setState(m_State);
+		}
+
+		//Velocity calculation stuff here (from player)
+		m_AnimationManager->Update(tf);
 		if (length <= m_attackRange)
 		{
-			m_State = startDash;
-			m_AnimationManager->setState(m_State);
-			m_RotationDegrees = atan2f(diff.y, diff.x) * (180.0 / 3.141592653589793238463);
+			m_Sprite->setRotation(m_RotationDegrees + 90);
 		}
-	}
-	else if (m_State != neutral && m_AnimationManager->isPlaying() == false)
-	{
-		if (m_State == startDash)
+		else
 		{
-			m_State = inDash;
-			m_VelocityX = cosf(m_RotationDegrees * (3.141592653589793238463 / 180.0));
-			m_VelocityY = sinf(m_RotationDegrees * (3.141592653589793238463 / 180.0));
-			float vlength = sqrt(pow(m_VelocityX, 2) + pow(m_VelocityY, 2));
-			m_VelocityX = m_VelocityX / vlength * m_Speed;
-			m_VelocityY = m_VelocityY / vlength * m_Speed;
+			m_Sprite->setRotation(m_RotationDegrees);
 		}
-		else if (m_State == inDash)
-		{
-			m_State = endDash;
-		}
-		else if (m_State == endDash)
-		{
-			m_State = neutral;
-			m_VelocityX = 0;
-			m_VelocityY = 0;
-		}
-		m_AnimationManager->setState(m_State);
-	}
+		m_Sprite->move(m_VelocityX * tf, m_VelocityY * tf);
+		m_Hitbox->setPosition(m_Sprite->getPosition());
 
-	//Velocity calculation stuff here (from player)
-	m_AnimationManager->Update(tf);
-	if (length <= m_attackRange)
-	{
-		m_Sprite->setRotation(m_RotationDegrees + 90);
+		if (m_blinking)
+		{
+			Blink(tf);
+		}
 	}
 	else
 	{
-		m_Sprite->setRotation(m_RotationDegrees);
+		m_Sprite->move(m_VelocityX * tf, m_VelocityY * tf);
+		m_AnimationManager->Update(tf);
+		m_currentDeathTime += tf;
+		if (m_currentDeathTime > m_deathTime)
+		{
+			m_alive = false;
+		}
 	}
-	m_Sprite->move(m_VelocityX * tf, m_VelocityY * tf);
-	m_Hitbox->setPosition(m_Sprite->getPosition());
 
-	if (m_blinking)
+}
+
+void Squid::Hurt()
+{
+	m_blinking = true;
+	m_currentBlinkDuration = 0.0f;
+	m_totalBlinkTime = 0.0f;
+	m_health--;
+	if (m_health <= 0)
 	{
-		Blink(tf);
+		setHittable(false);
+		m_Sprite->setRotation(0);
+		m_AnimationManager->setState(dead);
 	}
 }
+
 void Squid::configureAnimations()
 {
 	m_AnimationManager = make_unique<AnimationManager>(m_Sprite.get());
@@ -105,13 +134,18 @@ void Squid::configureAnimations()
 	frameVector.push_back(sf::IntRect(148, 0, 24, 29));
 	m_AnimationManager->addState(endDash, frameVector, false, 0.5f);
 	frameVector.clear();
+	
+	//Dead state
+	frameVector.push_back(sf::IntRect(225, 0, 27, 17));
+	m_AnimationManager->addState(dead, frameVector, true, 1.0f);
+	frameVector.clear();
 
 	m_AnimationManager->setState(neutral);
 }
 
 void Squid::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	if (m_blinking)
+	if (m_blinking && m_health > 0)
 	{
 		if (m_blinkBit)
 		{

@@ -1,6 +1,6 @@
 #include "Asteroid.h"
 
-Asteroid::Asteroid(sf::Texture* texture, Player* player)
+Asteroid::Asteroid(sf::Texture* texture, Player* player, sf::Shader* whiteShader)
 {
 	m_Sprite = make_unique<sf::Sprite>();
 	m_Sprite->setTexture(*texture);
@@ -35,6 +35,8 @@ Asteroid::Asteroid(sf::Texture* texture, Player* player)
 	circ->setOrigin(circ->getGlobalBounds().left + circ->getRadius(), circ->getGlobalBounds().top + circ->getRadius());
 	m_Hitbox = std::move(circ);
 	m_health = 8;
+
+	m_whiteShader = whiteShader;
 }
 
 Asteroid::~Asteroid()
@@ -61,6 +63,16 @@ void Asteroid::Update(float tf)
 	m_Sprite->move(m_VelocityX * tf, m_VelocityY * tf);
 	m_Sprite->rotate(m_RotationDegrees * tf);
 	m_Hitbox->setPosition(m_Sprite->getPosition());
+	
+	if (m_health <= 0)
+	{
+		m_alive = false;
+	}
+
+	if (m_blinking)
+	{
+		Blink(tf);
+	}
 }
 
 void Asteroid::configureAnimations()
@@ -70,6 +82,19 @@ void Asteroid::configureAnimations()
 
 void Asteroid::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	target.draw(*m_Sprite);
-	//target.draw(*m_Hitbox);
+	if (m_blinking)
+	{
+		if (m_blinkBit)
+		{
+			target.draw(*m_Sprite, m_whiteShader);
+		}
+		else
+		{
+			target.draw(*m_Sprite);
+		}
+	}
+	else
+	{
+		target.draw(*m_Sprite);
+	}
 }

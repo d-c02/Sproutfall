@@ -10,6 +10,7 @@ public:
 	~Squid();
 	void Update(float tf);
 	void configureAnimations();
+	void Hurt();
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	std::unique_ptr<AnimationManager> m_AnimationManager;
@@ -19,11 +20,13 @@ private:
 	const float m_airResistanceX = -250;
 	const float m_gravity = 250;
 	const float m_Speed = 500;
-	enum States {neutral, startDash, inDash, endDash};
+	enum States {neutral, startDash, inDash, endDash, dead};
 	Player* m_Player;
 	const float m_attackRange = 400;
 	int m_State = neutral;
 	sf::Shader* m_whiteShader;
+	float m_currentDeathTime = 0.0f;
+	const float m_deathTime = 0.5f;
 	//std::unique_ptr<sf::CircleShape> m_Hitbox;
 
 };

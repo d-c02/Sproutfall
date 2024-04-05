@@ -5,7 +5,7 @@
 class Asteroid : public Enemy, public sf::Drawable
 {
 public:
-	Asteroid(sf::Texture* texture, Player* player);
+	Asteroid(sf::Texture* texture, Player* player, sf::Shader* whiteShader);
 	~Asteroid();
 	void Update(float tf);
 	void configureAnimations();
@@ -21,4 +21,5 @@ private:
 	bool m_CollidingRebounding = false;
 	std::unique_ptr <sf::RectangleShape> m_LeftBound;
 	std::unique_ptr <sf::RectangleShape> m_RightBound;
+	sf::Shader* m_whiteShader;
 };

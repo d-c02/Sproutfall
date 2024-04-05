@@ -19,6 +19,11 @@ void Enemy::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(*m_Sprite);
 }
 
+bool Enemy::GetStatus()
+{
+	return m_alive;
+}
+
 void Enemy::Hurt()
 {
 	m_blinking = true;
