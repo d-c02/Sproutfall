@@ -10,7 +10,7 @@ public:
 	~Squid();
 	void Update(float tf);
 	void configureAnimations();
-	void Hurt();
+	void Hurt(sf::Vector2f impactVelocity);
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	std::unique_ptr<AnimationManager> m_AnimationManager;

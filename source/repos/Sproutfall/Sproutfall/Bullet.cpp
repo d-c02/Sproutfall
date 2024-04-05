@@ -93,10 +93,10 @@ void Bullet::checkCollision(Enemy* enemy)
 				m_CurrentState = colliding;
 				m_Alive = false;
 				m_AnimationManager->setState(colliding);
-				m_speed = 0;
 				m_Sprite->setScale(1.5f, 1.5f);
 				setHittable(false);
-				enemy->Hurt();
+				enemy->Hurt(sf::Vector2f(m_directionX * m_speed, m_directionY * m_speed));
+				m_speed = 0;
 			}
 		}
 		else
@@ -108,10 +108,10 @@ void Bullet::checkCollision(Enemy* enemy)
 				m_CurrentState = colliding;
 				m_Alive = false;
 				m_AnimationManager->setState(colliding);
-				m_speed = 0;
 				m_Sprite->setScale(1.5f, 1.5f);
 				setHittable(false);
-				enemy->Hurt();
+				enemy->Hurt(sf::Vector2f(m_directionX * m_speed, m_directionY * m_speed));
+				m_speed = 0;
 			}
 		}
 	}

@@ -8,7 +8,7 @@ public:
 	sf::FloatRect getGlobalBounds();
 	virtual void configureAnimations();
 	bool GetStatus();
-	virtual void Hurt();
+	virtual void Hurt(sf::Vector2f impactVelocity);
 	int getHealth();
 	void Blink(float tf);
 protected:

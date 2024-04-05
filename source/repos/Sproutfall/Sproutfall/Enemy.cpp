@@ -24,7 +24,7 @@ bool Enemy::GetStatus()
 	return m_alive;
 }
 
-void Enemy::Hurt()
+void Enemy::Hurt(sf::Vector2f impactVelocity)
 {
 	m_blinking = true;
 	m_currentBlinkDuration = 0.0f;

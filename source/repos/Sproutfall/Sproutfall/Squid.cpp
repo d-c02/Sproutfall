@@ -24,7 +24,7 @@ Squid::~Squid()
 
 void Squid::Update(float tf)
 {
-	if (m_health >= 0)
+	if (m_health > 0)
 	{
 		sf::Vector2f diff((m_Player->getPosition().x /*+ (m_Player->getVelocity().x)*/) - getPosition().x, m_Player->getPosition().y + (m_Player->getVelocity().y / 2) - getPosition().y);
 		float length = sqrt(pow(diff.x, 2) + pow(diff.y, 2));
@@ -92,7 +92,7 @@ void Squid::Update(float tf)
 
 }
 
-void Squid::Hurt()
+void Squid::Hurt(sf::Vector2f impactVelocity)
 {
 	m_blinking = true;
 	m_currentBlinkDuration = 0.0f;
@@ -102,6 +102,8 @@ void Squid::Hurt()
 	{
 		setHittable(false);
 		m_Sprite->setRotation(0);
+		m_VelocityX = impactVelocity.x / 2;
+		m_VelocityY = impactVelocity.y / 2;
 		m_AnimationManager->setState(dead);
 	}
 }
