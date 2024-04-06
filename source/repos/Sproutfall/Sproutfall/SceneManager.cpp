@@ -97,6 +97,11 @@ void SceneManager::Update(float tf)
 		if (m_Player->getPosition().y < (m_Scene->getLevelSize()) - (m_viewSizeY / 2))
 		{
 			m_View->setCenter(m_viewSizeX / 2 + m_ScreenShakeOffset.x, m_Player->getPosition().y + m_ScreenShakeOffset.y);
+			m_UpperBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, m_Player->getPosition().y - (m_View->getSize().y / 2) - m_ScreenShakeSizeY);
+			m_LeftBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, m_Player->getPosition().y - (m_View->getSize().y / 2) - m_ScreenShakeSizeY);
+			m_LowerBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, m_Player->getPosition().y + (m_View->getSize().y / 2) - m_LowerBorder->getSize().y + m_ScreenShakeSizeY);
+			m_RightBorder->setPosition((m_viewSizeX / 2) + (m_View->getSize().x / 2) - m_RightBorder->getSize().x + m_ScreenShakeSizeX, m_Player->getPosition().y - (m_View->getSize().y / 2));
+
 		}
 
 		if (m_Player->getPosition().y >= (m_Scene->getLevelSize()))
@@ -110,11 +115,6 @@ void SceneManager::Update(float tf)
 	}
 
 	m_playerSmoke->setPosition(m_Player->getPosition());
-
-	m_UpperBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, m_Player->getPosition().y - (m_View->getSize().y / 2) - m_ScreenShakeSizeY);
-	m_LeftBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, m_Player->getPosition().y - (m_View->getSize().y / 2) - m_ScreenShakeSizeY);
-	m_LowerBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, m_Player->getPosition().y + (m_View->getSize().y / 2) - m_LowerBorder->getSize().y + m_ScreenShakeSizeY);
-	m_RightBorder->setPosition((m_viewSizeX / 2) + (m_View->getSize().x / 2) - m_RightBorder->getSize().x + m_ScreenShakeSizeX, m_Player->getPosition().y - (m_View->getSize().y / 2));
 
 	m_FPS++;
 	m_FPSTime += tf;
@@ -211,9 +211,9 @@ void SceneManager::loadSpace()
 
 	m_Scene->setBackgroundFillColor(0x655057ff);
 
-	//m_EnemyManager->generateEnemies(b_Squid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
+	m_EnemyManager->generateEnemies(b_Squid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
 
-	//m_EnemyManager->generateEnemies(b_Asteroid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
+	m_EnemyManager->generateEnemies(b_Asteroid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
 
 	m_Player->setPosition(640, 200);
 	m_Player->SetShellColor(sf::Color(0xf6edcdff));

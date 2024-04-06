@@ -16,5 +16,5 @@ private:
 	vector<std::unique_ptr<Bullet>> m_bulletVector;
 	float m_volleySize = 5;
 	std::unique_ptr<sf::Texture> m_bulletTexture;
-	float m_spread = 0.1;
+	float m_spread = 0.01;
 };

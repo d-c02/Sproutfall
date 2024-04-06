@@ -48,7 +48,7 @@ private:
 	float m_ScreenShakeSizeX = 3.0f;
 	float m_ScreenShakeSizeY = 3.0f;
 	float m_TotalScreenShakeTime = 0.05f;
-	float m_ScreenShakeTick = 0.01f;
+	float m_ScreenShakeTick = 0.001f;
 	float m_CurrentScreenShakeTime = 0.0f;
 	bool m_ScreenShaking = false;
 	float m_CurrentScreenShakeTick = 0.0f;
