@@ -18,11 +18,14 @@ private:
 	std::unique_ptr<AnimationManager> m_AnimationManager;
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	enum States {neutral, colliding, despawning};
-	float m_speed = 750;
+	float m_speed = 1000;
+	float m_slowdown = 2000;
+	float m_randomInitialSpeed = 100;
 	float m_directionX;
 	float m_directionY;
 	float m_travelTime = 0;
-	float m_maxTravelTime = 1.0;
+	float m_maxTravelTime = 0.2;
+	float m_DespawnSpeed = 100;
 	bool m_Alive = true;
 	int m_CurrentState;
 	std::unique_ptr<sf::CircleShape> m_Hitbox;

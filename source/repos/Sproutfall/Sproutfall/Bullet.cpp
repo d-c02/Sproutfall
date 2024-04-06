@@ -17,6 +17,7 @@ Bullet::Bullet(sf::Texture* Texture, sf::Vector2f direction, float degrees, sf::
 	m_Hitbox->setScale(m_Sprite->getScale());
 	m_Hitbox->setFillColor(sf::Color(0xff0000aa));
 	m_Hitbox->setOrigin(m_Hitbox->getGlobalBounds().left + m_Hitbox->getRadius(), m_Hitbox->getGlobalBounds().top + m_Hitbox->getRadius());
+	m_speed += (((float)rand() - (RAND_MAX / 2)) / (float)RAND_MAX / 2) * m_randomInitialSpeed;
 }
 
 Bullet::~Bullet()
@@ -34,7 +35,15 @@ void Bullet::Update(float tf)
 	m_Sprite->move(m_directionX * m_speed * tf, m_directionY * m_speed * tf);
 	m_AnimationManager->Update(tf);
 	m_travelTime += tf;
-	if (m_travelTime >= m_maxTravelTime && m_CurrentState == neutral)
+	if (m_speed > 0)
+	{
+		m_speed -= m_slowdown * tf;
+	}
+	else
+	{
+		m_speed = 0;
+	}
+	if (m_speed <= m_DespawnSpeed && m_CurrentState == neutral)
 	{
 		m_Alive = false;
 		m_CurrentState = despawning;
@@ -72,7 +81,7 @@ void Bullet::configureAnimations()
 	frameVector.push_back(sf::IntRect(28, 0, 6, 5));
 	frameVector.push_back(sf::IntRect(34, 0, 8, 7));
 	frameVector.push_back(sf::IntRect(42, 0, 8, 7));
-	m_AnimationManager->addState(despawning, frameVector, false, 0.1f);
+	m_AnimationManager->addState(despawning, frameVector, false, 0.01f);
 	frameVector.clear();
 
 	m_CurrentState = neutral;

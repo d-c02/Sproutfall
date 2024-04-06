@@ -14,7 +14,7 @@ public:
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	vector<std::unique_ptr<Bullet>> m_bulletVector;
-	float m_volleySize = 5;
+	float m_volleySize = 8;
 	std::unique_ptr<sf::Texture> m_bulletTexture;
-	float m_spread = 0.01;
+	float m_spread = 0.3;
 };
