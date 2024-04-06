@@ -70,6 +70,8 @@ void Player::Shoot()
 		dif.x = -1 * dif.x;
 		dif.y = -1 * abs(dif.y);
 		m_ShellManager->CreateShell(m_Sprite->getPosition(),  dif);
+
+		m_ScreenShake = true;
 	}
 	else
 	{
@@ -326,4 +328,15 @@ void Player::SetShellColor(sf::Color color)
 void Player::SetShellGravity(float gravity)
 {
 	m_ShellManager->SetGravity(gravity);
+}
+
+bool Player::IsScreenShaking()
+{
+	bool returnVal = false;
+	returnVal = m_ScreenShake;
+	if (m_ScreenShake)
+	{
+		m_ScreenShake = false;
+	}
+	return returnVal;
 }

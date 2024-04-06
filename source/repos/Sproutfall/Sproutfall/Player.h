@@ -24,6 +24,7 @@ public:
 	sf::Vector2f getPosition();
 	void SetShellColor(sf::Color color);
 	void SetShellGravity(float gravity);
+	bool IsScreenShaking();
 protected:
 
 private:
@@ -58,4 +59,5 @@ private:
 	sf::RenderWindow* m_RenderWindow;
 	bool m_Alive = true;
 	std::unique_ptr<ShellManager> m_ShellManager;
+	bool m_ScreenShake = false;
 };

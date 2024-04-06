@@ -44,4 +44,13 @@ private:
 	int m_FPS = 0;
 	int m_PrevFPS = 0;
 	float m_FPSTime = 0.0f;
+
+	float m_ScreenShakeSizeX = 3.0f;
+	float m_ScreenShakeSizeY = 3.0f;
+	float m_TotalScreenShakeTime = 0.05f;
+	float m_ScreenShakeTick = 0.01f;
+	float m_CurrentScreenShakeTime = 0.0f;
+	bool m_ScreenShaking = false;
+	float m_CurrentScreenShakeTick = 0.0f;
+	sf::Vector2f m_ScreenShakeOffset = sf::Vector2f(0, 0);
 };

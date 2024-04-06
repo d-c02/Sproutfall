@@ -46,6 +46,11 @@ SceneManager::SceneManager(float viewSizeX, float viewSizeY, sf::RenderWindow* w
 	m_LowerBorder = make_unique<sf::RectangleShape>();
 	m_LowerBorder->setFillColor(sf::Color(0x655057ff));
 
+	m_UpperBorder->setSize(sf::Vector2f(m_ScreenShakeSizeX, m_ScreenShakeSizeY));
+	m_LeftBorder->setSize(sf::Vector2f(m_ScreenShakeSizeX, m_ScreenShakeSizeY));
+	m_LowerBorder->setSize(sf::Vector2f(m_ScreenShakeSizeX, m_ScreenShakeSizeY));
+	m_RightBorder->setSize(sf::Vector2f(m_ScreenShakeSizeX, m_ScreenShakeSizeY));
+
 	m_FPSCtr = sf::Text();
 	m_FPSCtrFont = sf::Font();
 	if (!m_FPSCtrFont.loadFromFile("Fonts/Minecraft.ttf"))
@@ -91,7 +96,7 @@ void SceneManager::Update(float tf)
 
 		if (m_Player->getPosition().y < (m_Scene->getLevelSize()) - (m_viewSizeY / 2))
 		{
-			m_View->setCenter(m_viewSizeX / 2, m_Player->getPosition().y);
+			m_View->setCenter(m_viewSizeX / 2 + m_ScreenShakeOffset.x, m_Player->getPosition().y + m_ScreenShakeOffset.y);
 		}
 
 		if (m_Player->getPosition().y >= (m_Scene->getLevelSize()))
@@ -106,10 +111,10 @@ void SceneManager::Update(float tf)
 
 	m_playerSmoke->setPosition(m_Player->getPosition());
 
-	m_UpperBorder->setPosition(m_View->getCenter().x - (m_View->getSize().x / 2), m_View->getCenter().y - (m_View->getSize().y / 2));	
-	m_LeftBorder->setPosition(m_View->getCenter().x - (m_View->getSize().x / 2), m_View->getCenter().y - (m_View->getSize().y / 2));
-	m_LowerBorder->setPosition(m_View->getCenter().x - (m_View->getSize().x / 2), m_View->getCenter().y + (m_View->getSize().y / 2) - m_LowerBorder->getSize().y);
-	m_RightBorder->setPosition(m_View->getCenter().x + (m_View->getSize().x / 2) - m_RightBorder->getSize().x, m_View->getCenter().y - (m_View->getSize().y / 2));
+	m_UpperBorder->setPosition(m_View->getCenter().x - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, m_View->getCenter().y - (m_View->getSize().y / 2) - m_ScreenShakeSizeY);	
+	m_LeftBorder->setPosition(m_View->getCenter().x - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, m_View->getCenter().y - (m_View->getSize().y / 2) - m_ScreenShakeSizeY);
+	m_LowerBorder->setPosition(m_View->getCenter().x - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, m_View->getCenter().y + (m_View->getSize().y / 2) - m_LowerBorder->getSize().y - m_ScreenShakeSizeY);
+	m_RightBorder->setPosition(m_View->getCenter().x + (m_View->getSize().x / 2) - m_RightBorder->getSize().x - m_ScreenShakeSizeX, m_View->getCenter().y - (m_View->getSize().y / 2) - m_ScreenShakeSizeY);
 	
 	m_FPS++;
 	m_FPSTime += tf;
@@ -122,6 +127,35 @@ void SceneManager::Update(float tf)
 	}
 
 	m_FPSCtr.setPosition(m_UpperBorder->getPosition());
+
+	if (m_Player->IsScreenShaking())
+	{
+		m_ScreenShaking = true;
+		m_CurrentScreenShakeTime = 0.0f;
+		m_CurrentScreenShakeTick = 0.0f;
+		m_ScreenShakeOffset.x = (((float)rand() - (RAND_MAX / 2)) / (float)RAND_MAX / 2) * m_ScreenShakeSizeX;
+		m_ScreenShakeOffset.y = (((float)rand() - (RAND_MAX / 2)) / (float)RAND_MAX / 2) * m_ScreenShakeSizeY;
+	}
+
+	if (m_ScreenShaking)
+	{
+		m_CurrentScreenShakeTime += tf;
+		m_CurrentScreenShakeTick += tf;
+		if (m_CurrentScreenShakeTime > m_TotalScreenShakeTime)
+		{
+			m_ScreenShaking = false;
+			m_ScreenShakeOffset = sf::Vector2f(0, 0);
+		}
+		else
+		{
+			if (m_CurrentScreenShakeTick > m_ScreenShakeTick)
+			{
+				m_CurrentScreenShakeTick = 0.0f;
+				m_ScreenShakeOffset.x = ((float) rand() / (float)RAND_MAX) * m_ScreenShakeSizeX;
+				m_ScreenShakeOffset.y = ((float) rand() / (float)RAND_MAX) * m_ScreenShakeSizeY;
+			}
+		}
+	}
 }
 
 void SceneManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -232,8 +266,8 @@ void SceneManager::handleResize(int width, int height)
 	{
 		m_View->setSize(m_viewSizeX, m_viewSizeY * normalizedHeight / normalizedWidth);
 	}
-	m_UpperBorder->setSize(sf::Vector2f(m_viewSizeX, (m_View->getSize().y - m_viewSizeY) / 2));
-	m_LowerBorder->setSize(sf::Vector2f(m_viewSizeX, (m_View->getSize().y - m_viewSizeY) / 2));
-	m_LeftBorder->setSize(sf::Vector2f((m_View->getSize().x - m_viewSizeX) / 2, m_viewSizeY));
-	m_RightBorder->setSize(sf::Vector2f((m_View->getSize().x - m_viewSizeX) / 2, m_viewSizeY));
+	m_UpperBorder->setSize(sf::Vector2f(m_viewSizeX + m_ScreenShakeSizeX, ((m_View->getSize().y - m_viewSizeY) / 2) + m_ScreenShakeSizeY));
+	m_LowerBorder->setSize(sf::Vector2f(m_viewSizeX + m_ScreenShakeSizeX, ((m_View->getSize().y - m_viewSizeY) / 2) + m_ScreenShakeSizeY));
+	m_LeftBorder->setSize(sf::Vector2f((m_View->getSize().x - m_viewSizeX) / 2 + m_ScreenShakeSizeX, m_viewSizeY + m_ScreenShakeSizeY));
+	m_RightBorder->setSize(sf::Vector2f((m_View->getSize().x - m_viewSizeX) / 2 + m_ScreenShakeSizeX, m_viewSizeY + m_ScreenShakeSizeY));
 }
