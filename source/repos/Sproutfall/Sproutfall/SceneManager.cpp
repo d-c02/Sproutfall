@@ -46,10 +46,10 @@ SceneManager::SceneManager(float viewSizeX, float viewSizeY, sf::RenderWindow* w
 	m_LowerBorder = make_unique<sf::RectangleShape>();
 	m_LowerBorder->setFillColor(sf::Color(0x655057ff));
 
-	m_UpperBorder->setSize(sf::Vector2f(m_ScreenShakeSizeX, m_ScreenShakeSizeY));
-	m_LeftBorder->setSize(sf::Vector2f(m_ScreenShakeSizeX, m_ScreenShakeSizeY));
-	m_LowerBorder->setSize(sf::Vector2f(m_ScreenShakeSizeX, m_ScreenShakeSizeY));
-	m_RightBorder->setSize(sf::Vector2f(m_ScreenShakeSizeX, m_ScreenShakeSizeY));
+	m_UpperBorder->setSize(sf::Vector2f(m_ScreenShakeSizeX * 2 + m_viewSizeX, m_ScreenShakeSizeY));
+	m_LeftBorder->setSize(sf::Vector2f(m_ScreenShakeSizeX, m_ScreenShakeSizeY + m_viewSizeY));
+	m_LowerBorder->setSize(sf::Vector2f(m_ScreenShakeSizeX * 2 + m_viewSizeX, m_ScreenShakeSizeY));
+	m_RightBorder->setSize(sf::Vector2f(m_ScreenShakeSizeX, m_ScreenShakeSizeY + m_viewSizeY));
 
 	m_FPSCtr = sf::Text();
 	m_FPSCtrFont = sf::Font();
@@ -111,11 +111,11 @@ void SceneManager::Update(float tf)
 
 	m_playerSmoke->setPosition(m_Player->getPosition());
 
-	m_UpperBorder->setPosition(m_View->getCenter().x - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, m_View->getCenter().y - (m_View->getSize().y / 2) - m_ScreenShakeSizeY);	
-	m_LeftBorder->setPosition(m_View->getCenter().x - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, m_View->getCenter().y - (m_View->getSize().y / 2) - m_ScreenShakeSizeY);
-	m_LowerBorder->setPosition(m_View->getCenter().x - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, m_View->getCenter().y + (m_View->getSize().y / 2) - m_LowerBorder->getSize().y - m_ScreenShakeSizeY);
-	m_RightBorder->setPosition(m_View->getCenter().x + (m_View->getSize().x / 2) - m_RightBorder->getSize().x - m_ScreenShakeSizeX, m_View->getCenter().y - (m_View->getSize().y / 2) - m_ScreenShakeSizeY);
-	
+	m_UpperBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, m_Player->getPosition().y - (m_View->getSize().y / 2) - m_ScreenShakeSizeY);
+	m_LeftBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, m_Player->getPosition().y - (m_View->getSize().y / 2) - m_ScreenShakeSizeY);
+	m_LowerBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, m_Player->getPosition().y + (m_View->getSize().y / 2) - m_LowerBorder->getSize().y + m_ScreenShakeSizeY);
+	m_RightBorder->setPosition((m_viewSizeX / 2) + (m_View->getSize().x / 2) - m_RightBorder->getSize().x + m_ScreenShakeSizeX, m_Player->getPosition().y - (m_View->getSize().y / 2));
+
 	m_FPS++;
 	m_FPSTime += tf;
 	if (m_FPSTime > 1.0f)
@@ -126,7 +126,7 @@ void SceneManager::Update(float tf)
 		m_FPSCtr.setString(std::to_string(m_PrevFPS) + " FPS");
 	}
 
-	m_FPSCtr.setPosition(m_UpperBorder->getPosition());
+	m_FPSCtr.setPosition(m_View->getCenter().x - (m_View->getSize().x / 2), m_View->getCenter().y - (m_View->getSize().y / 2));
 
 	if (m_Player->IsScreenShaking())
 	{
@@ -150,9 +150,13 @@ void SceneManager::Update(float tf)
 		{
 			if (m_CurrentScreenShakeTick > m_ScreenShakeTick)
 			{
+				//srand(time(NULL));
 				m_CurrentScreenShakeTick = 0.0f;
-				m_ScreenShakeOffset.x = ((float) rand() / (float)RAND_MAX) * m_ScreenShakeSizeX;
-				m_ScreenShakeOffset.y = ((float) rand() / (float)RAND_MAX) * m_ScreenShakeSizeY;
+				m_ScreenShakeOffset.x = (((float)rand() / (float)RAND_MAX)) * m_ScreenShakeSizeX * 2 - m_ScreenShakeSizeX;
+				m_ScreenShakeOffset.y = (((float)rand() / (float)RAND_MAX)) * m_ScreenShakeSizeY * 2 - m_ScreenShakeSizeY;
+
+				//cout << "X: " << m_ScreenShakeOffset.x << endl;
+				//cout << "Y: " << m_ScreenShakeOffset.y << endl;
 			}
 		}
 	}
@@ -207,9 +211,9 @@ void SceneManager::loadSpace()
 
 	m_Scene->setBackgroundFillColor(0x655057ff);
 
-	m_EnemyManager->generateEnemies(b_Squid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
+	//m_EnemyManager->generateEnemies(b_Squid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
 
-	m_EnemyManager->generateEnemies(b_Asteroid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
+	//m_EnemyManager->generateEnemies(b_Asteroid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
 
 	m_Player->setPosition(640, 200);
 	m_Player->SetShellColor(sf::Color(0xf6edcdff));
@@ -266,8 +270,8 @@ void SceneManager::handleResize(int width, int height)
 	{
 		m_View->setSize(m_viewSizeX, m_viewSizeY * normalizedHeight / normalizedWidth);
 	}
-	m_UpperBorder->setSize(sf::Vector2f(m_viewSizeX + m_ScreenShakeSizeX, ((m_View->getSize().y - m_viewSizeY) / 2) + m_ScreenShakeSizeY));
-	m_LowerBorder->setSize(sf::Vector2f(m_viewSizeX + m_ScreenShakeSizeX, ((m_View->getSize().y - m_viewSizeY) / 2) + m_ScreenShakeSizeY));
-	m_LeftBorder->setSize(sf::Vector2f((m_View->getSize().x - m_viewSizeX) / 2 + m_ScreenShakeSizeX, m_viewSizeY + m_ScreenShakeSizeY));
-	m_RightBorder->setSize(sf::Vector2f((m_View->getSize().x - m_viewSizeX) / 2 + m_ScreenShakeSizeX, m_viewSizeY + m_ScreenShakeSizeY));
+	m_UpperBorder->setSize(sf::Vector2f(m_View->getSize().x + m_ScreenShakeSizeX * 2, ((m_View->getSize().y - m_viewSizeY) / 2) + m_ScreenShakeSizeY));
+	m_LowerBorder->setSize(sf::Vector2f(m_View->getSize().x + m_ScreenShakeSizeX * 2, ((m_View->getSize().y - m_viewSizeY) / 2) + m_ScreenShakeSizeY));
+	m_LeftBorder->setSize(sf::Vector2f((m_View->getSize().x - m_viewSizeX) / 2 + m_ScreenShakeSizeX, m_View->getSize().y + m_ScreenShakeSizeY));
+	m_RightBorder->setSize(sf::Vector2f((m_View->getSize().x - m_viewSizeX) / 2 + m_ScreenShakeSizeX, m_View->getSize().y + m_ScreenShakeSizeY));
 }
