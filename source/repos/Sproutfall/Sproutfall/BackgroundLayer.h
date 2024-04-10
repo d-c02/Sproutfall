@@ -4,7 +4,7 @@
 class BackgroundLayer : public sf::Drawable
 {
 public:
-	BackgroundLayer(Player* player, float parallaxSpeed, float viewSizeX, float viewSizeY, string texturePath, bool drawOthers);
+	BackgroundLayer(Player* player, float parallaxSpeed, float viewSizeX, float viewSizeY, string texturePath, bool drawOthers, float verticalOffset);
 	~BackgroundLayer();
 	void Update(float tf);
 	void setScale(float x, float y);
@@ -19,6 +19,7 @@ private:
 	std::unique_ptr<sf::Sprite> m_Lower;
 	float m_ViewSizeX;
 	float m_ViewSizeY;
+	float m_verticalOffset = 0;
 	Player* m_Player;
 	bool m_drawOthers;
 };

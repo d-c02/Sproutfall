@@ -1,5 +1,5 @@
 #include "BackgroundLayer.h"
-BackgroundLayer::BackgroundLayer(Player* player, float parallaxSpeed, float viewSizeX, float viewSizeY, string texturePath, bool drawOthers)
+BackgroundLayer::BackgroundLayer(Player* player, float parallaxSpeed, float viewSizeX, float viewSizeY, string texturePath, bool drawOthers, float verticalOffset)
 {
 	m_Sprite = make_unique<sf::Sprite>();
 	m_Upper = make_unique<sf::Sprite>();
@@ -18,6 +18,11 @@ BackgroundLayer::BackgroundLayer(Player* player, float parallaxSpeed, float view
 	m_ParallaxSpeed = parallaxSpeed;
 	m_Parallax = 1;
 	m_drawOthers = drawOthers;
+	m_verticalOffset = verticalOffset;
+	if (!m_drawOthers)
+	{
+		m_Sprite->setPosition(0, m_verticalOffset); 
+	}
 }
 BackgroundLayer::~BackgroundLayer()
 {
@@ -29,18 +34,23 @@ void BackgroundLayer::Update(float tf)
 	float bottom = top + m_ViewSizeY;
 	float spritePosY = m_Sprite->getPosition().y;
 	float textureSize = (m_Texture->getSize().y * m_Sprite->getScale().y);
-	if (top < spritePosY)
+
+	if (m_drawOthers)
 	{
-		spritePosY -= textureSize;
-	}
-	if (bottom > spritePosY + m_ViewSizeY)
-	{
-		spritePosY += textureSize;
-	}
+		if (top < spritePosY)
+		{
+			spritePosY -= textureSize;
+		}
+		if (bottom > spritePosY + m_ViewSizeY)
+		{
+			spritePosY += textureSize;
+		}
 
 	m_Sprite->setPosition(0, spritePosY);
 	m_Upper->setPosition(0, spritePosY - textureSize);
 	m_Lower->setPosition(0, spritePosY + textureSize);
+
+	}
 
 	m_Sprite->move(0, -m_Player->getVelocity().y * tf * m_ParallaxSpeed * m_Parallax);
 	m_Upper->move(0, -m_Player->getVelocity().y * tf * m_ParallaxSpeed * m_Parallax);

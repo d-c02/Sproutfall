@@ -25,17 +25,18 @@ public:
 	void SetShellColor(sf::Color color);
 	void SetShellGravity(float gravity);
 	bool IsScreenShaking();
+	void SetFallingParams(float gravity, float terminalVelocity);
 protected:
 
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	float m_accelerationX = 0;
 	float m_accelerationY = 0;
-	const float m_terminalVelocity = 100;
+	float m_terminalVelocity = 100;
 	const float m_airResistance = -500;
 	const float m_airResistanceX = -250;
 	const float m_recoil = -17.5;
-	const float m_gravity = 500;
+	float m_gravity = 500;
 	float m_reloadProgress = 0;
 	const int m_bulletsMax = 4;
 	int m_bullets = m_bulletsMax;

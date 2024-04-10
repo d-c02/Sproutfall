@@ -50,12 +50,6 @@ SceneManager::SceneManager(float viewSizeX, float viewSizeY, sf::RenderWindow* w
 	m_LeftBorder->setSize(sf::Vector2f(m_ScreenShakeSizeX, m_ScreenShakeSizeY + m_viewSizeY));
 	m_LowerBorder->setSize(sf::Vector2f(m_ScreenShakeSizeX * 2 + m_viewSizeX, m_ScreenShakeSizeY));
 	m_RightBorder->setSize(sf::Vector2f(m_ScreenShakeSizeX, m_ScreenShakeSizeY + m_viewSizeY));
-
-	m_FPSCtr = sf::Text();
-	m_FPSCtrFont = sf::Font();
-	if (!m_FPSCtrFont.loadFromFile("Fonts/Minecraft.ttf"))
-		cout << "Font load error" << endl;
-	m_FPSCtr.setFont(m_FPSCtrFont);
 }
 SceneManager::~SceneManager()
 {
@@ -94,15 +88,21 @@ void SceneManager::Update(float tf)
 		m_Player->Update(tf);
 		m_EnemyManager->Update(tf);
 
+		sf::Vector2f playerPos;
 		if (m_Player->getPosition().y < (m_Scene->getLevelSize()) - (m_viewSizeY / 2))
 		{
-			m_View->setCenter(m_viewSizeX / 2 + m_ScreenShakeOffset.x, m_Player->getPosition().y + m_ScreenShakeOffset.y);
-			m_UpperBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, m_Player->getPosition().y - (m_View->getSize().y / 2) - m_ScreenShakeSizeY);
-			m_LeftBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, m_Player->getPosition().y - (m_View->getSize().y / 2) - m_ScreenShakeSizeY);
-			m_LowerBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, m_Player->getPosition().y + (m_View->getSize().y / 2) - m_LowerBorder->getSize().y + m_ScreenShakeSizeY);
-			m_RightBorder->setPosition((m_viewSizeX / 2) + (m_View->getSize().x / 2) - m_RightBorder->getSize().x + m_ScreenShakeSizeX, m_Player->getPosition().y - (m_View->getSize().y / 2));
-
+			playerPos = m_Player->getPosition();
 		}
+		else
+		{
+			playerPos = sf::Vector2f(m_viewSizeX / 2, (m_Scene->getLevelSize()) - (m_viewSizeY / 2));
+		}
+
+		m_View->setCenter(m_viewSizeX / 2 + m_ScreenShakeOffset.x, playerPos.y + m_ScreenShakeOffset.y);
+		m_UpperBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, playerPos.y - (m_View->getSize().y / 2) - m_ScreenShakeSizeY);
+		m_LeftBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, playerPos.y - (m_View->getSize().y / 2) - m_ScreenShakeSizeY);
+		m_LowerBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, playerPos.y + (m_View->getSize().y / 2) - m_LowerBorder->getSize().y + m_ScreenShakeSizeY);
+		m_RightBorder->setPosition((m_viewSizeX / 2) + (m_View->getSize().x / 2) - m_RightBorder->getSize().x + m_ScreenShakeSizeX, playerPos.y - (m_View->getSize().y / 2));
 
 		if (m_Player->getPosition().y >= (m_Scene->getLevelSize()))
 		{
@@ -115,18 +115,6 @@ void SceneManager::Update(float tf)
 	}
 
 	m_playerSmoke->setPosition(m_Player->getPosition());
-
-	m_FPS++;
-	m_FPSTime += tf;
-	if (m_FPSTime > 1.0f)
-	{
-		m_PrevFPS = m_FPS;
-		m_FPS = 0;
-		m_FPSTime = 0.0f;
-		m_FPSCtr.setString(std::to_string(m_PrevFPS) + " FPS");
-	}
-
-	m_FPSCtr.setPosition(m_View->getCenter().x - (m_View->getSize().x / 2), m_View->getCenter().y - (m_View->getSize().y / 2));
 
 	if (m_Player->IsScreenShaking())
 	{
@@ -186,7 +174,6 @@ void SceneManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(*m_LowerBorder.get());
 	target.draw(*m_RightBorder.get());
 	target.draw(*m_LeftBorder.get());
-	target.draw(m_FPSCtr);
 }
 
 void SceneManager::loadTitle()
@@ -201,13 +188,13 @@ void SceneManager::loadSpace()
 	m_EnemyManager->Clear();
 	m_Scene = make_unique<Scene>(m_Player.get(), m_viewSizeX, m_viewSizeY, 10 * 960);
 
-	m_Scene->addBackground(-0.999, "Textures/space_stars_small.png");
+	m_Scene->addBackground(-0.999, "Textures/space/space_stars_small.png");
 
-	m_Scene->addBackground(-0.99, "Textures/space_stars_big.png");
+	m_Scene->addBackground(-0.99, "Textures/space/space_stars_big.png");
 
-	m_Scene->addBackground(-0.98, "Textures/background_objects.png");
+	m_Scene->addBackground(-0.98, "Textures/space/space_background_objects.png");
 
-	m_Scene->addBackground(-0.97, "Textures/earth.png", -1, false);
+	m_Scene->addBackground(-0.97, "Textures/space/earth.png", -1, false);
 
 	m_Scene->setBackgroundFillColor(0x655057ff);
 
@@ -218,6 +205,7 @@ void SceneManager::loadSpace()
 	m_Player->setPosition(640, 200);
 	m_Player->SetShellColor(sf::Color(0xf6edcdff));
 	m_Player->SetShellGravity(0);
+	m_Player->SetFallingParams(500, 100);
 }
 
 void SceneManager::loadSky()
@@ -226,10 +214,20 @@ void SceneManager::loadSky()
 	m_Scene.reset();
 	m_EnemyManager->Clear();
 	
-	m_Scene = make_unique<Scene>(m_Player.get(), m_viewSizeX, m_viewSizeY, 10 * 960);
-	m_Scene->setBackgroundFillColor(0x6d8d8aff);
+	m_Scene = make_unique<Scene>(m_Player.get(), m_viewSizeX, m_viewSizeY, 20 * 960);
+
+	//m_Scene->addBackground(-0.999, "Textures/space_stars_small.png");
+
+	m_Scene->addBackground(-0.98, "Textures/sky/sky_backgound_sky.png", -1, false);
+
+	m_Scene->addBackground(-0.99, "Textures/sky/sky_backgound_cloud.png");
+
+	m_Scene->addBackground(-0.97, "Textures/sky/sky_backgound_trees.png", -1, false, 250.0f);
+
+	m_Scene->setBackgroundFillColor(0x655057ff);
 	//m_Scene.reset();
 	m_Player->setPosition(640, 200);
+	m_Player->SetFallingParams(500, 200);
 }
 
 void SceneManager::loadGround()
@@ -255,7 +253,6 @@ void SceneManager::borderView(int width, int height)
 
 void SceneManager::handleResize(int width, int height)
 {
-	int basis;
 	int normalizedWidth = width / 4;
 	int normalizedHeight = height / 3;
 	if (normalizedWidth == normalizedHeight)

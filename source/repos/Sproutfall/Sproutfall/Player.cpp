@@ -210,6 +210,7 @@ void Player::handleInput(sf::Event* event)
 			Shoot();
 		}
 	}
+
 }
 
 bool Player::getStatus() {
@@ -339,4 +340,10 @@ bool Player::IsScreenShaking()
 		m_ScreenShake = false;
 	}
 	return returnVal;
+}
+
+void Player::SetFallingParams(float gravity, float terminalVelocity)
+{
+	m_gravity = gravity;
+	m_terminalVelocity = terminalVelocity;
 }
