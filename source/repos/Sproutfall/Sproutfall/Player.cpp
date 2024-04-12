@@ -6,12 +6,12 @@ Player::Player(sf::RenderWindow* window)
 {
 	m_Sprite = make_unique<sf::Sprite>();
 	m_Texture = make_unique<sf::Texture>();
-	if (!m_Texture->loadFromFile("Textures/Player/PlayerSpriteSheet.png"))
+	if (!m_Texture->loadFromFile("Textures/Player/player.png"))
 	{
 		cout << "Player texture load failure";
 	}
 	m_Sprite->setTexture(*m_Texture);
-	m_Sprite->setOrigin(3, 10);
+	m_Sprite->setOrigin(4, 11);
 	m_Sprite->setScale(2, 2);
 	m_Sprite->setPosition(m_initialPositionX, m_initialPositionY);
 	m_Shotgun = make_unique<Shotgun>(m_Sprite.get(), window);
@@ -30,7 +30,7 @@ Player::Player(sf::RenderWindow* window)
 
 	setHittable(true);
 	auto circ = make_unique<sf::CircleShape>();
-	circ->setRadius(3);
+	circ->setRadius(3.5);
 	circ->setScale(m_Sprite->getScale());
 	circ->setFillColor(sf::Color(0xff0000aa));
 	circ->setOrigin(circ->getGlobalBounds().left + circ->getRadius(), circ->getGlobalBounds().top + circ->getRadius());
@@ -38,6 +38,14 @@ Player::Player(sf::RenderWindow* window)
 	m_RenderWindow = window;
 	m_Alive = true;
 	m_ShellManager = make_unique<ShellManager>();
+
+	m_outlineShader = make_unique<sf::Shader>();
+	if (!m_outlineShader->loadFromMemory(m_outlineShaderCode, sf::Shader::Fragment))
+	{
+		cout << "Failure to load outline shader" << endl;
+	}
+	m_outlineShader->setUniform("texture", sf::Shader::CurrentTexture);
+	m_outlineShader->setUniform("color", sf::Glsl::Vec4(1, 1, 1, 0));
 }
 
 Player::~Player()
@@ -230,7 +238,7 @@ sf::FloatRect Player::getGlobalBounds()
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(*m_ShellManager);
-	target.draw(*m_Sprite);
+	target.draw(*m_Sprite, m_outlineShader.get());
 	target.draw(*m_Shotgun);
 	target.draw(*m_bulletManager);
 	//target.draw(*m_Hitbox);
@@ -241,31 +249,31 @@ void Player::configureAnimations()
 	m_AnimationManager =  make_unique<AnimationManager>(m_Sprite.get());
 	vector<sf::IntRect> frameVector;
 	//Neutral state
-	frameVector.push_back(sf::IntRect(0, 0, 6, 13));
-	frameVector.push_back(sf::IntRect(6, 0, 6, 13));
+	frameVector.push_back(sf::IntRect(0, 0, 8, 15));
+	frameVector.push_back(sf::IntRect(8, 0, 8, 15));
 	m_AnimationManager->addState(neutral, frameVector, true, 1.0f);
 	frameVector.clear();
 
 	//Falling state
-	frameVector.push_back(sf::IntRect(12, 0, 6, 13));
-	frameVector.push_back(sf::IntRect(18, 0, 6, 13));
+	frameVector.push_back(sf::IntRect(16, 0, 8, 15));
+	frameVector.push_back(sf::IntRect(24, 0, 8, 15));
 	m_AnimationManager->addState(falling, frameVector, true, 0.2f);
 	frameVector.clear();
 
 	//Falling fast state
-	frameVector.push_back(sf::IntRect(24, 0, 6, 13));
-	frameVector.push_back(sf::IntRect(30, 0, 6, 13));
+	frameVector.push_back(sf::IntRect(32, 0, 8, 15));
+	frameVector.push_back(sf::IntRect(40, 0, 8, 15));
 	m_AnimationManager->addState(falling_fast, frameVector, true, 0.01f);
 	frameVector.clear();
 
-	frameVector.push_back(sf::IntRect(36, 0, 6, 13));
-	frameVector.push_back(sf::IntRect(42, 0, 6, 13));
-	frameVector.push_back(sf::IntRect(36, 0, 6, 13));
-	frameVector.push_back(sf::IntRect(42, 0, 6, 13));
-	frameVector.push_back(sf::IntRect(36, 0, 6, 13));
-	frameVector.push_back(sf::IntRect(42, 0, 6, 13));
-	frameVector.push_back(sf::IntRect(36, 0, 6, 13));
-	frameVector.push_back(sf::IntRect(42, 0, 6, 13));
+	frameVector.push_back(sf::IntRect(48, 0, 8, 15));
+	frameVector.push_back(sf::IntRect(56, 0, 8, 15));
+	frameVector.push_back(sf::IntRect(48, 0, 8, 15));
+	frameVector.push_back(sf::IntRect(56, 0, 8, 15));
+	frameVector.push_back(sf::IntRect(48, 0, 8, 15));
+	frameVector.push_back(sf::IntRect(56, 0, 8, 15));
+	frameVector.push_back(sf::IntRect(48, 0, 8, 15));
+	frameVector.push_back(sf::IntRect(56, 0, 8, 15));
 	m_AnimationManager->addState(hurt, frameVector, false, 0.1f);
 	frameVector.clear();
 
@@ -351,4 +359,9 @@ void Player::SetFallingParams(float gravity, float terminalVelocity)
 {
 	m_gravity = gravity;
 	m_terminalVelocity = terminalVelocity;
+}
+
+void Player::SetOutlineColor(sf::Glsl::Vec4 color)
+{
+	m_outlineShader->setUniform("color", color);
 }

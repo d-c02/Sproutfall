@@ -48,7 +48,7 @@ EnemyManager::EnemyManager(sf::Vector2f viewSize, Player* player)
 	m_whiteShader = make_unique<sf::Shader>();
 	if (!m_whiteShader->loadFromMemory(m_whiteShaderCode, sf::Shader::Fragment))
 	{
-		cout << "Failure to load shader" << endl;
+		cout << "Failure to load white shader" << endl;
 	}
 	m_whiteShader->setUniform("texture", sf::Shader::CurrentTexture);
 }

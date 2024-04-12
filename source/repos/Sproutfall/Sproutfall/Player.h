@@ -26,6 +26,7 @@ public:
 	void SetShellGravity(float gravity);
 	bool IsScreenShaking();
 	void SetFallingParams(float gravity, float terminalVelocity);
+	void SetOutlineColor(sf::Glsl::Vec4 color);
 protected:
 
 private:
@@ -61,4 +62,20 @@ private:
 	bool m_Alive = true;
 	std::unique_ptr<ShellManager> m_ShellManager;
 	bool m_ScreenShake = false;
+
+	const std::string m_outlineShaderCode = "uniform sampler2D texture; " \
+		"uniform vec4 color;									" \
+		"                                                       " \
+		"void main() {                                          " \
+		"    vec4 pixel = texture2D(texture, gl_TexCoord[0].xy);" \
+		"	if (pixel.rgb == vec3(0.0))							" \
+		"	{                                                   " \
+		"    pixel.r = color.r;									" \
+		"    pixel.g = color.g;									" \
+		"    pixel.b = color.b;									" \
+		"	pixel.a = color.a;									" \
+		"   }                                                   " \
+		"    gl_FragColor = pixel;                              " \
+		"}";
+	std::unique_ptr<sf::Shader> m_outlineShader;
 };

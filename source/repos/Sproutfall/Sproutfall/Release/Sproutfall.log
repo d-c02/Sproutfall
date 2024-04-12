@@ -1,18 +1,49 @@
-﻿  Asteroid.cpp
+﻿  Animation.cpp
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Animation.cpp(5,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Animation.cpp(38,22): warning C4018: '<': signed/unsigned mismatch
+  AnimationManager.cpp
+  Asteroid.cpp
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Bullet.h(27,26): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.h(19,19): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.h(58,36): warning C4305: 'initializing': truncation from 'double' to 'const float'
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.h(59,36): warning C4305: 'initializing': truncation from 'double' to 'const float'
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Asteroid.h(5,25): warning C4584: 'Asteroid': base-class 'sf::Drawable' is already a base-class of 'Enemy'
 C:\SFML-2.5.1\include\SFML\Graphics\RenderTarget.hpp(45,7): message : see declaration of 'sf::Drawable'
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Enemy.h(4,7): message : see declaration of 'Enemy'
   BackgroundLayer.cpp
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Bullet.h(27,26): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.h(19,19): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.h(58,36): warning C4305: 'initializing': truncation from 'double' to 'const float'
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.h(59,36): warning C4305: 'initializing': truncation from 'double' to 'const float'
+  Bullet.cpp
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Bullet.h(27,26): warning C4305: 'initializing': truncation from 'double' to 'float'
+  BulletManager.cpp
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Bullet.h(27,26): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.h(19,19): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.cpp(49,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.cpp(50,91): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.cpp(50,85): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.cpp(60,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.cpp(72,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.cpp(80,20): warning C4018: '<': signed/unsigned mismatch
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory(3465,56): warning C4244: 'argument': conversion from '_Ty' to 'float', possible loss of data
+          with
+          [
+              _Ty=int
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.cpp(54,29): message : see reference to function template instantiation 'std::unique_ptr<Bullet,std::default_delete<Bullet>> std::make_unique<Bullet,sf::Texture*,sf::Vector2f,int,sf::Vector2f&,0>(sf::Texture *&&,sf::Vector2f &&,int &&,sf::Vector2f &)' being compiled
+  Enemy.cpp
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Enemy.cpp(55,9): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
   EnemyManager.cpp
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Bullet.h(27,26): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.h(19,19): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.h(58,36): warning C4305: 'initializing': truncation from 'double' to 'const float'
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.h(59,36): warning C4305: 'initializing': truncation from 'double' to 'const float'
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Asteroid.h(5,25): warning C4584: 'Asteroid': base-class 'sf::Drawable' is already a base-class of 'Enemy'
 C:\SFML-2.5.1\include\SFML\Graphics\RenderTarget.hpp(45,7): message : see declaration of 'sf::Drawable'
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Enemy.h(4,7): message : see declaration of 'Enemy'
@@ -24,17 +55,20 @@ C:\Users\djcas\source\repos\Sproutfall\Sproutfall\EnemyManager.cpp(149,20): warn
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\EnemyManager.cpp(167,20): warning C4018: '<': signed/unsigned mismatch
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\EnemyManager.cpp(174,20): warning C4018: '<': signed/unsigned mismatch
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\EnemyManager.cpp(179,20): warning C4018: '<': signed/unsigned mismatch
+  Entity.cpp
   Player.cpp
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Bullet.h(27,26): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.h(19,19): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.h(58,36): warning C4305: 'initializing': truncation from 'double' to 'const float'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.cpp(185,13): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.cpp(200,54): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.cpp(202,54): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.h(59,36): warning C4305: 'initializing': truncation from 'double' to 'const float'
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.cpp(193,13): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.cpp(208,54): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.cpp(210,54): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Shotgun.cpp
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Shotgun.cpp(46,37): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   Scene.cpp
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Bullet.h(27,26): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.h(19,19): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.h(58,36): warning C4305: 'initializing': truncation from 'double' to 'const float'
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.h(59,36): warning C4305: 'initializing': truncation from 'double' to 'const float'
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Scene.cpp(39,20): warning C4018: '<': signed/unsigned mismatch
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Scene.cpp(52,20): warning C4018: '<': signed/unsigned mismatch
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Scene.cpp(56,20): warning C4018: '<': signed/unsigned mismatch
@@ -42,26 +76,44 @@ C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Scene.cpp(65,20): warning C401
   SceneManager.cpp
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Bullet.h(27,26): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.h(19,19): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.h(58,36): warning C4305: 'initializing': truncation from 'double' to 'const float'
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.h(59,36): warning C4305: 'initializing': truncation from 'double' to 'const float'
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Asteroid.h(5,25): warning C4584: 'Asteroid': base-class 'sf::Drawable' is already a base-class of 'Enemy'
 C:\SFML-2.5.1\include\SFML\Graphics\RenderTarget.hpp(45,7): message : see declaration of 'sf::Drawable'
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Enemy.h(4,7): message : see declaration of 'Enemy'
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Squid.h(6,26): warning C4584: 'Squid': base-class 'sf::Drawable' is already a base-class of 'Enemy'
 C:\SFML-2.5.1\include\SFML\Graphics\RenderTarget.hpp(45,7): message : see declaration of 'sf::Drawable'
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Enemy.h(4,7): message : see declaration of 'Enemy'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(191,26): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(193,26): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(195,26): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(197,26): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(221,26): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(223,26): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(227,26): warning C4305: 'argument': truncation from 'double' to 'float'
-  Shotgun.cpp
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Shotgun.cpp(46,37): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(152,85): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(152,66): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(152,47): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(194,26): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(196,26): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(198,26): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(200,26): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(224,26): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(226,26): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(230,26): warning C4305: 'argument': truncation from 'double' to 'float'
+  Shell.cpp
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Shell.cpp(11,17): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  ShellManager.cpp
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\ShellManager.cpp(14,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\ShellManager.cpp(44,20): warning C4018: '<': signed/unsigned mismatch
   Squid.cpp
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Bullet.h(27,26): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.h(19,19): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.h(58,36): warning C4305: 'initializing': truncation from 'double' to 'const float'
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.h(59,36): warning C4305: 'initializing': truncation from 'double' to 'const float'
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Squid.h(6,26): warning C4584: 'Squid': base-class 'sf::Drawable' is already a base-class of 'Enemy'
 C:\SFML-2.5.1\include\SFML\Graphics\RenderTarget.hpp(45,7): message : see declaration of 'sf::Drawable'
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Enemy.h(4,7): message : see declaration of 'Enemy'
@@ -73,7 +125,7 @@ C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Squid.cpp(47,19): warning C424
   Game.cpp
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Bullet.h(27,26): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.h(19,19): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.h(58,36): warning C4305: 'initializing': truncation from 'double' to 'const float'
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.h(59,36): warning C4305: 'initializing': truncation from 'double' to 'const float'
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Asteroid.h(5,25): warning C4584: 'Asteroid': base-class 'sf::Drawable' is already a base-class of 'Enemy'
 C:\SFML-2.5.1\include\SFML\Graphics\RenderTarget.hpp(45,7): message : see declaration of 'sf::Drawable'
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Enemy.h(4,7): message : see declaration of 'Enemy'
@@ -83,8 +135,7 @@ C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Enemy.h(4,7): message : see de
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Game.cpp(19,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Game.cpp(37,18): warning C4305: '=': truncation from 'double' to 'float'
   Generating code
-  1 of 1410 functions (<0.1%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+  Previous IPDB not found, fall back to full compilation.
+  All 1412 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
   Sproutfall.vcxproj -> C:\Users\djcas\source\repos\Sproutfall\Release\Sproutfall.exe
