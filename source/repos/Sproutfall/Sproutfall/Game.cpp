@@ -19,7 +19,7 @@ int Game()
     srand(time(NULL));
     sf::RenderWindow window(sf::VideoMode(1280, 960), "Sproutfall");
     SceneManager sceneManager(1280, 960, &window);
-    sceneManager.loadScene(Sky);
+    sceneManager.loadScene(Space);
     sf::Clock clock;
     while (window.isOpen())
     {

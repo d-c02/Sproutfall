@@ -14,7 +14,7 @@ Player::Player(sf::RenderWindow* window)
 	m_Sprite->setOrigin(3, 10);
 	m_Sprite->setScale(2, 2);
 	m_Sprite->setPosition(m_initialPositionX, m_initialPositionY);
-	m_Reticle = make_unique<Reticle>(m_Sprite.get(), window);
+	m_Shotgun = make_unique<Shotgun>(m_Sprite.get(), window);
 	m_bulletManager = make_unique<BulletManager>();
 	configureAnimations();
 	for (int i = 0; i < 3; i++)
@@ -50,28 +50,33 @@ void Player::Shoot()
 	if (m_bullets > 0)
 	{
 		cout << m_bullets << " bullets\n";
-		float tmpVelocityX = (m_Reticle->getPosition().x - getPosition().x) * m_recoil;
-		float tmpVelocityY = (m_Reticle->getPosition().y - getPosition().y) * m_recoil;
+		float diffx = m_Shotgun->getPosition().x - getPosition().x;
+		float diffy = m_Shotgun->getPosition().y - getPosition().y;
+		float dist = sqrt(powf(diffx, 2) + powf(diffy, 2));
+		float tmpVelocityX = diffx/dist * m_recoil;
+		float tmpVelocityY = diffy/dist * m_recoil;
 		m_VelocityX += tmpVelocityX;
 		m_VelocityY += tmpVelocityY;
 		m_bullets--;
 		m_reloadProgress = 0;
 
 		//Bullet launching
-		float bulletDirX =  m_Reticle->getPosition().x - getPosition().x;
-		float bulletDirY = m_Reticle->getPosition().y - getPosition().y;
+		float bulletDirX = m_Shotgun->getPosition().x - getPosition().x;
+		float bulletDirY = m_Shotgun->getPosition().y - getPosition().y;
 		float length = sqrt(bulletDirX * bulletDirX) + sqrt(bulletDirY * bulletDirY);
 		sf::Vector2f bulletDirection = sf::Vector2f(bulletDirX / length, bulletDirY / length);
-		m_bulletManager->spawnVolley(bulletDirection, m_Reticle->getPosition());
+		m_bulletManager->spawnVolley(bulletDirection, m_Shotgun->getPosition());
 		m_ShotgunShootSounds[rand() % m_ShotgunShootSounds.size()]->play();
 
-		sf::Vector2f dif = (m_Reticle->getPosition() - getPosition());
+		sf::Vector2f dif = (m_Shotgun->getPosition() - getPosition());
 		dif = dif / sqrtf(dif.x * dif.x + dif.y * dif.y);
 		dif.x = -1 * dif.x;
 		dif.y = -1 * abs(dif.y);
 		m_ShellManager->CreateShell(m_Sprite->getPosition(),  dif);
 
 		m_ScreenShake = true;
+
+		m_Shotgun->Shoot();
 	}
 	else
 	{
@@ -128,7 +133,7 @@ void Player::Update(float tf)
 	}
 
 	m_Sprite->move(m_VelocityX * tf, m_VelocityY * tf);
-	m_Reticle->Update(tf);
+	m_Shotgun->Update(tf);
 	if (m_bullets < m_bulletsMax)
 	{
 		m_reloadProgress += tf;
@@ -226,7 +231,7 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(*m_ShellManager);
 	target.draw(*m_Sprite);
-	target.draw(*m_Reticle);
+	target.draw(*m_Shotgun);
 	target.draw(*m_bulletManager);
 	//target.draw(*m_Hitbox);
 }

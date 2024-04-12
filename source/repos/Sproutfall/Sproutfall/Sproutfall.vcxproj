@@ -159,7 +159,7 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Reticle.cpp" />
+    <ClCompile Include="Shotgun.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Shell.cpp" />
@@ -177,7 +177,7 @@
     <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="Reticle.h" />
+    <ClInclude Include="Shotgun.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SFML_Lib.h" />

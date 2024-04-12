@@ -2,7 +2,7 @@
 #include "SFML_Lib.h"
 #include "Entity.h"
 #include"Enemy.h"
-#include "Reticle.h"
+#include "Shotgun.h"
 #include "BulletManager.h"
 #include "AnimationManager.h"
 #include "ShellManager.h"
@@ -35,13 +35,13 @@ private:
 	float m_terminalVelocity = 100;
 	const float m_airResistance = -500;
 	const float m_airResistanceX = -250;
-	const float m_recoil = -17.5;
+	const float m_recoil = -600;
 	float m_gravity = 500;
 	float m_reloadProgress = 0;
 	const int m_bulletsMax = 4;
 	int m_bullets = m_bulletsMax;
 	const float m_reloadDelay = 0.75;
-	std::unique_ptr<Reticle> m_Reticle;
+	std::unique_ptr<Shotgun> m_Shotgun;
 	float m_initialPositionX = 640;
 	float m_initialPositionY = 200;
 	std::unique_ptr<BulletManager> m_bulletManager;

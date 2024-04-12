@@ -222,7 +222,9 @@ void SceneManager::loadSky()
 
 	m_Scene->addBackground(-0.99, "Textures/sky/sky_backgound_cloud.png");
 
-	m_Scene->addBackground(-0.97, "Textures/sky/sky_backgound_trees.png", -1, false, 250.0f);
+	//m_Scene->addBackground(-0.98, "Textures/sky/sky_backgound_ground.png", -1, false);
+
+	m_Scene->addBackground(-0.97, "Textures/sky/sky_backgound_trees.png", -1, false, 300.0f);
 
 	m_Scene->setBackgroundFillColor(0x655057ff);
 	//m_Scene.reset();
