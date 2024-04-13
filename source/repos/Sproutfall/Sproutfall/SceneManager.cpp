@@ -1,15 +1,15 @@
 #include "SFML_Lib.h"
 #include "SceneManager.h"
 
-SceneManager::SceneManager(float viewSizeX, float viewSizeY, sf::RenderWindow* window)
+SceneManager::SceneManager(float windowSizeX, float windowSizeY, sf::RenderWindow* window)
 {
 	m_renderWindow = window;
 	m_Player = make_unique<Player>(window);
-	m_viewSizeX = viewSizeX;
-	m_viewSizeY = viewSizeY;
+	//m_viewSizeX = viewSizeX;
+	//m_viewSizeY = viewSizeY;
 	m_Scene = make_unique<Scene>(m_Player.get(), m_viewSizeX, m_viewSizeY);
 	m_View = make_unique<sf::View>();
-	m_View->setSize(viewSizeX, viewSizeY);
+	//m_View->setSize(m_viewSizeX, m_viewSizeY);
 	m_EnemyManager = make_unique<EnemyManager>(m_View->getSize(), m_Player.get());
 	m_playerSmoke = make_unique<sf::Sprite>();
 	m_smokeTexture = make_unique<sf::Texture>();
@@ -50,6 +50,8 @@ SceneManager::SceneManager(float viewSizeX, float viewSizeY, sf::RenderWindow* w
 	m_LeftBorder->setSize(sf::Vector2f(m_ScreenShakeSizeX, m_ScreenShakeSizeY + m_viewSizeY));
 	m_LowerBorder->setSize(sf::Vector2f(m_ScreenShakeSizeX * 2 + m_viewSizeX, m_ScreenShakeSizeY));
 	m_RightBorder->setSize(sf::Vector2f(m_ScreenShakeSizeX, m_ScreenShakeSizeY + m_viewSizeY));
+
+	handleResize(windowSizeX, windowSizeY);
 }
 SceneManager::~SceneManager()
 {
@@ -206,6 +208,8 @@ void SceneManager::loadSpace()
 	m_Player->SetShellColor(sf::Color(0xf6edcdff));
 	m_Player->SetShellGravity(0);
 	m_Player->SetFallingParams(500, 100);
+
+	m_Player->SetOutlineColor(sf::Glsl::Vec4(0.0f, 0.0f, 0.0f, 0.0f));
 }
 
 void SceneManager::loadSky()

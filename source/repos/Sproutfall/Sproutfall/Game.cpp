@@ -17,9 +17,9 @@ int main()
 int Game()
 {
     srand(time(NULL));
-    sf::RenderWindow window(sf::VideoMode(1280, 960), "Sproutfall");
-    SceneManager sceneManager(1280, 960, &window);
-    sceneManager.loadScene(Space);
+    sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Sproutfall");
+    SceneManager sceneManager(window.getSize().x, window.getSize().y, &window);
+    sceneManager.loadScene(Sky);
     sf::Clock clock;
     while (window.isOpen())
     {
