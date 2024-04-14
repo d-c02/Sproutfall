@@ -22,11 +22,17 @@ EnemyManager::EnemyManager(sf::Vector2f viewSize, Player* player)
 		}
 		else if (i == b_Cloud)
 		{
-
+			if (!m_EnemyTextures[b_Cloud]->loadFromFile("Textures/Enemies/sky_badcloud.png"))
+			{
+				cout << "Textures/Enemies/sky_badcloud.png load failure" << endl;
+			}
 		}
 		else if (i == b_Bird)
 		{
-
+			if (!m_EnemyTextures[b_Bird]->loadFromFile("Textures/Enemies/sky_bird.png"))
+			{
+				cout << "Textures/Enemies/sky_bird.png load failure" << endl;
+			}
 		}
 		else if (i == b_Branch)
 		{
@@ -61,12 +67,10 @@ void EnemyManager::AddEnemy(int type, sf::Vector2f position)
 	if (type == b_Asteroid)
 	{
 		m_Enemies.push_back(make_unique<Asteroid>(m_EnemyTextures[b_Asteroid].get(), m_Player, m_whiteShader.get()));
-		m_Enemies[m_Enemies.size() - 1]->setPosition(position);
 	}
 	else if (type == b_Squid)
 	{
 		m_Enemies.push_back(make_unique<Squid>(m_EnemyTextures[b_Squid].get(), m_Player, m_whiteShader.get()));
-		m_Enemies[m_Enemies.size() - 1]->setPosition(position);
 	}
 	else if (type == b_Cloud)
 	{
@@ -74,7 +78,7 @@ void EnemyManager::AddEnemy(int type, sf::Vector2f position)
 	}
 	else if (type == b_Bird)
 	{
-
+		m_Enemies.push_back(make_unique<Bird>(m_EnemyTextures[b_Bird].get(), m_Player, m_whiteShader.get()));
 	}
 	else if (type == b_Branch)
 	{
@@ -84,6 +88,8 @@ void EnemyManager::AddEnemy(int type, sf::Vector2f position)
 	{
 
 	}
+
+	m_Enemies[m_Enemies.size() - 1]->setPosition(position);
 }
 
 void EnemyManager::generateEnemies(int type, float minYDistance, float maxYDistance, int numScreens)

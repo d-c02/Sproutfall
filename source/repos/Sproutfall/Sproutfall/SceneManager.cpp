@@ -230,6 +230,8 @@ void SceneManager::loadSky()
 
 	m_Scene->addBackground(-0.97, "Textures/sky/sky_backgound_trees.png", -1, false, 300.0f);
 
+	m_EnemyManager->generateEnemies(b_Bird, m_viewSizeY / 10, m_viewSizeY / 10, 19);
+
 	m_Scene->setBackgroundFillColor(0x655057ff);
 	//m_Scene.reset();
 	m_Player->setPosition(640, 200);
