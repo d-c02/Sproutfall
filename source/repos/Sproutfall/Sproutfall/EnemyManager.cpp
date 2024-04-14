@@ -74,7 +74,7 @@ void EnemyManager::AddEnemy(int type, sf::Vector2f position)
 	}
 	else if (type == b_Cloud)
 	{
-
+		m_Enemies.push_back(make_unique<BadCloud>(m_EnemyTextures[b_Cloud].get()));
 	}
 	else if (type == b_Bird)
 	{

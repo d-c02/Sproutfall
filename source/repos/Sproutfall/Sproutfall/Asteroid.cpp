@@ -37,6 +37,7 @@ Asteroid::Asteroid(sf::Texture* texture, Player* player, sf::Shader* whiteShader
 	m_health = 8;
 
 	m_whiteShader = whiteShader;
+	m_Shootable = true;
 }
 
 Asteroid::~Asteroid()

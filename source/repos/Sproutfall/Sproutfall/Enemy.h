@@ -11,6 +11,7 @@ public:
 	virtual void Hurt(sf::Vector2f impactVelocity);
 	int getHealth();
 	void Blink(float tf);
+	bool getShootable();
 protected:
 	float m_health;
 	bool m_alive = true;
@@ -20,6 +21,7 @@ protected:
 	float m_maxTotalBlinkTime = 0.5f;
 	float m_blinkDuration = 0.1f;
 	float m_currentBlinkDuration = 0.0f;
+	bool m_Shootable;
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	//virtual void Die();

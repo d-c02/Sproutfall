@@ -54,3 +54,8 @@ int Enemy::getHealth()
 {
 	return m_health;
 }
+
+bool Enemy::getShootable()
+{
+	return m_Shootable;
+}

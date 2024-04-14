@@ -125,6 +125,7 @@ sf::Shape* Entity::getHitbox()
 {
 	return m_Hitbox.get();
 }
+
 //bool Entity::calculateCollision(Entity* entity2)
 //{
 //	sf::Vector2f spriteSize1(m_Sprite->getLocalBounds().width * m_Sprite->getScale().x, m_Sprite->getLocalBounds().height * m_Sprite->getScale().y);

@@ -20,6 +20,7 @@ Bird::Bird(sf::Texture* texture, Player* player, sf::Shader* whiteShader)
 	m_blinking = false;
 	m_VelocityX = 350;
 	m_VelocityY = 210;
+	m_Shootable = true;
 }
 
 void Bird::Update(float tf)
@@ -53,6 +54,21 @@ void Bird::Update(float tf)
 			}
 			m_Sprite->move(m_VelocityX * diff.x / length * tf, m_VelocityY * diff.y / length * tf);
 		}
+
+		if (m_blinking)
+		{
+			Blink(tf);
+		}
+	}
+	else
+	{
+		m_Sprite->move(m_VelocityX * tf, m_VelocityY * tf);
+		m_AnimationManager->Update(tf);
+		m_currentDeathTime += tf;
+		if (m_currentDeathTime > m_deathTime)
+		{
+			m_alive = false;
+		}
 	}
 	m_Hitbox->setPosition(m_Sprite->getPosition());
 	m_AnimationManager->Update(tf);
@@ -66,7 +82,9 @@ void Bird::Hurt(sf::Vector2f impactVelocity)
 	m_health--;
 	if (m_health <= 0)
 	{
+		m_Sprite->setScale(2, 2);
 		setHittable(false);
+		m_Shootable = false;
 		m_Sprite->setRotation(0);
 		m_VelocityX = impactVelocity.x / 2;
 		m_VelocityY = impactVelocity.y / 2;
@@ -84,7 +102,8 @@ void Bird::configureAnimations()
 	frameVector.push_back(sf::IntRect(64, 0, 32, 32));
 	frameVector.push_back(sf::IntRect(96, 0, 32, 32));
 	frameVector.push_back(sf::IntRect(128, 0, 32, 32));
-	m_AnimationManager->addState(neutral, frameVector, true, 0.15f);
+	frameVector.push_back(sf::IntRect(160, 0, 32, 32));
+	m_AnimationManager->addState(neutral, frameVector, true, 0.1f + ((float) rand() / RAND_MAX) / 20);
 	frameVector.clear();
 
 	//Dead state
@@ -93,10 +112,11 @@ void Bird::configureAnimations()
 	frameVector.push_back(sf::IntRect(64, 0, 32, 32));
 	frameVector.push_back(sf::IntRect(96, 0, 32, 32));
 	frameVector.push_back(sf::IntRect(128, 0, 32, 32));
+	frameVector.push_back(sf::IntRect(160, 0, 32, 32));
 	m_AnimationManager->addState(chasing, frameVector, true, 0.1f);
 	frameVector.clear();
 
-	frameVector.push_back(sf::IntRect(160, 0, 32, 32));
+	frameVector.push_back(sf::IntRect(192, 0, 32, 32));
 	m_AnimationManager->addState(dead, frameVector, true, 1.0f);
 	frameVector.clear();
 

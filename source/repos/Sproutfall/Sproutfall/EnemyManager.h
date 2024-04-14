@@ -4,6 +4,7 @@
 #include "Asteroid.h"
 #include "Squid.h"
 #include "Bird.h"
+#include "BadCloud.h"
 
 class EnemyManager : public sf::Drawable
 {

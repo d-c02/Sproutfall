@@ -16,6 +16,7 @@ Squid::Squid(sf::Texture* texture, Player* player, sf::Shader* whiteShader)
 	m_Hitbox = std::move(circ);
 	m_health = 4;
 	m_whiteShader = whiteShader;
+	m_Shootable = true;
 }
 Squid::~Squid()
 {
@@ -101,6 +102,7 @@ void Squid::Hurt(sf::Vector2f impactVelocity)
 	if (m_health <= 0)
 	{
 		setHittable(false);
+		m_Shootable = false;
 		m_Sprite->setRotation(0);
 		m_VelocityX = impactVelocity.x / 2;
 		m_VelocityY = impactVelocity.y / 2;

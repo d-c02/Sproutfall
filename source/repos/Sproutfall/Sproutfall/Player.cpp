@@ -283,7 +283,6 @@ void Player::CheckCollisions(Enemy* enemy)
 {
 	if (m_IsHittable && enemy->getHittable())
 	{
-		m_bulletManager->checkCollisions(enemy);
 		if (HitboxIsCircular(enemy->getHitbox()))
 		{
 			sf::CircleShape* enemyHitbox = dynamic_cast<sf::CircleShape*>(enemy->getHitbox());
@@ -321,7 +320,10 @@ void Player::CheckCollisions(Enemy* enemy)
 			}
 		}
 	}
-
+	if (enemy->getShootable())
+	{
+		m_bulletManager->checkCollisions(enemy);
+	}
 }
 void Player::Die()
 {
