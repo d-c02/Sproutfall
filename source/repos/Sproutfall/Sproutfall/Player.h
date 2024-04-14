@@ -27,6 +27,7 @@ public:
 	bool IsScreenShaking();
 	void SetFallingParams(float gravity, float terminalVelocity);
 	void SetOutlineColor(sf::Glsl::Vec4 color);
+	void SetWindow(sf::RenderWindow* window);
 protected:
 
 private:

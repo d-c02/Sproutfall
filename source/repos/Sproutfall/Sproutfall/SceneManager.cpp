@@ -209,7 +209,7 @@ void SceneManager::loadSpace()
 	m_Player->SetShellGravity(0);
 	m_Player->SetFallingParams(500, 100);
 
-	m_Player->SetOutlineColor(sf::Glsl::Vec4(0.0f, 0.0f, 0.0f, 0.0f));
+	m_Player->SetOutlineColor(sf::Glsl::Vec4(0.396078431372549f, 0.3137254901960784f, 0.3411764705882353f, 1.0f));
 }
 
 void SceneManager::loadSky()
@@ -234,6 +234,8 @@ void SceneManager::loadSky()
 	//m_Scene.reset();
 	m_Player->setPosition(640, 200);
 	m_Player->SetFallingParams(500, 200);
+
+	m_Player->SetOutlineColor(sf::Glsl::Vec4(0.396078431372549f, 0.3137254901960784f, 0.3411764705882353f, 1.0f));
 }
 
 void SceneManager::loadGround()
@@ -277,4 +279,10 @@ void SceneManager::handleResize(int width, int height)
 	m_LowerBorder->setSize(sf::Vector2f(m_View->getSize().x + m_ScreenShakeSizeX * 2, ((m_View->getSize().y - m_viewSizeY) / 2) + m_ScreenShakeSizeY));
 	m_LeftBorder->setSize(sf::Vector2f((m_View->getSize().x - m_viewSizeX) / 2 + m_ScreenShakeSizeX, m_View->getSize().y + m_ScreenShakeSizeY));
 	m_RightBorder->setSize(sf::Vector2f((m_View->getSize().x - m_viewSizeX) / 2 + m_ScreenShakeSizeX, m_View->getSize().y + m_ScreenShakeSizeY));
+}
+
+void SceneManager::setWindow(sf::RenderWindow* window)
+{
+	m_renderWindow = window;
+	m_Player->SetWindow(window);
 }

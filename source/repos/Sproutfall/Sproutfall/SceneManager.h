@@ -11,13 +11,13 @@ public:
 	void Update(float tf);
 	void handleInput(sf::Event* event);
 	void handleResize(int width, int height);
+	void setWindow(sf::RenderWindow* window);
 private:
 	void loadTitle();
 	void loadSpace();
 	void loadSky();
 	void loadGround();
 	void loadWin();
-	void removeBullet(int index);
 	void borderView(int width, int height);
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 

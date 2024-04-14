@@ -57,7 +57,6 @@ void Player::Shoot()
 {
 	if (m_bullets > 0)
 	{
-		cout << m_bullets << " bullets\n";
 		float diffx = m_Shotgun->getPosition().x - getPosition().x;
 		float diffy = m_Shotgun->getPosition().y - getPosition().y;
 		float dist = sqrt(powf(diffx, 2) + powf(diffy, 2));
@@ -364,4 +363,9 @@ void Player::SetFallingParams(float gravity, float terminalVelocity)
 void Player::SetOutlineColor(sf::Glsl::Vec4 color)
 {
 	m_outlineShader->setUniform("color", color);
+}
+
+void Player::SetWindow(sf::RenderWindow* window)
+{
+	m_RenderWindow = window;
 }

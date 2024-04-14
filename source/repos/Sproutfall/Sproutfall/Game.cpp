@@ -7,6 +7,7 @@
 #include <ctime>
 
 enum Scenes{TitleScreen, Space, Sky, Ground, Win};
+bool m_Fullscreen;
 int Game();
 int main()
 {
@@ -17,7 +18,8 @@ int main()
 int Game()
 {
     srand(time(NULL));
-    sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Sproutfall");
+    m_Fullscreen = false;
+    sf::RenderWindow window(sf::VideoMode(1280, 960), "Sproutfall");
     SceneManager sceneManager(window.getSize().x, window.getSize().y, &window);
     sceneManager.loadScene(Sky);
     sf::Clock clock;
@@ -30,6 +32,27 @@ int Game()
                 window.close();
             if (event.type == sf::Event::Resized)
                 sceneManager.handleResize(event.size.width, event.size.height);
+            if (event.type == sf::Event::KeyPressed)
+            {
+                if (event.key.code == sf::Keyboard::F)
+                {
+                    if (m_Fullscreen)
+                    {
+                        window.create(sf::VideoMode(1280, 960), "Sproutfall");
+                        m_Fullscreen = false;
+                    }
+                    else
+                    {
+                        window.create(sf::VideoMode::getDesktopMode(), "Sproutfall", sf::Style::Fullscreen);
+                        m_Fullscreen = true;
+                    }
+                    sceneManager.handleResize(window.getSize().x, window.getSize().y);
+                }
+                if (event.key.code == sf::Keyboard::Escape)
+                {
+                    window.close();
+                }
+            }
             sceneManager.handleInput(&event);
         }
         float tf = clock.getElapsedTime().asSeconds();
