@@ -371,3 +371,8 @@ void Player::SetWindow(sf::RenderWindow* window)
 {
 	m_RenderWindow = window;
 }
+
+bool Player::isHurt()
+{
+	return m_CurrentState == hurt;
+}

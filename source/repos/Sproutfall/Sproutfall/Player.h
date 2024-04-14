@@ -28,6 +28,7 @@ public:
 	void SetFallingParams(float gravity, float terminalVelocity);
 	void SetOutlineColor(sf::Glsl::Vec4 color);
 	void SetWindow(sf::RenderWindow* window);
+	bool isHurt();
 protected:
 
 private:

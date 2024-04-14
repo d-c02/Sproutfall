@@ -27,7 +27,7 @@ void Bird::Update(float tf)
 {
 	if (m_health > 0)
 	{
-		sf::Vector2f diff((m_Player->getPosition().x /*+ (m_Player->getVelocity().x)*/) - getPosition().x, m_Player->getPosition().y - getPosition().y);
+		sf::Vector2f diff((m_Player->getPosition().x /*+ (m_Player->getVelocity().x)*/) - getPosition().x + m_circlingDirection.x, m_Player->getPosition().y - getPosition().y + m_circlingDirection.y);
 		float length = sqrt(pow(diff.x, 2) + pow(diff.y, 2));
 		if (m_State == neutral)
 		{
@@ -53,6 +53,50 @@ void Bird::Update(float tf)
 				m_Sprite->setScale(2, 2);
 			}
 			m_Sprite->move(m_VelocityX * diff.x / length * tf, m_VelocityY * diff.y / length * tf);
+			if (m_Player->isHurt())
+			{
+				m_State = circling;
+				m_VelocityX *= 2;
+				m_VelocityY *= 2;
+				m_circlingDirection = sf::Vector2f(2 * ((float)rand() / RAND_MAX) - 1, 2 * ((float)rand() / RAND_MAX) - 1);
+				if (m_circlingDirection.x == 0 && m_circlingDirection.y == 0)
+				{
+					m_circlingDirection = sf::Vector2f(0, -1.0f);
+				}
+				float length = sqrt(pow(m_circlingDirection.x, 2) + pow(m_circlingDirection.y, 2));
+				m_circlingDirection /= length;
+				m_circlingDirection *= m_CirclingDistance;
+			}
+		}
+
+		else if (m_State == circling)
+		{
+			if (m_Player->getPosition().x - getPosition().x < 0)
+			{
+				m_Sprite->setScale(-2, 2);
+			}
+			else
+			{
+				m_Sprite->setScale(2, 2);
+			}
+			if (!m_Player->isHurt())
+			{
+				m_State = chasing;
+				m_VelocityX /= 2;
+				m_VelocityY /= 2;
+				m_circlingDirection = sf::Vector2f(0, 0);
+			}
+
+			sf::Vector2f diff2(m_Player->getPosition().x - getPosition().x, m_Player->getPosition().y - getPosition().y);
+			float length2 = sqrt(pow(diff2.x, 2) + pow(diff2.y, 2));
+			if (length2 < m_CirclingDistance + 1 && length2 > m_CirclingDistance - 1)
+			{
+				m_Sprite->move(m_Player->getVelocity() * tf);
+			}
+			else
+			{
+				m_Sprite->move(m_VelocityX * diff.x / length * tf, m_VelocityY * diff.y / length * tf);
+			}
 		}
 
 		if (m_blinking)
@@ -114,6 +158,7 @@ void Bird::configureAnimations()
 	frameVector.push_back(sf::IntRect(128, 0, 32, 32));
 	frameVector.push_back(sf::IntRect(160, 0, 32, 32));
 	m_AnimationManager->addState(chasing, frameVector, true, 0.1f);
+	m_AnimationManager->addState(circling, frameVector, true, 0.1f);
 	frameVector.clear();
 
 	frameVector.push_back(sf::IntRect(192, 0, 32, 32));

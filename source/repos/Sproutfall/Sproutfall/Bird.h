@@ -19,11 +19,13 @@ private:
 	const float m_airResistanceX = -250;
 	const float m_gravity = 250;
 	const float m_Speed = 500;
-	enum States { neutral, chasing, dead};
+	enum States { neutral, chasing, circling, dead};
 	Player* m_Player;
 	const float m_attackRange = 400;
 	int m_State = neutral;
 	sf::Shader* m_whiteShader;
 	float m_currentDeathTime = 0.0f;
 	const float m_deathTime = 0.5f;
+	sf::Vector2f m_circlingDirection;
+	float m_CirclingDistance = 100;
 };
