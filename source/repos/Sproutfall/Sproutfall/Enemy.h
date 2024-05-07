@@ -12,6 +12,8 @@ public:
 	int getHealth();
 	void Blink(float tf);
 	bool getShootable();
+	virtual bool checkProjectiles();
+	bool hasProjectiles();
 protected:
 	float m_health;
 	bool m_alive = true;
@@ -22,6 +24,7 @@ protected:
 	float m_blinkDuration = 0.1f;
 	float m_currentBlinkDuration = 0.0f;
 	bool m_Shootable;
+	bool m_hasProjectiles = false;
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	//virtual void Die();

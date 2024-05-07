@@ -281,12 +281,13 @@ void Player::configureAnimations()
 
 void Player::CheckCollisions(Enemy* enemy)
 {
+	sf::CircleShape* playerHitbox = dynamic_cast<sf::CircleShape*>(m_Hitbox.get());
 	if (m_IsHittable && enemy->getHittable())
 	{
 		if (HitboxIsCircular(enemy->getHitbox()))
 		{
 			sf::CircleShape* enemyHitbox = dynamic_cast<sf::CircleShape*>(enemy->getHitbox());
-			if (calculateCollision(m_Hitbox.get(), enemyHitbox))
+			if (calculateCollision(playerHitbox, enemyHitbox))
 			{
 				if (m_Health > 0)
 				{
@@ -308,7 +309,7 @@ void Player::CheckCollisions(Enemy* enemy)
 		else
 		{
 			sf::RectangleShape* enemyHitbox = dynamic_cast<sf::RectangleShape*>(enemy->getHitbox());
-			if (calculateCollision(m_Hitbox.get(), enemyHitbox))
+			if (calculateCollision(playerHitbox, enemyHitbox))
 			{
 				enemyHitbox->setFillColor(sf::Color(0x00ff00aa));
 				m_CurrentState = hurt;
@@ -323,6 +324,11 @@ void Player::CheckCollisions(Enemy* enemy)
 	if (enemy->getShootable())
 	{
 		m_bulletManager->checkCollisions(enemy);
+	}
+
+	if (enemy->hasProjectiles())
+	{
+		enemy->checkProjectiles();
 	}
 }
 void Player::Die()

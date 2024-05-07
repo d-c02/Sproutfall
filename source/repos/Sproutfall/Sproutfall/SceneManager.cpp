@@ -232,7 +232,7 @@ void SceneManager::loadSky()
 
 	//m_EnemyManager->generateEnemies(b_Bird, m_viewSizeY / 10, m_viewSizeY / 10, 19);
 
-	//m_EnemyManager->generateEnemies(b_Cloud, m_viewSizeY / 10, m_viewSizeY / 10, 19);
+	m_EnemyManager->generateEnemies(b_Cloud, m_viewSizeY / 10, m_viewSizeY / 10, 19);
 
 	m_Scene->setBackgroundFillColor(0x655057ff);
 	//m_Scene.reset();

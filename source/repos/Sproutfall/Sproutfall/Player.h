@@ -57,7 +57,7 @@ private:
 	float neutralThreshold = 90;
 	float fallingThreshold = 600;
 	bool m_SpriteFlipped = false;
-	std::unique_ptr<sf::CircleShape> m_Hitbox;
+	//std::unique_ptr<sf::CircleShape> m_Hitbox;
 	const float m_CollisionSlowdown = 0.2;
 	int m_Health = 3;
 	sf::RenderWindow* m_RenderWindow;

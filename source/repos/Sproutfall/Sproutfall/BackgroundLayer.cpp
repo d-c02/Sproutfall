@@ -23,6 +23,7 @@ BackgroundLayer::BackgroundLayer(Player* player, float parallaxSpeed, float view
 	{
 		m_Sprite->setPosition(0, m_verticalOffset); 
 	}
+	//prevPosition = m_Player->getPosition();
 }
 BackgroundLayer::~BackgroundLayer()
 {
@@ -55,6 +56,8 @@ void BackgroundLayer::Update(float tf)
 	m_Sprite->move(0, -m_Player->getVelocity().y * tf * m_ParallaxSpeed * m_Parallax);
 	m_Upper->move(0, -m_Player->getVelocity().y * tf * m_ParallaxSpeed * m_Parallax);
 	m_Lower->move(0, -m_Player->getVelocity().y * tf * m_ParallaxSpeed * m_Parallax);
+
+	//prevPosition = m_Player->getPosition();
 }
 
 void BackgroundLayer::setScale(float x, float y)

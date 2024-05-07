@@ -89,21 +89,21 @@ bool Entity::calculateCollision(sf::RectangleShape* rect, sf::CircleShape* circl
 {
 	float testX = circle->getPosition().x;
 	float testY = circle->getPosition().y;
-	if (circle->getPosition().x < rect->getPosition().x)
+	if (circle->getPosition().x < rect->getGlobalBounds().left)
 	{
-		testX = rect->getPosition().x;
+		testX = rect->getGlobalBounds().left;
 	}
-	else if (circle->getPosition().x > rect->getPosition().x + rect->getGlobalBounds().width)
+	else if (circle->getPosition().x > rect->getGlobalBounds().left + rect->getGlobalBounds().width)
 	{
-		testX = rect->getPosition().x + rect->getGlobalBounds().width;
+		testX = rect->getGlobalBounds().left + rect->getGlobalBounds().width;
 	}
-	if (circle->getPosition().y < rect->getPosition().y)
+	if (circle->getPosition().y < rect->getGlobalBounds().top)
 	{
-		testY = rect->getPosition().y;
+		testY = rect->getGlobalBounds().top;
 	}
-	else if (circle->getPosition().y > rect->getPosition().y + rect->getGlobalBounds().height)
+	else if (circle->getPosition().y > rect->getGlobalBounds().top + rect->getGlobalBounds().height)
 	{
-		testY = rect->getPosition().y + rect->getGlobalBounds().height;
+		testY = rect->getGlobalBounds().top + rect->getGlobalBounds().height;
 	}
 	float distX = circle->getPosition().x - testX;
 	float distY = circle->getPosition().y - testY;

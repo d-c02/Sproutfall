@@ -142,6 +142,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="Asteroid.cpp" />
+    <ClCompile Include="BackgroundElement.cpp" />
     <ClCompile Include="BackgroundLayer.cpp" />
     <ClCompile Include="BadCloud.cpp" />
     <ClCompile Include="Bird.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="Asteroid.h" />
+    <ClInclude Include="BackgroundElement.h" />
     <ClInclude Include="BackgroundLayer.h" />
     <ClInclude Include="BadCloud.h" />
     <ClInclude Include="Bird.h" />

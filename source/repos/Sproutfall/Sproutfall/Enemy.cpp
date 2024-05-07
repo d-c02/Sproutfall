@@ -59,3 +59,13 @@ bool Enemy::getShootable()
 {
 	return m_Shootable;
 }
+
+bool Enemy::checkProjectiles()
+{
+	return false;
+}
+
+bool Enemy::hasProjectiles()
+{
+	return m_hasProjectiles;
+}
