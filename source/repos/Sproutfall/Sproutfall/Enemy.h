@@ -14,6 +14,7 @@ public:
 	bool getShootable();
 	virtual bool checkProjectiles();
 	bool hasProjectiles();
+	bool hasSmoke();
 protected:
 	float m_health;
 	bool m_alive = true;
@@ -25,6 +26,7 @@ protected:
 	float m_currentBlinkDuration = 0.0f;
 	bool m_Shootable;
 	bool m_hasProjectiles = false;
+	bool m_hasSmoke = true;
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	//virtual void Die();

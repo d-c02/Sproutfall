@@ -110,7 +110,6 @@ void EnemyManager::generateEnemies(int type, float minYDistance, float maxYDista
 
 void EnemyManager::removeEnemy(int index)
 {
-	/*delete(m_bulletVector[index]);*/
 	m_Enemies.erase(m_Enemies.begin() + index);
 }
 
@@ -147,8 +146,11 @@ void EnemyManager::Update(float tf)
 		m_Enemies[i]->Update(tf);
 		if (!m_Enemies[i]->GetStatus())
 		{
-			addSmoke(m_Enemies[i]->getPosition());
-			m_SmokeAnimationManagers[m_SmokeAnimationManagers.size() - 1]->Play();
+			if (m_Enemies[i]->hasSmoke())
+			{
+				addSmoke(m_Enemies[i]->getPosition());
+				m_SmokeAnimationManagers[m_SmokeAnimationManagers.size() - 1]->Play();
+			}
 			removeEnemy(i);
 		}
 	}

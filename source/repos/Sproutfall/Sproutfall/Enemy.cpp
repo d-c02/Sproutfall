@@ -69,3 +69,8 @@ bool Enemy::hasProjectiles()
 {
 	return m_hasProjectiles;
 }
+
+bool Enemy::hasSmoke()
+{
+	return m_hasSmoke;
+}
