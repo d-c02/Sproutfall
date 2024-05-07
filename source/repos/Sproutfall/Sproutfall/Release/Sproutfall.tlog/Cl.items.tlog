@@ -1,7 +1,10 @@
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Animation.cpp;C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Release\Animation.obj
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\AnimationManager.cpp;C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Release\AnimationManager.obj
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Asteroid.cpp;C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Release\Asteroid.obj
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BackgroundElement.cpp;C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Release\BackgroundElement.obj
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BackgroundLayer.cpp;C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Release\BackgroundLayer.obj
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BadCloud.cpp;C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Release\BadCloud.obj
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Bird.cpp;C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Release\Bird.obj
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Bullet.cpp;C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Release\Bullet.obj
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.cpp;C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Release\BulletManager.obj
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Enemy.cpp;C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Release\Enemy.obj

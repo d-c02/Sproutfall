@@ -23,6 +23,8 @@ int Game()
     SceneManager sceneManager(window.getSize().x, window.getSize().y, &window);
     sceneManager.loadScene(Sky);
     sf::Clock clock;
+    float fpsTime = 0;
+    int fpsCtr = 0;
     while (window.isOpen())
     {
         sf::Event event;
@@ -56,10 +58,20 @@ int Game()
             sceneManager.handleInput(&event);
         }
         float tf = clock.getElapsedTime().asSeconds();
+        clock.restart();
         if (tf > 0.15)
             tf = 0.15;
         sceneManager.Update(tf);
-        clock.restart();
+
+        fpsTime += tf;
+        fpsCtr++;
+
+        if (fpsTime >= 1.0f)
+        {
+            cout << fpsCtr << " fps" << endl;
+            fpsCtr = 0;
+            fpsTime = 0.0f;
+        }
         window.clear();
 
         window.draw(sceneManager);

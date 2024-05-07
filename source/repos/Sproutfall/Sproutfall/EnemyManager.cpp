@@ -149,15 +149,18 @@ void EnemyManager::Update(float tf)
 {
 	for (int i = 0; i < m_Enemies.size(); i++)
 	{
-		m_Enemies[i]->Update(tf);
-		if (!m_Enemies[i]->GetStatus())
+		if (abs(m_Enemies[i]->getPosition().y - m_Player->getPosition().y) < m_RenderDistance)
 		{
-			if (m_Enemies[i]->hasSmoke())
+			m_Enemies[i]->Update(tf);
+			if (!m_Enemies[i]->GetStatus())
 			{
-				addSmoke(m_Enemies[i]->getPosition());
-				m_SmokeAnimationManagers[m_SmokeAnimationManagers.size() - 1]->Play();
+				if (m_Enemies[i]->hasSmoke())
+				{
+					addSmoke(m_Enemies[i]->getPosition());
+					m_SmokeAnimationManagers[m_SmokeAnimationManagers.size() - 1]->Play();
+				}
+				removeEnemy(i);
 			}
-			removeEnemy(i);
 		}
 	}
 	for (int i = 0; i < m_SmokeAnimationManagers.size(); i++)
@@ -187,8 +190,10 @@ void EnemyManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	for (int i = 0; i < m_Enemies.size(); i++)
 	{
-		
-		target.draw(*m_Enemies[i]);
+		if (abs(m_Enemies[i]->getPosition().y - m_Player->getPosition().y) < m_RenderDistance)
+		{
+			target.draw(*m_Enemies[i]);
+		}
 	}
 	for (int i = 0; i < m_SmokeSprites.size(); i++)
 	{

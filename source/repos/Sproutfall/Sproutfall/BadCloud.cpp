@@ -80,9 +80,12 @@ bool BadCloud::checkProjectiles()
 		sf::FloatRect lightningBounds = m_lightningSprite->getGlobalBounds();
 		sf::RectangleShape lightningCollision = sf::RectangleShape(sf::Vector2f(lightningBounds.width, lightningBounds.height));
 		lightningCollision.setPosition(lightningBounds.left, lightningBounds.top);
-		if (calculateCollision(&lightningCollision, playerHitbox))
+		if (m_LightningAnimationManager->isPlaying())
 		{
-			return true;
+			if (calculateCollision(&lightningCollision, playerHitbox))
+			{
+				return true;
+			}
 		}
 	}
 	return false;

@@ -45,4 +45,5 @@ private:
 		"}";
 	std::unique_ptr<sf::Shader> m_whiteShader;
 	std::unique_ptr<sf::Texture> m_lightningTexture;
+	const float m_RenderDistance = 2000;
 };
