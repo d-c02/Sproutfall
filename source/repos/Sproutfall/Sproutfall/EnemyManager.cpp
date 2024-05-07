@@ -57,6 +57,12 @@ EnemyManager::EnemyManager(sf::Vector2f viewSize, Player* player)
 		cout << "Failure to load white shader" << endl;
 	}
 	m_whiteShader->setUniform("texture", sf::Shader::CurrentTexture);
+
+	m_lightningTexture = make_unique<sf::Texture>();
+	if (!m_lightningTexture->loadFromFile("Textures/Enemies/sky_badcloud_lightning.png"))
+	{
+		cout << "Failure to load sky_badcloud_lightning.png" << endl;
+	}
 }
 EnemyManager::~EnemyManager()
 {
@@ -74,7 +80,7 @@ void EnemyManager::AddEnemy(int type, sf::Vector2f position)
 	}
 	else if (type == b_Cloud)
 	{
-		m_Enemies.push_back(make_unique<BadCloud>(m_EnemyTextures[b_Cloud].get(), m_Player));
+		m_Enemies.push_back(make_unique<BadCloud>(m_EnemyTextures[b_Cloud].get(), m_lightningTexture.get(), m_Player));
 	}
 	else if (type == b_Bird)
 	{

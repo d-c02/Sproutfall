@@ -328,7 +328,15 @@ void Player::CheckCollisions(Enemy* enemy)
 
 	if (enemy->hasProjectiles())
 	{
-		enemy->checkProjectiles();
+		if (enemy->checkProjectiles() && m_IsHittable)
+		{
+			m_CurrentState = hurt;
+			m_VelocityX = m_VelocityX * m_CollisionSlowdown;
+			m_VelocityY = m_VelocityY * m_CollisionSlowdown;
+			m_AnimationManager->setState(hurt);
+			m_Health--;
+			setHittable(false);
+		}
 	}
 }
 void Player::Die()
