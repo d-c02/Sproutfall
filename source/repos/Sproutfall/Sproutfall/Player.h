@@ -80,4 +80,5 @@ private:
 		"    gl_FragColor = pixel;                              " \
 		"}";
 	std::unique_ptr<sf::Shader> m_outlineShader;
+	//float m_RenderDistance = 2000;
 };

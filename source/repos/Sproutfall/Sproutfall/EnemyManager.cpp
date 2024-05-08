@@ -107,7 +107,6 @@ void EnemyManager::generateEnemies(int type, float minYDistance, float maxYDista
 		//sf::Vector2f pos((float)rand() / (float)(RAND_MAX) * (m_ViewSizeX * 15 / 16) + (m_ViewSizeX / 16), (float)rand() / (float)(RAND_MAX)*maxYDistance + (minYDistance + prevY));
 		sf::Vector2f pos((float)rand() / (float)(RAND_MAX) * (m_ViewSizeX), (float)rand() / (float)(RAND_MAX)*maxYDistance + (minYDistance + prevY));
 		AddEnemy(type, pos);
-		AddEnemy(type, pos);
 		if (floor(prevY / m_ViewSizeY) < floor(pos.y / m_ViewSizeY))
 		{
 			currentScreen++;

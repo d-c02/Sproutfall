@@ -281,37 +281,55 @@ void Player::configureAnimations()
 
 void Player::CheckCollisions(Enemy* enemy)
 {
-	sf::CircleShape* playerHitbox = dynamic_cast<sf::CircleShape*>(m_Hitbox.get());
-	if (m_IsHittable && enemy->getHittable())
-	{
-		if (HitboxIsCircular(enemy->getHitbox()))
+		sf::CircleShape* playerHitbox = dynamic_cast<sf::CircleShape*>(m_Hitbox.get());
+		if (m_IsHittable && enemy->getHittable())
 		{
-			sf::CircleShape* enemyHitbox = dynamic_cast<sf::CircleShape*>(enemy->getHitbox());
-			if (calculateCollision(playerHitbox, enemyHitbox))
+			if (HitboxIsCircular(enemy->getHitbox()))
 			{
-				if (m_Health > 0)
+				sf::CircleShape* enemyHitbox = dynamic_cast<sf::CircleShape*>(enemy->getHitbox());
+				if (calculateCollision(playerHitbox, enemyHitbox))
 				{
+					if (m_Health > 0)
+					{
+						m_CurrentState = hurt;
+						m_VelocityX = m_VelocityX * m_CollisionSlowdown;
+						m_VelocityY = m_VelocityY * m_CollisionSlowdown;
+						m_AnimationManager->setState(hurt);
+						m_Health--;
+					}
+					else
+					{
+						m_CurrentState = dead;
+						m_VelocityX = 0;
+						m_VelocityY = 0;
+					}
+					setHittable(false);
+				}
+			}
+			else
+			{
+				sf::RectangleShape* enemyHitbox = dynamic_cast<sf::RectangleShape*>(enemy->getHitbox());
+				if (calculateCollision(playerHitbox, enemyHitbox))
+				{
+					enemyHitbox->setFillColor(sf::Color(0x00ff00aa));
 					m_CurrentState = hurt;
 					m_VelocityX = m_VelocityX * m_CollisionSlowdown;
 					m_VelocityY = m_VelocityY * m_CollisionSlowdown;
 					m_AnimationManager->setState(hurt);
 					m_Health--;
+					setHittable(false);
 				}
-				else
-				{
-					m_CurrentState = dead;
-					m_VelocityX = 0;
-					m_VelocityY = 0;
-				}
-				setHittable(false);
 			}
 		}
-		else
+		if (enemy->getShootable())
 		{
-			sf::RectangleShape* enemyHitbox = dynamic_cast<sf::RectangleShape*>(enemy->getHitbox());
-			if (calculateCollision(playerHitbox, enemyHitbox))
+			m_bulletManager->checkCollisions(enemy);
+		}
+
+		if (enemy->hasProjectiles())
+		{
+			if (enemy->checkProjectiles() && m_IsHittable)
 			{
-				enemyHitbox->setFillColor(sf::Color(0x00ff00aa));
 				m_CurrentState = hurt;
 				m_VelocityX = m_VelocityX * m_CollisionSlowdown;
 				m_VelocityY = m_VelocityY * m_CollisionSlowdown;
@@ -321,24 +339,6 @@ void Player::CheckCollisions(Enemy* enemy)
 			}
 		}
 	}
-	if (enemy->getShootable())
-	{
-		m_bulletManager->checkCollisions(enemy);
-	}
-
-	if (enemy->hasProjectiles())
-	{
-		if (enemy->checkProjectiles() && m_IsHittable)
-		{
-			m_CurrentState = hurt;
-			m_VelocityX = m_VelocityX * m_CollisionSlowdown;
-			m_VelocityY = m_VelocityY * m_CollisionSlowdown;
-			m_AnimationManager->setState(hurt);
-			m_Health--;
-			setHittable(false);
-		}
-	}
-}
 void Player::Die()
 {
 

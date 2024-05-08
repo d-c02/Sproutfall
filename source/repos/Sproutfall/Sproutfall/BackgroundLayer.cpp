@@ -1,4 +1,7 @@
 #include "BackgroundLayer.h"
+BackgroundLayer::BackgroundLayer()
+{
+}
 BackgroundLayer::BackgroundLayer(Player* player, float parallaxSpeed, float viewSizeX, float viewSizeY, string texturePath, bool drawOthers, float verticalOffset)
 {
 	m_Sprite = make_unique<sf::Sprite>();
