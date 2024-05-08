@@ -10,7 +10,7 @@ SceneManager::SceneManager(float windowSizeX, float windowSizeY, sf::RenderWindo
 	m_Scene = make_unique<Scene>(m_Player.get(), m_viewSizeX, m_viewSizeY);
 	m_View = make_unique<sf::View>();
 	//m_View->setSize(m_viewSizeX, m_viewSizeY);
-	m_EnemyManager = make_unique<EnemyManager>(m_View->getSize(), m_Player.get());
+	m_EnemyManager = make_unique<EnemyManager>(sf::Vector2f(m_viewSizeX, m_viewSizeY), m_Player.get());
 	m_playerSmoke = make_unique<sf::Sprite>();
 	m_smokeTexture = make_unique<sf::Texture>();
 	if (!m_smokeTexture->loadFromFile("Textures/playerSmoke.png"))
