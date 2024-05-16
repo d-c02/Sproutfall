@@ -1,15 +1,25 @@
 #include "BackgroundElement.h"
-BackgroundElement::BackgroundElement(Player* player, float parallaxSpeed, string texturePath, AnimationManager animationManager)
+BackgroundElement::BackgroundElement(Player* player, sf::Vector2f position, float parallaxSpeed, string texturePath, vector<sf::IntRect> frameVector, float frameDelay)
 {
-	m_Texture = make_unique<sf::Texture>();
 	m_Sprite = make_unique<sf::Sprite>();
+	m_Texture = make_unique<sf::Texture>();
+	if (!m_Texture->loadFromFile(texturePath))
+	{
+		cout << "Animation element texture load failure";
+	}
+	m_Sprite->setScale(2, 2);
+	m_Sprite->setPosition(position);
+	m_Sprite->setTexture(*m_Texture);
+	m_AnimationManager = make_unique<AnimationManager>(m_Sprite.get());
+	m_AnimationManager->addState(0, frameVector, true, frameDelay);
 	m_Player = player;
 	m_ParallaxSpeed = parallaxSpeed;
 }
 
 void BackgroundElement::Update(float tf)
 {
-	m_Sprite->move(0, -m_Player->getVelocity().y * tf * m_ParallaxSpeed * m_Parallax);
+	m_Sprite->move(0, -m_Player->getVelocity().y * tf * m_ParallaxSpeed);
+	m_AnimationManager->Update(tf);
 }
 
 void BackgroundElement::draw(sf::RenderTarget& target, sf::RenderStates states) const

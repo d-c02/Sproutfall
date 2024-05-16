@@ -281,6 +281,8 @@ void Player::configureAnimations()
 
 void Player::CheckCollisions(Enemy* enemy)
 {
+	if (abs(enemy->getPosition().y - getPosition().y) < 2000)
+	{
 		sf::CircleShape* playerHitbox = dynamic_cast<sf::CircleShape*>(m_Hitbox.get());
 		if (m_IsHittable && enemy->getHittable())
 		{
@@ -339,6 +341,7 @@ void Player::CheckCollisions(Enemy* enemy)
 			}
 		}
 	}
+}
 void Player::Die()
 {
 

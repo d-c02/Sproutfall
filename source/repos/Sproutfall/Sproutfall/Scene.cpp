@@ -29,6 +29,11 @@ void Scene::addBackground(float parallaxSpeed, string texturePath, int screenNum
 	}
 }
 
+void Scene::addBackgroundElement(sf::Vector2f position, float parallaxSpeed, string texturePath, vector<sf::IntRect> frameVector, float frameDelay)
+{
+	m_Backgrounds.push_back(make_unique<BackgroundElement>(m_Player, position, parallaxSpeed, texturePath, frameVector, frameDelay));
+}
+
 void Scene::setBackgroundFillColor(unsigned int color)
 {
 	m_BackgroundFillColor = color;

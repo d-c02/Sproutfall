@@ -15,7 +15,7 @@ Bird::Bird(sf::Texture* texture, Player* player, sf::Shader* whiteShader)
 	circ->setFillColor(sf::Color(0xff0000aa));
 	circ->setOrigin(circ->getGlobalBounds().left + circ->getRadius(), circ->getGlobalBounds().top + circ->getRadius());
 	m_Hitbox = std::move(circ);
-	m_health = 3;
+	m_health = 2;
 	m_whiteShader = whiteShader;
 	m_blinking = false;
 	m_VelocityX = 350;

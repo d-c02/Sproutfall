@@ -7,7 +7,7 @@ public:
 	BackgroundLayer();
 	BackgroundLayer(Player* player, float parallaxSpeed, float viewSizeX, float viewSizeY, string texturePath, bool drawOthers, float verticalOffset);
 	~BackgroundLayer();
-	void Update(float tf);
+	virtual void Update(float tf);
 	void setScale(float x, float y);
 	void setParallax(bool parallax);
 protected:

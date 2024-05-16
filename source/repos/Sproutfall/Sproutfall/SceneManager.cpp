@@ -83,13 +83,6 @@ void SceneManager::loadScene(int scene)
 
 void SceneManager::Update(float tf)
 {
-	if (m_Player->getStatus())
-	{
-		if (m_Player->getPosition().y < (m_Scene->getLevelSize()) - (m_viewSizeY / 2))
-			m_Scene->Update(tf);
-		m_Player->Update(tf);
-		m_EnemyManager->Update(tf);
-
 		sf::Vector2f playerPos;
 		if (m_Player->getPosition().y < (m_Scene->getLevelSize()) - (m_viewSizeY / 2))
 		{
@@ -110,6 +103,13 @@ void SceneManager::Update(float tf)
 		{
 			loadScene(m_CurrentScene + 1);
 		}
+
+	if (m_Player->getStatus())
+	{
+		if (m_Player->getPosition().y < (m_Scene->getLevelSize()) - (m_viewSizeY / 2))
+			m_Scene->Update(tf);
+		m_Player->Update(tf);
+		m_EnemyManager->Update(tf);
 	}
 	else if (m_smokeAnimationManager->isPlaying())
 	{
@@ -224,13 +224,21 @@ void SceneManager::loadSky()
 
 	m_Scene->addBackground(-0.98, "Textures/sky/sky_backgound_sky.png", -1, false);
 
+	//Bird animation config
+	vector<sf::IntRect> frameVector;
+	for (int i = 0; i < 8; i++)
+	{
+		frameVector.push_back(sf::IntRect(i * 46, 0, 46, 32));
+	}
+	m_Scene->addBackgroundElement(sf::Vector2f(100, 400), -0.985, "Textures/sky/birds_46.png", frameVector, 0.25f);
+
 	m_Scene->addBackground(-0.99, "Textures/sky/sky_backgound_cloud.png");
 
 	//m_Scene->addBackground(-0.98, "Textures/sky/sky_backgound_ground.png", -1, false);
 
 	m_Scene->addBackground(-0.97, "Textures/sky/sky_backgound_trees.png", -1, false, 300.0f);
 
-	m_EnemyManager->generateEnemies(b_Bird, m_viewSizeY / 10, m_viewSizeY / 10, 19);
+	m_EnemyManager->generateEnemies(b_Bird, m_viewSizeY / 5, m_viewSizeY / 5, 19);
 
 	m_EnemyManager->generateEnemies(b_Cloud, m_viewSizeY / 10, m_viewSizeY / 10, 19);
 
