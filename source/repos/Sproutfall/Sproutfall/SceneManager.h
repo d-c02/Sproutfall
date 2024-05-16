@@ -40,8 +40,8 @@ private:
 	std::unique_ptr<AnimationManager> m_smokeAnimationManager;
 	sf::RenderWindow* m_renderWindow;
 
-	float m_ScreenShakeSizeX = 3.0f;
-	float m_ScreenShakeSizeY = 3.0f;
+	float m_ScreenShakeSizeX = 0.0f;
+	float m_ScreenShakeSizeY = 0.0f;
 	float m_TotalScreenShakeTime = 0.05f;
 	float m_ScreenShakeTick = 0.001f;
 	float m_CurrentScreenShakeTime = 0.0f;

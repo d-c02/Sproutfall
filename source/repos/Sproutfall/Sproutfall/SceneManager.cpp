@@ -83,21 +83,6 @@ void SceneManager::loadScene(int scene)
 
 void SceneManager::Update(float tf)
 {
-		sf::Vector2f playerPos;
-		if (m_Player->getPosition().y < (m_Scene->getLevelSize()) - (m_viewSizeY / 2))
-		{
-			playerPos = m_Player->getPosition();
-		}
-		else
-		{
-			playerPos = sf::Vector2f(m_viewSizeX / 2, (m_Scene->getLevelSize()) - (m_viewSizeY / 2));
-		}
-
-		m_View->setCenter(m_viewSizeX / 2 + m_ScreenShakeOffset.x, playerPos.y + m_ScreenShakeOffset.y);
-		m_UpperBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, playerPos.y - (m_View->getSize().y / 2) - m_ScreenShakeSizeY);
-		m_LeftBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, playerPos.y - (m_View->getSize().y / 2) - m_ScreenShakeSizeY);
-		m_LowerBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, playerPos.y + (m_View->getSize().y / 2) - m_LowerBorder->getSize().y + m_ScreenShakeSizeY);
-		m_RightBorder->setPosition((m_viewSizeX / 2) + (m_View->getSize().x / 2) - m_RightBorder->getSize().x + m_ScreenShakeSizeX, playerPos.y - (m_View->getSize().y / 2));
 
 		if (m_Player->getPosition().y >= (m_Scene->getLevelSize()))
 		{
@@ -154,6 +139,21 @@ void SceneManager::Update(float tf)
 
 void SceneManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+			sf::Vector2f playerPos;
+		if (m_Player->getPosition().y < (m_Scene->getLevelSize()) - (m_viewSizeY / 2))
+		{
+			playerPos = m_Player->getPosition();
+		}
+		else
+		{
+			playerPos = sf::Vector2f(m_viewSizeX / 2, (m_Scene->getLevelSize()) - (m_viewSizeY / 2));
+		}
+
+		m_View->setCenter(m_viewSizeX / 2 + m_ScreenShakeOffset.x, playerPos.y + m_ScreenShakeOffset.y);
+		m_UpperBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, playerPos.y - (m_View->getSize().y / 2) - m_ScreenShakeSizeY);
+		m_LeftBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, playerPos.y - (m_View->getSize().y / 2) - m_ScreenShakeSizeY);
+		m_LowerBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, playerPos.y + (m_View->getSize().y / 2) - m_LowerBorder->getSize().y + m_ScreenShakeSizeY);
+		m_RightBorder->setPosition((m_viewSizeX / 2) + (m_View->getSize().x / 2) - m_RightBorder->getSize().x + m_ScreenShakeSizeX, playerPos.y - (m_View->getSize().y / 2));
 	if (m_Player->getPosition().y < (m_Scene->getLevelSize() * m_viewSizeY) - (m_viewSizeY / 2))
 	{
 		if (!m_Scene->getParallax())
@@ -196,13 +196,19 @@ void SceneManager::loadSpace()
 
 	m_Scene->addBackground(-0.98, "Textures/space/space_background_objects.png");
 
-	m_Scene->addBackground(-0.97, "Textures/space/earth.png", -1, false);
+	vector<sf::IntRect> frameVector;
+
+	frameVector.push_back(sf::IntRect(0, 0, 640, 252));
+	m_Scene->addBackgroundElement(sf::Vector2f(0, 490), -0.97, "Textures/space/earth2.png", frameVector, 1.0f, true, 252 * 2);
+	frameVector.clear();
+
+	//m_Scene->addBackground(-0.97, "Textures/space/earth.png", -1, false);
 
 	m_Scene->setBackgroundFillColor(0x655057ff);
 
-	m_EnemyManager->generateEnemies(b_Squid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
+	//m_EnemyManager->generateEnemies(b_Squid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
 
-	m_EnemyManager->generateEnemies(b_Asteroid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
+	//m_EnemyManager->generateEnemies(b_Asteroid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
 
 	m_Player->setPosition(640, 200);
 	m_Player->SetShellColor(sf::Color(0xf6edcdff));
@@ -218,7 +224,7 @@ void SceneManager::loadSky()
 	m_Scene.reset();
 	m_EnemyManager->Clear();
 	
-	m_Scene = make_unique<Scene>(m_Player.get(), m_viewSizeX, m_viewSizeY, 20 * 960);
+	m_Scene = make_unique<Scene>(m_Player.get(), m_viewSizeX, m_viewSizeY, 20 * 960); //19200
 
 	//m_Scene->addBackground(-0.999, "Textures/space_stars_small.png");
 
@@ -231,16 +237,19 @@ void SceneManager::loadSky()
 		frameVector.push_back(sf::IntRect(i * 46, 0, 46, 32));
 	}
 	m_Scene->addBackgroundElement(sf::Vector2f(100, 400), -0.985, "Textures/sky/birds_46.png", frameVector, 0.25f);
+	frameVector.clear();
 
 	m_Scene->addBackground(-0.99, "Textures/sky/sky_backgound_cloud.png");
 
 	//m_Scene->addBackground(-0.98, "Textures/sky/sky_backgound_ground.png", -1, false);
 
-	m_Scene->addBackground(-0.97, "Textures/sky/sky_backgound_trees.png", -1, false, 300.0f);
+	frameVector.push_back(sf::IntRect(0, 0, 640, 480));
+	m_Scene->addBackgroundElement(sf::Vector2f(0, 300), -0.97, "Textures/sky/sky_backgound_trees.png", frameVector, 1.0f, true, 19200.0f - 480.0f);
+	frameVector.clear();
 
-	m_EnemyManager->generateEnemies(b_Bird, m_viewSizeY / 5, m_viewSizeY / 5, 19);
+	//m_EnemyManager->generateEnemies(b_Bird, m_viewSizeY / 5, m_viewSizeY / 5, 19);
 
-	m_EnemyManager->generateEnemies(b_Cloud, m_viewSizeY / 10, m_viewSizeY / 10, 19);
+	//m_EnemyManager->generateEnemies(b_Cloud, m_viewSizeY / 10, m_viewSizeY / 10, 19);
 
 	m_Scene->setBackgroundFillColor(0x655057ff);
 	//m_Scene.reset();

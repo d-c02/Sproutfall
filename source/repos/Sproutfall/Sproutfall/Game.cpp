@@ -21,7 +21,9 @@ int Game()
     m_Fullscreen = false;
     sf::RenderWindow window(sf::VideoMode(1280, 960), "Sproutfall");
     SceneManager sceneManager(window.getSize().x, window.getSize().y, &window);
-    sceneManager.loadScene(Sky);
+    //window.setFramerateLimit(30);
+    //window.setVerticalSyncEnabled(true);
+    sceneManager.loadScene(Space);
     sf::Clock clock;
     float fpsTime = 0;
     int fpsCtr = 0;
@@ -59,6 +61,7 @@ int Game()
         }
         float tf = clock.getElapsedTime().asSeconds();
         clock.restart();
+
         if (tf > 0.15)
             tf = 0.15;
         sceneManager.Update(tf);

@@ -9,7 +9,7 @@ public:
 	Scene(Player* player, float viewSizeX, float viewSizeY, int levelSize = 0);
 	~Scene();
 	void addBackground(float parallaxSpeed, string texturePath, int m_screenNumber = -1, bool drawOthers = true, float verticalOffset = 0);
-	void addBackgroundElement(sf::Vector2f position, float parallaxSpeed, string texturePath, vector<sf::IntRect> frameVector, float frameDelay);
+	void addBackgroundElement(sf::Vector2f position, float parallaxSpeed, string texturePath, vector<sf::IntRect> frameVector, float frameDelay, bool holdFlush = false, float holdVert = 0.0f);
 	void setBackgroundFillColor(unsigned int color);
 	void Update(float tf);
 	int getLevelSize();
