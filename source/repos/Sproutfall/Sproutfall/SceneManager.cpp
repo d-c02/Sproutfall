@@ -84,10 +84,10 @@ void SceneManager::loadScene(int scene)
 void SceneManager::Update(float tf)
 {
 
-		if (m_Player->getPosition().y >= (m_Scene->getLevelSize()))
-		{
-			loadScene(m_CurrentScene + 1);
-		}
+	if (m_Player->getPosition().y >= (m_Scene->getLevelSize()))
+	{
+		loadScene(m_CurrentScene + 1);
+	}
 
 	if (m_Player->getStatus())
 	{
@@ -139,20 +139,20 @@ void SceneManager::Update(float tf)
 
 void SceneManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-			sf::Vector2f playerPos;
-		if (m_Player->getPosition().y < (m_Scene->getLevelSize()) - (m_viewSizeY / 2))
-		{
-			playerPos = m_Player->getPosition();
-		}
-		else
-		{
-			playerPos = sf::Vector2f(m_viewSizeX / 2, (m_Scene->getLevelSize()) - (m_viewSizeY / 2));
-		}
+	sf::Vector2f playerPos;
+	if (m_Player->getPosition().y < (m_Scene->getLevelSize()) - (m_viewSizeY / 2))
+	{
+		playerPos = m_Player->getPosition();
+	}
+	else
+	{
+		playerPos = sf::Vector2f(m_viewSizeX / 2, (m_Scene->getLevelSize()) - (m_viewSizeY / 2));
+	}
 
-		m_View->setCenter(m_viewSizeX / 2 + m_ScreenShakeOffset.x, playerPos.y + m_ScreenShakeOffset.y);
-		m_UpperBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, playerPos.y - (m_View->getSize().y / 2) - m_ScreenShakeSizeY);
-		m_LeftBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, playerPos.y - (m_View->getSize().y / 2) - m_ScreenShakeSizeY);
-		m_LowerBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, playerPos.y + (m_View->getSize().y / 2) - m_LowerBorder->getSize().y + m_ScreenShakeSizeY);
+	m_View->setCenter(m_viewSizeX / 2 + m_ScreenShakeOffset.x, playerPos.y + m_ScreenShakeOffset.y);
+	m_UpperBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, playerPos.y - (m_View->getSize().y / 2) - m_ScreenShakeSizeY);
+	m_LeftBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, playerPos.y - (m_View->getSize().y / 2) - m_ScreenShakeSizeY);
+	m_LowerBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, playerPos.y + (m_View->getSize().y / 2) - m_LowerBorder->getSize().y + m_ScreenShakeSizeY);
 		m_RightBorder->setPosition((m_viewSizeX / 2) + (m_View->getSize().x / 2) - m_RightBorder->getSize().x + m_ScreenShakeSizeX, playerPos.y - (m_View->getSize().y / 2));
 	if (m_Player->getPosition().y < (m_Scene->getLevelSize() * m_viewSizeY) - (m_viewSizeY / 2))
 	{

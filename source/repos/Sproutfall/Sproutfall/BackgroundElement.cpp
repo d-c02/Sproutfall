@@ -22,6 +22,8 @@ void BackgroundElement::Update(float tf)
 {
 	if (m_holdFlush && m_Player->getPosition().y - 480 > m_Sprite->getPosition().y - m_holdVert)
 	{
+		
+		m_Sprite->setPosition(m_Sprite->getPosition().x, m_Player->getPosition().y - 480 + m_holdVert);
 		m_Sprite->move(0, m_Player->getVelocity().y * tf);
 	}
 	else

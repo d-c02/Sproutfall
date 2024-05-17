@@ -21,11 +21,15 @@ int Game()
     m_Fullscreen = false;
     sf::RenderWindow window(sf::VideoMode(1280, 960), "Sproutfall");
     SceneManager sceneManager(window.getSize().x, window.getSize().y, &window);
+    
+    //TODO: Fix set framerate stuttering
     //window.setFramerateLimit(30);
     //window.setVerticalSyncEnabled(true);
+
     sceneManager.loadScene(Space);
     sf::Clock clock;
     float fpsTime = 0;
+    float accumulator = 0;
     int fpsCtr = 0;
     while (window.isOpen())
     {
@@ -62,9 +66,16 @@ int Game()
         float tf = clock.getElapsedTime().asSeconds();
         clock.restart();
 
-        if (tf > 0.15)
-            tf = 0.15;
-        sceneManager.Update(tf);
+        //if (tf > 1.0 / 60.0)
+        //   tf = 1.0 / 60.0;
+        accumulator += tf;
+
+        while (accumulator > 1.0 / 60)
+        {
+            sceneManager.Update(tf);
+            accumulator -= tf;
+        }
+
 
         fpsTime += tf;
         fpsCtr++;

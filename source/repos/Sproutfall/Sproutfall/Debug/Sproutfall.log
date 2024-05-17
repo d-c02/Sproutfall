@@ -1,4 +1,11 @@
-﻿  SceneManager.cpp
+﻿  BackgroundElement.cpp
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Bullet.h(27,26): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.h(19,19): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.h(61,36): warning C4305: 'initializing': truncation from 'double' to 'const float'
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BackgroundElement.h(7,38): warning C4584: 'BackgroundElement': base-class 'sf::Drawable' is already a base-class of 'BackgroundLayer'
+C:\SFML-2.5.1\include\SFML\Graphics\RenderTarget.hpp(45,7): message : see declaration of 'sf::Drawable'
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BackgroundLayer.h(4,7): message : see declaration of 'BackgroundLayer'
+  SceneManager.cpp
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Bullet.h(27,26): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.h(19,19): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.h(61,36): warning C4305: 'initializing': truncation from 'double' to 'const float'
@@ -27,4 +34,5 @@ C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(231,26): warn
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(239,57): warning C4305: 'argument': truncation from 'double' to 'float'
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(242,26): warning C4305: 'argument': truncation from 'double' to 'float'
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(247,55): warning C4305: 'argument': truncation from 'double' to 'float'
+  Generating Code...
   Sproutfall.vcxproj -> C:\Users\djcas\source\repos\Sproutfall\Debug\Sproutfall.exe

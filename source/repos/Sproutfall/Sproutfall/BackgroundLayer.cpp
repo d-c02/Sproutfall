@@ -44,16 +44,15 @@ void BackgroundLayer::Update(float tf)
 		if (top < spritePosY)
 		{
 			spritePosY -= textureSize;
+
 		}
 		if (bottom > spritePosY + m_ViewSizeY)
 		{
 			spritePosY += textureSize;
 		}
-
-	m_Sprite->setPosition(0, spritePosY);
-	m_Upper->setPosition(0, spritePosY - textureSize);
-	m_Lower->setPosition(0, spritePosY + textureSize);
-
+		m_Sprite->setPosition(0, spritePosY);
+		m_Upper->setPosition(0, spritePosY - textureSize);
+		m_Lower->setPosition(0, spritePosY + textureSize);
 	}
 
 	m_Sprite->move(0, -m_Player->getVelocity().y * tf * m_ParallaxSpeed * m_Parallax);
