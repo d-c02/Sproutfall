@@ -125,3 +125,7 @@ void BackgroundLayer::setParallax(bool parallax)
 		m_Parallax = 0;
 	}
 }
+
+void BackgroundLayer::Update(float tf)
+{
+}

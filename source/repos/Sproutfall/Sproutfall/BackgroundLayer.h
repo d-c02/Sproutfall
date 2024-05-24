@@ -10,6 +10,7 @@ public:
 	virtual void UpdatePosition(float ypos);
 	void setScale(float x, float y);
 	void setParallax(bool parallax);
+	virtual void Update(float tf);
 protected:
 	float m_StartPosition = 0;
 	float m_EndPosition = 0;

@@ -13,11 +13,14 @@ BackgroundElement::BackgroundElement(sf::Vector2f position, float endPosition, s
 	m_Sprite->setTexture(*m_Texture);
 	m_AnimationManager = make_unique<AnimationManager>(m_Sprite.get());
 	m_AnimationManager->addState(0, frameVector, true, frameDelay);
+
 	m_StartPosition = position;
 	m_EndPositionY = endPosition;
 	m_levelSize = levelSize;
 	m_verticalOffset = verticalOffset;
 }
+
+
 
 void BackgroundElement::UpdatePosition(float pos)
 {
@@ -52,5 +55,10 @@ void BackgroundElement::setScale(float x, float y)
 void BackgroundElement::setPosition(float x, float y)
 {
 	m_Sprite->setPosition(x, y);
+}
+
+void BackgroundElement::Update(float tf)
+{
+	m_AnimationManager->Update(tf);
 }
 

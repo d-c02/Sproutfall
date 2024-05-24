@@ -11,6 +11,7 @@ public:
 	void UpdatePosition(float pos) override;
 	void setScale(float x, float y);
 	void setPosition(float x, float y);
+	void Update(float tf) override;
 
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;

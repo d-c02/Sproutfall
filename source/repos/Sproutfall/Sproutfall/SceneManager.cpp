@@ -93,6 +93,7 @@ void SceneManager::Update(float tf)
 	{
 		m_Player->Update(tf);
 		m_EnemyManager->Update(tf);
+		m_Scene->Update(tf);
 	}
 	else if (m_smokeAnimationManager->isPlaying())
 	{
@@ -194,15 +195,44 @@ void SceneManager::loadSpace()
 
 	m_Scene->addBackground(0.0, 8720, "Textures/space/space_stars_big.png", 9120);
 
-	m_Scene->addBackground(0.0, 8520, "Textures/space/space_background_objects.png", 9120);
+	//m_Scene->addBackground(0.0, 8520, "Textures/space/space_background_objects.png", 9120);
+
+	
 
 	vector<sf::IntRect> frameVector;
 
-	frameVector.push_back(sf::IntRect(0, 0, 640, 252));
-	m_Scene->addBackgroundElement(sf::Vector2f(0, 2000), 96000, "Textures/space/earth2.png", frameVector, 1.0f, 96000, 100);
+	frameVector.push_back(sf::IntRect(0, 0, 65, 41));
+	m_Scene->addBackgroundElement(sf::Vector2f(860, 0), 8620, "Textures/space/space_saturn.png", frameVector, 1.0f, 9120, -250);
 	frameVector.clear();
 
-	//m_Scene->addBackground(-0.97, "Textures/space/earth.png", -1, false);
+	frameVector.push_back(sf::IntRect(0, 0, 28, 26));
+	m_Scene->addBackgroundElement(sf::Vector2f(250, 0), 8620, "Textures/space/space_pluto.png", frameVector, 1.0f, 9120, 100);
+	frameVector.clear();
+
+	frameVector.push_back(sf::IntRect(0, 0, 54, 48));
+	m_Scene->addBackgroundElement(sf::Vector2f(550, 0), 8620, "Textures/space/space_moon.png", frameVector, 1.0f, 9120, 400);
+	frameVector.clear();
+
+	frameVector.push_back(sf::IntRect(0, 0, 46, 27));
+	m_Scene->addBackgroundElement(sf::Vector2f(1050, 0), 8620, "Textures/space/space_satellite.png", frameVector, 1.0f, 9120, 350);
+	frameVector.clear();
+
+
+	for (int i = 0; i < 6; i++)
+	{
+		frameVector.push_back(sf::IntRect(i * 120, 0, 120, 120));
+	}
+
+	for (int i = 0; i < 20; i++)
+	{
+		frameVector.push_back(sf::IntRect(0, 0, 0, 0));
+	}
+	m_Scene->addBackgroundElement(sf::Vector2f(105, 0), 8620, "Textures/space/space_meteor.png", frameVector, 0.2f, 9120, 450);
+	frameVector.clear();
+
+	frameVector.push_back(sf::IntRect(0, 0, 640, 252));
+	m_Scene->addBackgroundElement(sf::Vector2f(0, 4000), 50000, "Textures/space/earth2.png", frameVector, 1.0f, 50000, 360);
+	frameVector.clear();
 
 	m_Scene->setBackgroundFillColor(0x655057ff);
 

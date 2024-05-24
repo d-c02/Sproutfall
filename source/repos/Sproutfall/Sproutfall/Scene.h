@@ -15,6 +15,7 @@ public:
 	int getLevelSize();
 	void setParallax(bool parallax);
 	bool getParallax();
+	void Update(float tf);
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	vector<std::unique_ptr<BackgroundLayer>> m_Backgrounds;

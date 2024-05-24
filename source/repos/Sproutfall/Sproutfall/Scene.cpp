@@ -66,3 +66,11 @@ bool Scene::getParallax()
 {
 	return m_Parallax;
 }
+
+void Scene::Update(float tf)
+{
+	for (int i = 0; i < m_Backgrounds.size(); i++)
+	{
+		m_Backgrounds[i]->Update(tf);
+	}
+}
