@@ -91,8 +91,6 @@ void SceneManager::Update(float tf)
 
 	if (m_Player->getStatus())
 	{
-		if (m_Player->getPosition().y < (m_Scene->getLevelSize()) - (m_viewSizeY / 2))
-			m_Scene->Update(tf);
 		m_Player->Update(tf);
 		m_EnemyManager->Update(tf);
 	}
@@ -139,6 +137,7 @@ void SceneManager::Update(float tf)
 
 void SceneManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+
 	sf::Vector2f playerPos;
 	if (m_Player->getPosition().y < (m_Scene->getLevelSize()) - (m_viewSizeY / 2))
 	{
@@ -154,6 +153,7 @@ void SceneManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	m_LeftBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, playerPos.y - (m_View->getSize().y / 2) - m_ScreenShakeSizeY);
 	m_LowerBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, playerPos.y + (m_View->getSize().y / 2) - m_LowerBorder->getSize().y + m_ScreenShakeSizeY);
 		m_RightBorder->setPosition((m_viewSizeX / 2) + (m_View->getSize().x / 2) - m_RightBorder->getSize().x + m_ScreenShakeSizeX, playerPos.y - (m_View->getSize().y / 2));
+		m_Scene->UpdateBackgroundPositions(playerPos.y);
 	if (m_Player->getPosition().y < (m_Scene->getLevelSize() * m_viewSizeY) - (m_viewSizeY / 2))
 	{
 		if (!m_Scene->getParallax())
@@ -172,10 +172,10 @@ void SceneManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 		target.draw(*m_playerSmoke);
 	}
-	target.draw(*m_UpperBorder.get());
-	target.draw(*m_LowerBorder.get());
-	target.draw(*m_RightBorder.get());
-	target.draw(*m_LeftBorder.get());
+	//target.draw(*m_UpperBorder.get());
+	//target.draw(*m_LowerBorder.get());
+	//target.draw(*m_RightBorder.get());
+	//target.draw(*m_LeftBorder.get());
 }
 
 void SceneManager::loadTitle()
@@ -188,19 +188,19 @@ void SceneManager::loadSpace()
 	m_CurrentScene = Space;
 	m_Scene.reset();
 	m_EnemyManager->Clear();
-	m_Scene = make_unique<Scene>(m_Player.get(), m_viewSizeX, m_viewSizeY, 10 * 960);
+	m_Scene = make_unique<Scene>(m_Player.get(), m_viewSizeX, m_viewSizeY, 9600);
 
-	m_Scene->addBackground(-0.999, "Textures/space/space_stars_small.png");
+	m_Scene->addBackground(0.0, 9400, "Textures/space/space_stars_small.png", 9600);
 
-	m_Scene->addBackground(-0.99, "Textures/space/space_stars_big.png");
+	m_Scene->addBackground(0.0, 9200, "Textures/space/space_stars_big.png", 9600);
 
-	m_Scene->addBackground(-0.98, "Textures/space/space_background_objects.png");
+	m_Scene->addBackground(0.0, 9000, "Textures/space/space_background_objects.png", 9600);
 
-	vector<sf::IntRect> frameVector;
+	//vector<sf::IntRect> frameVector;
 
-	frameVector.push_back(sf::IntRect(0, 0, 640, 252));
-	m_Scene->addBackgroundElement(sf::Vector2f(0, 490), -0.97, "Textures/space/earth2.png", frameVector, 1.0f, true, 252 * 2);
-	frameVector.clear();
+	//frameVector.push_back(sf::IntRect(0, 0, 640, 252));
+	//m_Scene->addBackgroundElement(sf::Vector2f(0, 490), -0.97, "Textures/space/earth2.png", frameVector, 1.0f, true, 252 * 2);
+	//frameVector.clear();
 
 	//m_Scene->addBackground(-0.97, "Textures/space/earth.png", -1, false);
 
@@ -228,7 +228,7 @@ void SceneManager::loadSky()
 
 	//m_Scene->addBackground(-0.999, "Textures/space_stars_small.png");
 
-	m_Scene->addBackground(-0.98, "Textures/sky/sky_backgound_sky.png", -1, false);
+	//m_Scene->addBackground(-0.98, "Textures/sky/sky_backgound_sky.png", -1, false);
 
 	//Bird animation config
 	vector<sf::IntRect> frameVector;
@@ -236,15 +236,15 @@ void SceneManager::loadSky()
 	{
 		frameVector.push_back(sf::IntRect(i * 46, 0, 46, 32));
 	}
-	m_Scene->addBackgroundElement(sf::Vector2f(100, 400), -0.985, "Textures/sky/birds_46.png", frameVector, 0.25f);
+	//m_Scene->addBackgroundElement(sf::Vector2f(100, 400), -0.985, "Textures/sky/birds_46.png", frameVector, 0.25f);
 	frameVector.clear();
 
-	m_Scene->addBackground(-0.99, "Textures/sky/sky_backgound_cloud.png");
+	//m_Scene->addBackground(-0.99, "Textures/sky/sky_backgound_cloud.png");
 
 	//m_Scene->addBackground(-0.98, "Textures/sky/sky_backgound_ground.png", -1, false);
 
 	frameVector.push_back(sf::IntRect(0, 0, 640, 480));
-	m_Scene->addBackgroundElement(sf::Vector2f(0, 300), -0.97, "Textures/sky/sky_backgound_trees.png", frameVector, 1.0f, true, 19200.0f - 480.0f);
+	//m_Scene->addBackgroundElement(sf::Vector2f(0, 300), -0.97, "Textures/sky/sky_backgound_trees.png", frameVector, 1.0f, true, 19200.0f - 480.0f);
 	frameVector.clear();
 
 	//m_EnemyManager->generateEnemies(b_Bird, m_viewSizeY / 5, m_viewSizeY / 5, 19);

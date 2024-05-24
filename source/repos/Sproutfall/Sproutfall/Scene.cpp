@@ -12,26 +12,16 @@ Scene::~Scene()
 
 }
 
-void Scene::addBackground(float parallaxSpeed, string texturePath, int screenNumber, bool drawOthers, float verticalOffset)
+void Scene::addBackground(float StartPos, float EndPos, string texturePath, float levelSize, bool drawOthers)
 {
-	if (screenNumber < 0)
-	{
-		m_Backgrounds.push_back(make_unique<BackgroundLayer>(m_Player, parallaxSpeed, m_viewSizeX, m_viewSizeY, texturePath, drawOthers, verticalOffset));
-		m_Backgrounds[m_Backgrounds.size() - 1]->setScale(2, 2);
-	}
-	else
-	{
-		m_BackgroundSprites.push_back(make_unique<sf::Sprite>());
-		m_BackgroundTextures.push_back(make_unique<sf::Texture>());
-		m_BackgroundSprites[m_BackgroundSprites.size() - 1]->setTexture(*m_BackgroundTextures[m_BackgroundTextures.size() - 1]);
-		m_BackgroundSprites[m_BackgroundSprites.size() - 1]->setScale(2, 2);
-		m_BackgroundSprites[m_BackgroundSprites.size() - 1]->setPosition(0, m_viewSizeY * screenNumber);
-	}
+	m_Backgrounds.push_back(make_unique<BackgroundLayer>(StartPos, EndPos, m_viewSizeX, m_viewSizeY, texturePath, levelSize, drawOthers));
+	m_Backgrounds[m_Backgrounds.size() - 1]->setScale(2, 2);
+
 }
 
-void Scene::addBackgroundElement(sf::Vector2f position, float parallaxSpeed, string texturePath, vector<sf::IntRect> frameVector, float frameDelay, bool holdFlush, float holdVert)
+void Scene::addBackgroundElement(sf::Vector2f position, float endPosition, string texturePath, vector<sf::IntRect> frameVector, float frameDelay)
 {
-	m_Backgrounds.push_back(make_unique<BackgroundElement>(m_Player, position, parallaxSpeed, texturePath, frameVector, frameDelay, holdFlush, holdVert));
+	m_Backgrounds.push_back(make_unique<BackgroundElement>(position, endPosition, texturePath, frameVector, frameDelay));
 }
 
 void Scene::setBackgroundFillColor(unsigned int color)
@@ -39,11 +29,11 @@ void Scene::setBackgroundFillColor(unsigned int color)
 	m_BackgroundFillColor = color;
 }
 
-void Scene::Update(float tf)
+void Scene::UpdateBackgroundPositions(float playerPos)
 {
 	for (int i = 0; i < m_Backgrounds.size(); i++)
 	{
-		m_Backgrounds[i]->Update(tf);
+		m_Backgrounds[i]->UpdatePosition(playerPos);
 	}
 }
 

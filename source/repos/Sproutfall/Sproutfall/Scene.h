@@ -8,10 +8,10 @@ class Scene : public sf::Drawable
 public:
 	Scene(Player* player, float viewSizeX, float viewSizeY, int levelSize = 0);
 	~Scene();
-	void addBackground(float parallaxSpeed, string texturePath, int m_screenNumber = -1, bool drawOthers = true, float verticalOffset = 0);
-	void addBackgroundElement(sf::Vector2f position, float parallaxSpeed, string texturePath, vector<sf::IntRect> frameVector, float frameDelay, bool holdFlush = false, float holdVert = 0.0f);
+	void addBackground(float StartPos, float EndPos, string texturePath, float levelSize, bool drawOthers = true);
+	void addBackgroundElement(sf::Vector2f position, float endPosition, string texturePath, vector<sf::IntRect> frameVector, float frameDelay);
 	void setBackgroundFillColor(unsigned int color);
-	void Update(float tf);
+	void UpdateBackgroundPositions(float playerPos);
 	int getLevelSize();
 	void setParallax(bool parallax);
 	bool getParallax();
