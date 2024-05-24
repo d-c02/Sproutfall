@@ -172,10 +172,10 @@ void SceneManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 		target.draw(*m_playerSmoke);
 	}
-	//target.draw(*m_UpperBorder.get());
-	//target.draw(*m_LowerBorder.get());
-	//target.draw(*m_RightBorder.get());
-	//target.draw(*m_LeftBorder.get());
+	target.draw(*m_UpperBorder.get());
+	target.draw(*m_LowerBorder.get());
+	target.draw(*m_RightBorder.get());
+	target.draw(*m_LeftBorder.get());
 }
 
 void SceneManager::loadTitle()
@@ -190,17 +190,17 @@ void SceneManager::loadSpace()
 	m_EnemyManager->Clear();
 	m_Scene = make_unique<Scene>(m_Player.get(), m_viewSizeX, m_viewSizeY, 9600);
 
-	m_Scene->addBackground(0.0, 9400, "Textures/space/space_stars_small.png", 9600);
+	m_Scene->addBackground(0.0, 8920, "Textures/space/space_stars_small.png", 9120);
 
-	m_Scene->addBackground(0.0, 9200, "Textures/space/space_stars_big.png", 9600);
+	m_Scene->addBackground(0.0, 8720, "Textures/space/space_stars_big.png", 9120);
 
-	m_Scene->addBackground(0.0, 9000, "Textures/space/space_background_objects.png", 9600);
+	m_Scene->addBackground(0.0, 8520, "Textures/space/space_background_objects.png", 9120);
 
-	//vector<sf::IntRect> frameVector;
+	vector<sf::IntRect> frameVector;
 
-	//frameVector.push_back(sf::IntRect(0, 0, 640, 252));
-	//m_Scene->addBackgroundElement(sf::Vector2f(0, 490), -0.97, "Textures/space/earth2.png", frameVector, 1.0f, true, 252 * 2);
-	//frameVector.clear();
+	frameVector.push_back(sf::IntRect(0, 0, 640, 252));
+	m_Scene->addBackgroundElement(sf::Vector2f(0, 2000), 96000, "Textures/space/earth2.png", frameVector, 1.0f, 96000, 100);
+	frameVector.clear();
 
 	//m_Scene->addBackground(-0.97, "Textures/space/earth.png", -1, false);
 

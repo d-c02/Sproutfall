@@ -9,7 +9,7 @@ public:
 	Scene(Player* player, float viewSizeX, float viewSizeY, int levelSize = 0);
 	~Scene();
 	void addBackground(float StartPos, float EndPos, string texturePath, float levelSize, bool drawOthers = true);
-	void addBackgroundElement(sf::Vector2f position, float endPosition, string texturePath, vector<sf::IntRect> frameVector, float frameDelay);
+	void addBackgroundElement(sf::Vector2f position, float endPosition, string texturePath, vector<sf::IntRect> frameVector, float frameDelay, float levelSize, float verticalOffset);
 	void setBackgroundFillColor(unsigned int color);
 	void UpdateBackgroundPositions(float playerPos);
 	int getLevelSize();

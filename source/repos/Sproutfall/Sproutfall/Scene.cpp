@@ -19,9 +19,9 @@ void Scene::addBackground(float StartPos, float EndPos, string texturePath, floa
 
 }
 
-void Scene::addBackgroundElement(sf::Vector2f position, float endPosition, string texturePath, vector<sf::IntRect> frameVector, float frameDelay)
+void Scene::addBackgroundElement(sf::Vector2f position, float endPosition, string texturePath, vector<sf::IntRect> frameVector, float frameDelay, float levelSize, float verticalOffset)
 {
-	m_Backgrounds.push_back(make_unique<BackgroundElement>(position, endPosition, texturePath, frameVector, frameDelay));
+	m_Backgrounds.push_back(make_unique<BackgroundElement>(position, endPosition, texturePath, frameVector, frameDelay, levelSize, verticalOffset));
 }
 
 void Scene::setBackgroundFillColor(unsigned int color)

@@ -1,6 +1,6 @@
 #include "BackgroundElement.h"
 
-BackgroundElement::BackgroundElement(sf::Vector2f position, float endPosition, string texturePath, vector<sf::IntRect> frameVector, float frameDelay)
+BackgroundElement::BackgroundElement(sf::Vector2f position, float endPosition, string texturePath, vector<sf::IntRect> frameVector, float frameDelay, float levelSize, float verticalOffset)
 {
 	m_Sprite = make_unique<sf::Sprite>();
 	m_Texture = make_unique<sf::Texture>();
@@ -15,9 +15,11 @@ BackgroundElement::BackgroundElement(sf::Vector2f position, float endPosition, s
 	m_AnimationManager->addState(0, frameVector, true, frameDelay);
 	m_StartPosition = position;
 	m_EndPositionY = endPosition;
+	m_levelSize = levelSize;
+	m_verticalOffset = verticalOffset;
 }
 
-void BackgroundElement::UpdatePosition(float tf)
+void BackgroundElement::UpdatePosition(float pos)
 {
 	//if (m_holdFlush && m_Player->getPosition().y - 480 > m_Sprite->getPosition().y - m_holdVert)
 	//{
@@ -30,6 +32,11 @@ void BackgroundElement::UpdatePosition(float tf)
 	//	m_Sprite->move(0, -m_Player->getVelocity().y * tf * m_ParallaxSpeed);
 	//}
 	//m_AnimationManager->Update(tf);
+
+	float t = (pos - m_StartPosition.y) / (m_levelSize);
+	float newPos = ((m_StartPosition.y) * (1 - t)) + (m_EndPositionY * t);
+	m_Sprite->setPosition(m_StartPosition.x, newPos + m_verticalOffset);
+
 }
 
 void BackgroundElement::draw(sf::RenderTarget& target, sf::RenderStates states) const

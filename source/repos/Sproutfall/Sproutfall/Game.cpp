@@ -23,7 +23,7 @@ int Game()
     SceneManager sceneManager(window.getSize().x, window.getSize().y, &window);
     
     //TODO: Fix set framerate stuttering
-    window.setFramerateLimit(60);
+    //window.setFramerateLimit();
     //window.setVerticalSyncEnabled(true);
 
     sceneManager.loadScene(Space);
