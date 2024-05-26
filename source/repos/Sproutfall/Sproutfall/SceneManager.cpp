@@ -236,9 +236,9 @@ void SceneManager::loadSpace()
 
 	m_Scene->setBackgroundFillColor(0x655057ff);
 
-	//m_EnemyManager->generateEnemies(b_Squid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
+	m_EnemyManager->generateEnemies(b_Squid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
 
-	//m_EnemyManager->generateEnemies(b_Asteroid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
+	m_EnemyManager->generateEnemies(b_Asteroid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
 
 	m_Player->setPosition(640, 200);
 	m_Player->SetShellColor(sf::Color(0xf6edcdff));
@@ -256,25 +256,42 @@ void SceneManager::loadSky()
 	
 	m_Scene = make_unique<Scene>(m_Player.get(), m_viewSizeX, m_viewSizeY, 20 * 960); //19200
 
-	//m_Scene->addBackground(-0.999, "Textures/space_stars_small.png");
+	vector<sf::IntRect> frameVector;
 
-	//m_Scene->addBackground(-0.98, "Textures/sky/sky_backgound_sky.png", -1, false);
+	frameVector.push_back(sf::IntRect(0, 0, 640, 600));
+	m_Scene->addBackgroundElement(sf::Vector2f(0, 0), 18600, "Textures/sky/sky_backgound_sky.png", frameVector, 1.0f, 19200, 0);
+	frameVector.clear();
+
+	m_Scene->addBackground(0.0, 18400, "Textures/sky/sky_backgound_cloud_small.png", 19200);
+
+	frameVector.push_back(sf::IntRect(144, 24, 6, 14));
+	m_Scene->addBackgroundElement(sf::Vector2f(300, 0), 18300, "Textures/sky/objects_58.png", frameVector, 0.25f, 19200, 900);
+	frameVector.clear();
+
+	frameVector.push_back(sf::IntRect(16, 11, 26, 42));
+	m_Scene->addBackgroundElement(sf::Vector2f(550, 0), 18300, "Textures/sky/objects_58.png", frameVector, 0.25f, 19200, 500);
+	frameVector.clear();
+
+	frameVector.push_back(sf::IntRect(72, 25, 37, 17));
+	m_Scene->addBackgroundElement(sf::Vector2f(1100, 0), 18250, "Textures/sky/objects_58.png", frameVector, 0.25f, 19200, 1000);
+	frameVector.clear();
+
+	m_Scene->addBackground(0.0, 18200, "Textures/sky/sky_backgound_cloud_mid.png", 19200);
 
 	//Bird animation config
-	vector<sf::IntRect> frameVector;
 	for (int i = 0; i < 8; i++)
 	{
 		frameVector.push_back(sf::IntRect(i * 46, 0, 46, 32));
 	}
-	//m_Scene->addBackgroundElement(sf::Vector2f(100, 400), -0.985, "Textures/sky/birds_46.png", frameVector, 0.25f);
+
+	m_Scene->addBackgroundElement(sf::Vector2f(100, 0), 18000, "Textures/sky/birds_46.png", frameVector, 0.25f, 19200, 1100);
 	frameVector.clear();
 
-	//m_Scene->addBackground(-0.99, "Textures/sky/sky_backgound_cloud.png");
-
-	//m_Scene->addBackground(-0.98, "Textures/sky/sky_backgound_ground.png", -1, false);
+	m_Scene->addBackground(0.0, 17200, "Textures/sky/sky_backgound_cloud.png", 19200);
 
 	frameVector.push_back(sf::IntRect(0, 0, 640, 480));
 	//m_Scene->addBackgroundElement(sf::Vector2f(0, 300), -0.97, "Textures/sky/sky_backgound_trees.png", frameVector, 1.0f, true, 19200.0f - 480.0f);
+	m_Scene->addBackgroundElement(sf::Vector2f(0, 0), 16800, "Textures/sky/sky_backgound_trees.png", frameVector, 1.0f, 19200, 1860);
 	frameVector.clear();
 
 	//m_EnemyManager->generateEnemies(b_Bird, m_viewSizeY / 5, m_viewSizeY / 5, 19);

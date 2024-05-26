@@ -23,10 +23,10 @@ int Game()
     SceneManager sceneManager(window.getSize().x, window.getSize().y, &window);
     
     //TODO: Fix set framerate stuttering
-    //window.setFramerateLimit();
+    //window.setFramerateLimit(30);
     //window.setVerticalSyncEnabled(true);
 
-    sceneManager.loadScene(Space);
+    sceneManager.loadScene(Sky);
     sf::Clock clock;
     float fpsTime = 0;
     float accumulator = 0;
