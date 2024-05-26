@@ -16,7 +16,7 @@ private:
 	void loadTitle();
 	void loadSpace();
 	void loadSky();
-	void loadGround();
+	void loadForest();
 	void loadWin();
 	void borderView(int width, int height);
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
@@ -29,7 +29,7 @@ private:
 	std::unique_ptr<sf::View> m_View;
 	std::unique_ptr<EnemyManager> m_EnemyManager;
 	enum Behaviors { b_Asteroid, b_Squid, b_Cloud, b_Bird, b_Branch, b_Bug };
-	enum Scenes {TitleScreen, Space, Sky, Ground, Win};
+	enum Scenes {TitleScreen, Space, Sky, Forest, Win};
 	int m_CurrentScene = 0;
 	const float m_viewSizeX = 1280;
 	const float m_viewSizeY = 960;

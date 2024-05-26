@@ -6,7 +6,7 @@
 #include <random>
 #include <ctime>
 
-enum Scenes{TitleScreen, Space, Sky, Ground, Win};
+enum Scenes{TitleScreen, Space, Sky, Forest, Win};
 bool m_Fullscreen;
 int Game();
 int main()
@@ -26,7 +26,7 @@ int Game()
     //window.setFramerateLimit(30);
     //window.setVerticalSyncEnabled(true);
 
-    sceneManager.loadScene(Sky);
+    sceneManager.loadScene(Forest);
     sf::Clock clock;
     float fpsTime = 0;
     float accumulator = 0;

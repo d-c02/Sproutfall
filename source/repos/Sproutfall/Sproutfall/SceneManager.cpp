@@ -71,9 +71,9 @@ void SceneManager::loadScene(int scene)
 	{
 		loadSky();
 	}
-	else if (scene == Ground)
+	else if (scene == Forest)
 	{
-		loadGround();
+		loadForest();
 	}
 	else if (scene == Win)
 	{
@@ -294,21 +294,55 @@ void SceneManager::loadSky()
 	m_Scene->addBackgroundElement(sf::Vector2f(0, 0), 16800, "Textures/sky/sky_backgound_trees.png", frameVector, 1.0f, 19200, 1860);
 	frameVector.clear();
 
-	//m_EnemyManager->generateEnemies(b_Bird, m_viewSizeY / 5, m_viewSizeY / 5, 19);
+	m_EnemyManager->generateEnemies(b_Bird, m_viewSizeY / 5, m_viewSizeY / 5, 19);
 
-	//m_EnemyManager->generateEnemies(b_Cloud, m_viewSizeY / 10, m_viewSizeY / 10, 19);
+	m_EnemyManager->generateEnemies(b_Cloud, m_viewSizeY / 10, m_viewSizeY / 10, 19);
 
 	m_Scene->setBackgroundFillColor(0x655057ff);
 	//m_Scene.reset();
 	m_Player->setPosition(640, 200);
-	m_Player->SetFallingParams(500, 200);
+	m_Player->SetFallingParams(500, 300);
 
 	m_Player->SetOutlineColor(sf::Glsl::Vec4(0.396078431372549f, 0.3137254901960784f, 0.3411764705882353f, 1.0f));
 }
 
-void SceneManager::loadGround()
+void SceneManager::loadForest()
 {
-	m_CurrentScene = Ground;
+	m_CurrentScene = Forest;
+	m_Scene.reset();
+	m_EnemyManager->Clear();
+
+	m_Scene = make_unique<Scene>(m_Player.get(), m_viewSizeX, m_viewSizeY, 30 * 960); //28800
+	vector<sf::IntRect> frameVector;
+
+	float fogOffset = 1000;
+
+	m_Scene->addBackground(0.0, 28340, "Textures/forest/forest_level_1.png", 28800);
+
+	m_Scene->addBackground(0.0, 28140, "Textures/forest/forest_level_2.png", 28800);
+
+	frameVector.push_back(sf::IntRect(0, 0, 640, 480));
+	m_Scene->addBackgroundElement(sf::Vector2f(0, 0), 28800, "Textures/forest/forest_level_3.png", frameVector, 0.25f, 28800, -480);
+	frameVector.clear();
+
+	m_Scene->addBackground(0.0, 27940, "Textures/forest/forest_level_4.png", 28800);
+
+	frameVector.push_back(sf::IntRect(0, 0, 640, 480));
+	m_Scene->addBackgroundElement(sf::Vector2f(0, 0), 28800, "Textures/forest/forest_level_5.png", frameVector, 0.25f, 28800, -480);
+	frameVector.clear();
+
+	m_Scene->addBackground(0.0, 27740, "Textures/forest/forest_level_6.png", 28800);
+
+	frameVector.push_back(sf::IntRect(0, 0, 640, 480));
+	m_Scene->addBackgroundElement(sf::Vector2f(0, 0), 28800, "Textures/forest/forest_level_7.png", frameVector, 0.25f, 28800, -480);
+	frameVector.clear();
+
+	m_Scene->setBackgroundFillColor(0x655057ff);
+	m_Player->setPosition(640, 200);
+	m_Player->SetFallingParams(500, 200);
+
+	m_Player->SetOutlineColor(sf::Glsl::Vec4(0.396078431372549f, 0.3137254901960784f, 0.3411764705882353f, 1.0f));
+
 }
 
 void SceneManager::loadWin()

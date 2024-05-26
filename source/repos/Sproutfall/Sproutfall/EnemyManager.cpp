@@ -88,14 +88,17 @@ void EnemyManager::AddEnemy(int type, sf::Vector2f position)
 	}
 	else if (type == b_Branch)
 	{
-
+		m_Enemies[m_Enemies.size() - 1]->setPosition(position);
 	}
 	else if (type == b_Bug)
 	{
 
 	}
 
-	m_Enemies[m_Enemies.size() - 1]->setPosition(position);
+	if (type != b_Branch)
+	{
+		m_Enemies[m_Enemies.size() - 1]->setPosition(position);
+	}
 }
 
 void EnemyManager::generateEnemies(int type, float minYDistance, float maxYDistance, int numScreens)
