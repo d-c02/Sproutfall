@@ -26,7 +26,7 @@ private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	std::vector<std::unique_ptr<sf::Texture>> m_EnemyTextures;
 	std::vector<std::unique_ptr<Enemy>> m_Enemies;
-	enum Behaviors {b_Asteroid, b_Squid, b_Cloud, b_Bird, b_Branch, b_Bug};
+	enum Behaviors {b_Asteroid, b_Squid, b_Cloud, b_Bird, b_Branch, b_Bug, b_Pinecone, b_Squirrel};
 	int m_numEnemies = 4;
 	Player* m_Player;
 	std::vector<std::unique_ptr<sf::Sprite>> m_SmokeSprites;

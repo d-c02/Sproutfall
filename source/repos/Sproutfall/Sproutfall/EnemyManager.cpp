@@ -94,8 +94,16 @@ void EnemyManager::AddEnemy(int type, sf::Vector2f position)
 	{
 
 	}
+	else if (type == b_Pinecone)
+	{
 
-	if (type != b_Branch)
+	}
+	else if (type == b_Squirrel)
+	{
+
+	}
+
+	if (type != b_Branch && type != b_Pinecone && type != b_Squirrel)
 	{
 		m_Enemies[m_Enemies.size() - 1]->setPosition(position);
 	}

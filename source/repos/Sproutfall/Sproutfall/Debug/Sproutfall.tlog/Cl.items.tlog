@@ -1,3 +1,4 @@
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Pinecone.cpp;C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Debug\Pinecone.obj
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Animation.cpp;C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Debug\Animation.obj
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\AnimationManager.cpp;C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Debug\AnimationManager.obj
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Asteroid.cpp;C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Debug\Asteroid.obj
@@ -11,6 +12,7 @@ C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Enemy.cpp;C:\Users\djcas\sourc
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\EnemyManager.cpp;C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Debug\EnemyManager.obj
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Entity.cpp;C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Debug\Entity.obj
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Game.cpp;C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Debug\Game.obj
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\PineconeBullet.cpp;C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Debug\PineconeBullet.obj
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.cpp;C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Debug\Player.obj
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Shotgun.cpp;C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Debug\Shotgun.obj
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Scene.cpp;C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Debug\Scene.obj
@@ -18,3 +20,4 @@ C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp;C:\Users\djca
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Shell.cpp;C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Debug\Shell.obj
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\ShellManager.cpp;C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Debug\ShellManager.obj
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Squid.cpp;C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Debug\Squid.obj
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Squirrel.cpp;C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Debug\Squirrel.obj

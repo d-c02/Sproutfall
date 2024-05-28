@@ -26,7 +26,7 @@ int Game()
     //window.setFramerateLimit(30);
     //window.setVerticalSyncEnabled(true);
 
-    sceneManager.loadScene(Forest);
+    sceneManager.loadScene(TitleScreen);
     sf::Clock clock;
     float fpsTime = 0;
     float accumulator = 0;

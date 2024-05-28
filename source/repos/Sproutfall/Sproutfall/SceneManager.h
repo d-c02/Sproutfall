@@ -28,7 +28,7 @@ private:
 	std::unique_ptr<Scene> m_Scene;
 	std::unique_ptr<sf::View> m_View;
 	std::unique_ptr<EnemyManager> m_EnemyManager;
-	enum Behaviors { b_Asteroid, b_Squid, b_Cloud, b_Bird, b_Branch, b_Bug };
+	enum Behaviors { b_Asteroid, b_Squid, b_Cloud, b_Bird, b_Branch, b_Bug, b_Pinecone, b_Squirrel};
 	enum Scenes {TitleScreen, Space, Sky, Forest, Win};
 	int m_CurrentScene = 0;
 	const float m_viewSizeX = 1280;

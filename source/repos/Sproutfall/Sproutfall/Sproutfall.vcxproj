@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Pinecone.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="Asteroid.cpp" />
@@ -161,6 +162,7 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <ClCompile Include="PineconeBullet.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Shotgun.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -168,8 +170,10 @@
     <ClCompile Include="Shell.cpp" />
     <ClCompile Include="ShellManager.cpp" />
     <ClCompile Include="Squid.cpp" />
+    <ClCompile Include="Squirrel.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Pinecone.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="Asteroid.h" />
@@ -182,6 +186,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="PineconeBullet.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Shotgun.h" />
     <ClInclude Include="Scene.h" />
@@ -190,6 +195,7 @@
     <ClInclude Include="Shell.h" />
     <ClInclude Include="ShellManager.h" />
     <ClInclude Include="Squid.h" />
+    <ClInclude Include="Squirrel.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

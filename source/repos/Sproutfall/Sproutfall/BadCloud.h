@@ -12,7 +12,7 @@ public:
 	void Update(float tf);
 	bool checkProjectiles() override;
 private:
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const; \
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	void configureAnimations();
 	std::unique_ptr<AnimationManager> m_AnimationManager;
 	std::unique_ptr<AnimationManager> m_LightningAnimationManager;
