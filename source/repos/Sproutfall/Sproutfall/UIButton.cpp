@@ -1,6 +1,6 @@
 #include "UIButton.h"
 
-UIButton::UIButton(string TexturePath, bool* switchBool, sf::IntRect unclickedTextureCoords, sf::IntRect clickedTextureCoords, sf::IntRect releasedTextureCoords, sf::Vector2f hitboxOffset)
+UIButton::UIButton(string TexturePath, bool* switchBool, sf::Vector2f position, sf::IntRect unclickedTextureCoords, sf::IntRect clickedTextureCoords, sf::IntRect releasedTextureCoords, sf::Vector2f hitboxOffset)
 {
 	m_Sprite = make_unique<sf::Sprite>();
 	m_Texture = make_unique<sf::Texture>();
@@ -18,6 +18,8 @@ UIButton::UIButton(string TexturePath, bool* switchBool, sf::IntRect unclickedTe
 	m_ReleasedTextureCoords = releasedTextureCoords;
 
 	m_Sprite->setTextureRect(m_UnclickedTextureCoords);
+
+	m_Sprite->setPosition(position);
 
 	m_Hitbox = m_Sprite->getGlobalBounds();
 

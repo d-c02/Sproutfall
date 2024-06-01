@@ -22,7 +22,9 @@ C:\SFML-2.5.1\include\SFML\Graphics\RenderTarget.hpp(45,7): message : see declar
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\UIElement.h(4,7): message : see declaration of 'UIElement'
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(54,28): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(54,15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(213,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(423,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(430,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(166,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(176,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(246,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(474,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(481,21): warning C4018: '<': signed/unsigned mismatch
   Sproutfall.vcxproj -> C:\Users\djcas\source\repos\Sproutfall\Debug\Sproutfall.exe

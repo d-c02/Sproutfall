@@ -40,9 +40,9 @@ void UIElementLayer::SetPosition(sf::Vector2f pos)
 	}
 }
 
-void UIElementLayer::AddButton(string TexturePath, bool* switchBool, sf::IntRect unclickedTextureCoords, sf::IntRect clickedTextureCoords, sf::IntRect releasedTextureCoords, sf::Vector2f hitboxOffset)
+void UIElementLayer::AddButton(string TexturePath, bool* switchBool, sf::Vector2f position, sf::IntRect unclickedTextureCoords, sf::IntRect clickedTextureCoords, sf::IntRect releasedTextureCoords, sf::Vector2f hitboxOffset)
 {
-	m_UIElements.push_back(make_unique<UIButton>(TexturePath, switchBool, unclickedTextureCoords, clickedTextureCoords, releasedTextureCoords, hitboxOffset));
+	m_UIElements.push_back(make_unique<UIButton>(TexturePath, switchBool, position, unclickedTextureCoords, clickedTextureCoords, releasedTextureCoords, hitboxOffset));
 }
 
 void UIElementLayer::checkClick(sf::Vector2f mousePos)

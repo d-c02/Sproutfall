@@ -83,12 +83,9 @@ void SceneManager::loadScene(int scene)
 
 void SceneManager::Update(float tf)
 {
-	if (m_LoadSpace)
-	{
-		m_LoadSpace = false;
-		loadSpace();
-	}
+	handleUIInput();
 
+	//Game Logic
 	if (m_CurrentScene == TitleScreen)
 	{
 		
@@ -145,6 +142,42 @@ void SceneManager::Update(float tf)
 				}
 			}
 		}
+	}
+}
+
+void SceneManager::handleUIInput()
+{
+	//Title screen
+	if (m_LoadSpace)
+	{
+		m_LoadSpace = false;
+		loadSpace();
+	}
+
+	if (m_QuitGame)
+	{
+		m_QuitGame = false;
+		m_renderWindow->close();
+	}
+
+	if (m_OpenMainTitle)
+	{
+		m_OpenMainTitle = false;
+		for (int i = 0; i < m_UILayers.size(); i++)
+		{
+			m_UILayers[i]->setCurrent(false);
+		}
+		m_UILayers[UI_Main]->setCurrent(true);
+	}
+
+	if (m_OpenOptions)
+	{
+		m_OpenOptions = false;
+		for (int i = 0; i < m_UILayers.size(); i++)
+		{
+			m_UILayers[i]->setCurrent(false);
+		}
+		m_UILayers[UI_Options]->setCurrent(true);
 	}
 }
 
@@ -224,18 +257,36 @@ void SceneManager::loadTitle()
 
 	m_Scene->setBackgroundFillColor(0x655057ff);
 
+	m_Scene->addBackground(0.0, 8920, "Textures/space/space_stars_small.png", 9120);
+
+	m_Scene->addBackground(0.0, 8720, "Textures/space/space_stars_big.png", 9120);
+
+	vector<sf::IntRect> frameVector;
+	frameVector.push_back(sf::IntRect(0, 0, 640, 252));
+	m_Scene->addBackgroundElement(sf::Vector2f(0, 0), 0, "Textures/space/earth2.png", frameVector, 1.0f, 10, 500);
+	frameVector.clear();
+
 	m_UILayers.clear();
 
 	m_UILayers.push_back(make_unique<UIElementLayer>());
 
 	m_UILayers[m_UILayers.size() - 1]->setCurrent(true);
 
-	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/PlayButton.png", &m_LoadSpace, sf::IntRect(0,0,140,50), sf::IntRect(140, 0, 140, 50), sf::IntRect(0, 0, 140, 50));
+	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/PlayButton.png", &m_LoadSpace, sf::Vector2f(m_viewSizeX / 2 - 140, m_viewSizeY / 2), sf::IntRect(0,0,140,50), sf::IntRect(140, 0, 140, 50), sf::IntRect(0, 0, 140, 50));
 
-	m_UILayers[m_UILayers.size() - 1]->SetPosition(sf::Vector2f(m_viewSizeX / 2 - 140, m_viewSizeY / 2));
+	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/OptionsButton.png", &m_OpenOptions, sf::Vector2f(m_viewSizeX / 2 - 225, m_viewSizeY / 2 + 250), sf::IntRect(0, 0, 225, 50), sf::IntRect(225, 0, 225, 50), sf::IntRect(0, 0, 225, 50));
 
-	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/UI/logov2.png", sf::Vector2f(m_viewSizeX / 2 - 480, 100));
+	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/QuitButton.png", &m_QuitGame, sf::Vector2f(m_viewSizeX / 2 - 140, m_viewSizeY / 2 + 350), sf::IntRect(0, 0, 140, 50), sf::IntRect(140, 0, 140, 50), sf::IntRect(0, 0, 140, 50));
 
+	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/UI/logov2.png", sf::Vector2f(m_viewSizeX / 2 - 480, 50));
+
+	m_UILayers.push_back(make_unique<UIElementLayer>());
+
+	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/UI/MenuBorderSmall.png", sf::Vector2f(100, 75));
+
+	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/CloseButton.png", &m_OpenMainTitle, sf::Vector2f(1080, 75), sf::IntRect(0, 0, 50, 50), sf::IntRect(50, 0, 50, 50), sf::IntRect(0, 0, 50, 50));
+
+	
 }
 
 void SceneManager::loadSpace()

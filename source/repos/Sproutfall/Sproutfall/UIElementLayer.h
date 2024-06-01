@@ -14,7 +14,7 @@ public:
 	void AddVisualElement(string texturePath, sf::Vector2f position);
 	void AddAnimatedVisualElement(string texturePath, sf::Vector2f position, vector<sf::IntRect> frameVector);
 	void SetPosition(sf::Vector2f pos);
-	void AddButton(string TexturePath, bool* switchBool, sf::IntRect unclickedTextureCoords, sf::IntRect clickedTextureCoords, sf::IntRect releasedTextureCoords, sf::Vector2f hitboxOffset = sf::Vector2f(0, 0));
+	void AddButton(string TexturePath, bool* switchBool, sf::Vector2f position, sf::IntRect unclickedTextureCoords, sf::IntRect clickedTextureCoords, sf::IntRect releasedTextureCoords, sf::Vector2f hitboxOffset = sf::Vector2f(0, 0));
 	void checkClick(sf::Vector2f mousePos);
 	void checkClickRelease(sf::Vector2f mousePos);
 

@@ -20,6 +20,7 @@ private:
 	void loadForest();
 	void loadWin();
 	void borderView(int width, int height);
+	void handleUIInput();
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	std::unique_ptr<sf::RectangleShape> m_LeftBorder;
@@ -51,6 +52,10 @@ private:
 	sf::Vector2f m_ScreenShakeOffset = sf::Vector2f(0, 0);
 
 	vector<std::unique_ptr<UIElementLayer>> m_UILayers;
+	
+	enum TitleUI {UI_Main, UI_Options};
 	bool m_LoadSpace = false;
-
+	bool m_QuitGame = false;
+	bool m_OpenOptions = false;
+	bool m_OpenMainTitle = false;
 };
