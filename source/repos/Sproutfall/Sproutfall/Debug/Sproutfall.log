@@ -25,45 +25,8 @@ C:\SFML-2.5.1\include\SFML\Graphics\RenderTarget.hpp(45,7): message : see declar
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\UIElement.h(4,7): message : see declaration of 'UIElement'
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(55,28): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(55,15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(167,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(177,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(253,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(481,20): warning C4018: '<': signed/unsigned mismatch
-  Game.cpp
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Bullet.h(27,26): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.h(19,19): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.h(72,36): warning C4305: 'initializing': truncation from 'double' to 'const float'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BackgroundElement.h(7,38): warning C4584: 'BackgroundElement': base-class 'sf::Drawable' is already a base-class of 'BackgroundLayer'
-C:\SFML-2.5.1\include\SFML\Graphics\RenderTarget.hpp(45,7): message : see declaration of 'sf::Drawable'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BackgroundLayer.h(4,7): message : see declaration of 'BackgroundLayer'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Asteroid.h(5,25): warning C4584: 'Asteroid': base-class 'sf::Drawable' is already a base-class of 'Enemy'
-C:\SFML-2.5.1\include\SFML\Graphics\RenderTarget.hpp(45,7): message : see declaration of 'sf::Drawable'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Enemy.h(4,7): message : see declaration of 'Enemy'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Squid.h(6,26): warning C4584: 'Squid': base-class 'sf::Drawable' is already a base-class of 'Enemy'
-C:\SFML-2.5.1\include\SFML\Graphics\RenderTarget.hpp(45,7): message : see declaration of 'sf::Drawable'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Enemy.h(4,7): message : see declaration of 'Enemy'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Bird.h(7,25): warning C4584: 'Bird': base-class 'sf::Drawable' is already a base-class of 'Enemy'
-C:\SFML-2.5.1\include\SFML\Graphics\RenderTarget.hpp(45,7): message : see declaration of 'sf::Drawable'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Enemy.h(4,7): message : see declaration of 'Enemy'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BadCloud.h(8,29): warning C4584: 'BadCloud': base-class 'sf::Drawable' is already a base-class of 'Enemy'
-C:\SFML-2.5.1\include\SFML\Graphics\RenderTarget.hpp(45,7): message : see declaration of 'sf::Drawable'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Enemy.h(4,7): message : see declaration of 'Enemy'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\UIButton.h(5,29): warning C4584: 'UIButton': base-class 'sf::Drawable' is already a base-class of 'UIElement'
-C:\SFML-2.5.1\include\SFML\Graphics\RenderTarget.hpp(45,7): message : see declaration of 'sf::Drawable'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\UIElement.h(4,7): message : see declaration of 'UIElement'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\UISlider.h(5,29): warning C4584: 'UISlider': base-class 'sf::Drawable' is already a base-class of 'UIElement'
-C:\SFML-2.5.1\include\SFML\Graphics\RenderTarget.hpp(45,7): message : see declaration of 'sf::Drawable'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\UIElement.h(4,7): message : see declaration of 'UIElement'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Game.cpp(20,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Game.cpp(23,67): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Game.cpp(23,47): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Game.cpp(70,21): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(171,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(181,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(262,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(523,20): warning C4018: '<': signed/unsigned mismatch
   Sproutfall.vcxproj -> C:\Users\djcas\source\repos\Sproutfall\Debug\Sproutfall.exe

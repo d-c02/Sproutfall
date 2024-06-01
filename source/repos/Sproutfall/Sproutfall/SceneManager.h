@@ -54,10 +54,17 @@ private:
 	vector<std::unique_ptr<UIElementLayer>> m_UILayers;
 	
 	enum TitleUI {UI_Main, UI_Options};
+
 	bool m_LoadSpace = false;
 	bool m_QuitGame = false;
 	bool m_OpenOptions = false;
 	bool m_OpenMainTitle = false;
+
 	float m_SFXVolumeSlider = 50.0f;
 	bool m_SFXVolumeSliderHeld = false;
+
+	float m_MusicVolumeSlider = 50.0f;
+	bool m_MusicVolumeSliderHeld = false;
+
+	std::unique_ptr<sf::Music> m_Music;
 };

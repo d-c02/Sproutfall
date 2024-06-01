@@ -53,6 +53,10 @@ SceneManager::SceneManager(float windowSizeX, float windowSizeY, sf::RenderWindo
 	m_RightBorder->setSize(sf::Vector2f(m_ScreenShakeSizeX, m_ScreenShakeSizeY + m_viewSizeY));
 
 	handleResize(windowSizeX, windowSizeY);
+
+	m_Music = make_unique<sf::Music>();
+	m_Music->setLoop(true);
+	m_Music->setVolume(m_MusicVolumeSlider);
 }
 SceneManager::~SceneManager()
 {
@@ -186,6 +190,11 @@ void SceneManager::handleUIInput()
 		m_Player->playDemoSound();
 		m_Player->setVolume(m_SFXVolumeSlider);
 	}
+
+	if (m_MusicVolumeSliderHeld)
+	{
+		m_Music->setVolume(m_MusicVolumeSlider);
+	}
 }
 
 void SceneManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -258,6 +267,7 @@ void SceneManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 void SceneManager::loadTitle()
 {
+
 	m_CurrentScene = TitleScreen;
 
 	m_Scene->setGameplay(false);
@@ -296,6 +306,17 @@ void SceneManager::loadTitle()
 	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/UI/SFXIcon.png", sf::Vector2f(150, 250));
 
 	m_UILayers[m_UILayers.size() - 1]->AddSlider(sf::Vector2f(275, 250), &m_SFXVolumeSlider, &m_SFXVolumeSliderHeld, "Textures/UI/SliderBar.png", "Textures/UI/SliderNub.png", 0, 100.0f, m_renderWindow);
+
+	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/UI/MusicIcon.png", sf::Vector2f(150, 400));
+
+	m_UILayers[m_UILayers.size() - 1]->AddSlider(sf::Vector2f(275, 400), &m_MusicVolumeSlider, &m_MusicVolumeSliderHeld, "Textures/UI/SliderBar.png", "Textures/UI/SliderNub.png", 0, 100.0f, m_renderWindow);
+	
+	m_Music->stop();
+	if (!m_Music->openFromFile("Sounds/Music/jame_gam_main_theme.ogg"))
+	{
+		cout << "Title music load failure" << endl;
+	}
+	m_Music->play();
 }
 
 void SceneManager::loadSpace()
@@ -348,14 +369,14 @@ void SceneManager::loadSpace()
 	frameVector.clear();
 
 	frameVector.push_back(sf::IntRect(0, 0, 640, 252));
-	m_Scene->addBackgroundElement(sf::Vector2f(0, 4000), 50000, "Textures/space/earth2.png", frameVector, 1.0f, 50000, 360);
+	m_Scene->addBackgroundElement(sf::Vector2f(0, 4000), 50000, "Textures/space/earth2.png", frameVector, 1.0f, 50000, 390);
 	frameVector.clear();
 
 	m_Scene->setBackgroundFillColor(0x655057ff);
 
-	m_EnemyManager->generateEnemies(b_Squid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
+	//m_EnemyManager->generateEnemies(b_Squid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
 
-	m_EnemyManager->generateEnemies(b_Asteroid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
+	//m_EnemyManager->generateEnemies(b_Asteroid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
 
 	m_Player->setPosition(640, 200);
 	m_Player->SetShellColor(sf::Color(0xf6edcdff));
@@ -365,6 +386,13 @@ void SceneManager::loadSpace()
 	m_Player->SetOutlineColor(sf::Glsl::Vec4(0.396078431372549f, 0.3137254901960784f, 0.3411764705882353f, 1.0f));
 
 	m_Scene->setGameplay(true);
+
+	m_Music->stop();
+	if (!m_Music->openFromFile("Sounds/Music/jame_gam_space_v2.ogg"))
+	{
+		cout << "Space music load failure" << endl;
+	}
+	m_Music->play();
 }
 
 void SceneManager::loadSky()
@@ -413,9 +441,9 @@ void SceneManager::loadSky()
 	m_Scene->addBackgroundElement(sf::Vector2f(0, 0), 16800, "Textures/sky/sky_backgound_trees.png", frameVector, 1.0f, 19200, 1860);
 	frameVector.clear();
 
-	m_EnemyManager->generateEnemies(b_Bird, m_viewSizeY / 5, m_viewSizeY / 5, 19);
+	//m_EnemyManager->generateEnemies(b_Bird, m_viewSizeY / 5, m_viewSizeY / 5, 19);
 
-	m_EnemyManager->generateEnemies(b_Cloud, m_viewSizeY / 10, m_viewSizeY / 10, 19);
+	//m_EnemyManager->generateEnemies(b_Cloud, m_viewSizeY / 10, m_viewSizeY / 10, 19);
 
 	m_Scene->setBackgroundFillColor(0x655057ff);
 	//m_Scene.reset();
@@ -425,6 +453,13 @@ void SceneManager::loadSky()
 	m_Player->SetOutlineColor(sf::Glsl::Vec4(0.396078431372549f, 0.3137254901960784f, 0.3411764705882353f, 1.0f));
 
 	m_Scene->setGameplay(true);
+
+	m_Music->stop();
+	if (!m_Music->openFromFile("Sounds/Music/jame_gam_sky.ogg"))
+	{
+		cout << "Sky music load failure" << endl;
+	}
+	m_Music->play();
 }
 
 void SceneManager::loadForest()
@@ -440,7 +475,7 @@ void SceneManager::loadForest()
 
 	m_Scene->addBackground(0.0, 28340, "Textures/forest/forest_level_1.png", 28800);
 
-	m_Scene->addBackground(0.0, 28140, "Textures/forest/forest_level_2.png", 28800);
+	m_Scene->addBackground(0.0, 28140 / 2, "Textures/forest/forest_level_2.png", 28800);
 
 	frameVector.push_back(sf::IntRect(0, 0, 640, 480));
 	m_Scene->addBackgroundElement(sf::Vector2f(0, 0), 28800, "Textures/forest/forest_level_3.png", frameVector, 0.25f, 28800, -480);
@@ -465,6 +500,13 @@ void SceneManager::loadForest()
 	m_Player->SetOutlineColor(sf::Glsl::Vec4(0.396078431372549f, 0.3137254901960784f, 0.3411764705882353f, 1.0f));
 
 	m_Scene->setGameplay(true);
+
+	m_Music->stop();
+	if (!m_Music->openFromFile("Sounds/Music/jame_gam_29_v4.ogg"))
+	{
+		cout << "Forest music load failure" << endl;
+	}
+	m_Music->play();
 }
 
 void SceneManager::loadWin()
