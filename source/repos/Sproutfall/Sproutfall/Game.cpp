@@ -40,28 +40,21 @@ int Game()
                 window.close();
             if (event.type == sf::Event::Resized)
                 sceneManager.handleResize(event.size.width, event.size.height);
-            if (event.type == sf::Event::KeyPressed)
-            {
-                if (event.key.code == sf::Keyboard::F)
-                {
-                    if (m_Fullscreen)
-                    {
-                        window.create(sf::VideoMode(1280, 960), "Sproutfall");
-                        m_Fullscreen = false;
-                    }
-                    else
-                    {
-                        window.create(sf::VideoMode::getDesktopMode(), "Sproutfall", sf::Style::Fullscreen);
-                        m_Fullscreen = true;
-                    }
-                    sceneManager.handleResize(window.getSize().x, window.getSize().y);
-                }
-                if (event.key.code == sf::Keyboard::Escape)
-                {
-                    window.close();
-                }
-            }
             sceneManager.handleInput(&event);
+        }
+        if (sceneManager.isFullscreen() != m_Fullscreen)
+        {
+            if (!sceneManager.isFullscreen())
+            {
+                window.create(sf::VideoMode(1280, 960), "Sproutfall");
+                m_Fullscreen = false;
+            }
+            else
+            {
+                window.create(sf::VideoMode::getDesktopMode(), "Sproutfall", sf::Style::Fullscreen);
+                m_Fullscreen = true;
+            }
+            sceneManager.handleResize(window.getSize().x, window.getSize().y);
         }
         float tf = clock.getElapsedTime().asSeconds();
         clock.restart();

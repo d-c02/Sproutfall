@@ -13,6 +13,7 @@ public:
 	void handleInput(sf::Event* event);
 	void handleResize(int width, int height);
 	void setWindow(sf::RenderWindow* window);
+	bool isFullscreen();
 private:
 	void loadTitle();
 	void loadSpace();
@@ -53,6 +54,7 @@ private:
 
 	vector<std::unique_ptr<UIElementLayer>> m_UILayers;
 	
+	//UI Stuff
 	enum TitleUI {UI_Main, UI_Options};
 
 	bool m_LoadSpace = false;
@@ -65,6 +67,8 @@ private:
 
 	float m_MusicVolumeSlider = 50.0f;
 	bool m_MusicVolumeSliderHeld = false;
+
+	bool m_Fullscreen = false;
 
 	std::unique_ptr<sf::Music> m_Music;
 };

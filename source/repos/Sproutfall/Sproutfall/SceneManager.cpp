@@ -311,6 +311,10 @@ void SceneManager::loadTitle()
 
 	m_UILayers[m_UILayers.size() - 1]->AddSlider(sf::Vector2f(275, 400), &m_MusicVolumeSlider, &m_MusicVolumeSliderHeld, "Textures/UI/SliderBar.png", "Textures/UI/SliderNub.png", 0, 100.0f, m_renderWindow);
 	
+	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/UI/FullscreenIcon.png", sf::Vector2f(150, 550));
+
+	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/FullscreenButton.png", &m_Fullscreen, sf::Vector2f(500, 550), sf::IntRect(100, 0, 50, 50), sf::IntRect(50, 0, 50, 50), sf::IntRect(0, 0, 50, 50), m_renderWindow);
+
 	m_Music->stop();
 	if (!m_Music->openFromFile("Sounds/Music/jame_gam_main_theme.ogg"))
 	{
@@ -374,9 +378,9 @@ void SceneManager::loadSpace()
 
 	m_Scene->setBackgroundFillColor(0x655057ff);
 
-	//m_EnemyManager->generateEnemies(b_Squid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
+	m_EnemyManager->generateEnemies(b_Squid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
 
-	//m_EnemyManager->generateEnemies(b_Asteroid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
+	m_EnemyManager->generateEnemies(b_Asteroid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
 
 	m_Player->setPosition(640, 200);
 	m_Player->SetShellColor(sf::Color(0xf6edcdff));
@@ -441,12 +445,12 @@ void SceneManager::loadSky()
 	m_Scene->addBackgroundElement(sf::Vector2f(0, 0), 16800, "Textures/sky/sky_backgound_trees.png", frameVector, 1.0f, 19200, 1860);
 	frameVector.clear();
 
-	//m_EnemyManager->generateEnemies(b_Bird, m_viewSizeY / 5, m_viewSizeY / 5, 19);
+	m_EnemyManager->generateEnemies(b_Bird, m_viewSizeY / 5, m_viewSizeY / 5, 19);
 
-	//m_EnemyManager->generateEnemies(b_Cloud, m_viewSizeY / 10, m_viewSizeY / 10, 19);
+	m_EnemyManager->generateEnemies(b_Cloud, m_viewSizeY / 10, m_viewSizeY / 10, 19);
 
 	m_Scene->setBackgroundFillColor(0x655057ff);
-	//m_Scene.reset();
+
 	m_Player->setPosition(640, 200);
 	m_Player->SetFallingParams(500, 300);
 
@@ -473,21 +477,21 @@ void SceneManager::loadForest()
 
 	float fogOffset = 1000;
 
-	m_Scene->addBackground(0.0, 28340, "Textures/forest/forest_level_1.png", 28800);
+	m_Scene->addBackground(0.0, 18000, "Textures/forest/forest_level_1.png", 28800);
 
-	m_Scene->addBackground(0.0, 28140 / 2, "Textures/forest/forest_level_2.png", 28800);
+	m_Scene->addBackground(0.0, 17600, "Textures/forest/forest_level_2.png", 28800);
 
 	frameVector.push_back(sf::IntRect(0, 0, 640, 480));
 	m_Scene->addBackgroundElement(sf::Vector2f(0, 0), 28800, "Textures/forest/forest_level_3.png", frameVector, 0.25f, 28800, -480);
 	frameVector.clear();
 
-	m_Scene->addBackground(0.0, 27940, "Textures/forest/forest_level_4.png", 28800);
+	m_Scene->addBackground(0.0, 17200, "Textures/forest/forest_level_4.png", 28800);
 
 	frameVector.push_back(sf::IntRect(0, 0, 640, 480));
 	m_Scene->addBackgroundElement(sf::Vector2f(0, 0), 28800, "Textures/forest/forest_level_5.png", frameVector, 0.25f, 28800, -480);
 	frameVector.clear();
 
-	m_Scene->addBackground(0.0, 27740, "Textures/forest/forest_level_6.png", 28800);
+	m_Scene->addBackground(0.0, 16800, "Textures/forest/forest_level_6.png", 28800);
 
 	frameVector.push_back(sf::IntRect(0, 0, 640, 480));
 	m_Scene->addBackgroundElement(sf::Vector2f(0, 0), 28800, "Textures/forest/forest_level_7.png", frameVector, 0.25f, 28800, -480);
@@ -559,4 +563,9 @@ void SceneManager::setWindow(sf::RenderWindow* window)
 {
 	m_renderWindow = window;
 	m_Player->SetWindow(window);
+}
+
+bool SceneManager::isFullscreen()
+{
+	return m_Fullscreen;
 }
