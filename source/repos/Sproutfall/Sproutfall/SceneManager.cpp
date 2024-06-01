@@ -272,11 +272,11 @@ void SceneManager::loadTitle()
 
 	m_UILayers[m_UILayers.size() - 1]->setCurrent(true);
 
-	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/PlayButton.png", &m_LoadSpace, sf::Vector2f(m_viewSizeX / 2 - 140, m_viewSizeY / 2), sf::IntRect(0,0,140,50), sf::IntRect(140, 0, 140, 50), sf::IntRect(0, 0, 140, 50));
+	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/PlayButton.png", &m_LoadSpace, sf::Vector2f(m_viewSizeX / 2 - 140, m_viewSizeY / 2), sf::IntRect(0,0,140,50), sf::IntRect(140, 0, 140, 50), sf::IntRect(0, 0, 140, 50), m_renderWindow);
 
-	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/OptionsButton.png", &m_OpenOptions, sf::Vector2f(m_viewSizeX / 2 - 225, m_viewSizeY / 2 + 250), sf::IntRect(0, 0, 225, 50), sf::IntRect(225, 0, 225, 50), sf::IntRect(0, 0, 225, 50));
+	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/OptionsButton.png", &m_OpenOptions, sf::Vector2f(m_viewSizeX / 2 - 225, m_viewSizeY / 2 + 250), sf::IntRect(0, 0, 225, 50), sf::IntRect(225, 0, 225, 50), sf::IntRect(0, 0, 225, 50), m_renderWindow);
 
-	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/QuitButton.png", &m_QuitGame, sf::Vector2f(m_viewSizeX / 2 - 140, m_viewSizeY / 2 + 350), sf::IntRect(0, 0, 140, 50), sf::IntRect(140, 0, 140, 50), sf::IntRect(0, 0, 140, 50));
+	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/QuitButton.png", &m_QuitGame, sf::Vector2f(m_viewSizeX / 2 - 140, m_viewSizeY / 2 + 350), sf::IntRect(0, 0, 140, 50), sf::IntRect(140, 0, 140, 50), sf::IntRect(0, 0, 140, 50), m_renderWindow);
 
 	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/UI/logov2.png", sf::Vector2f(m_viewSizeX / 2 - 480, 50));
 
@@ -284,9 +284,11 @@ void SceneManager::loadTitle()
 
 	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/UI/MenuBorderSmall.png", sf::Vector2f(100, 75));
 
-	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/CloseButton.png", &m_OpenMainTitle, sf::Vector2f(1080, 75), sf::IntRect(0, 0, 50, 50), sf::IntRect(50, 0, 50, 50), sf::IntRect(0, 0, 50, 50));
+	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/CloseButton.png", &m_OpenMainTitle, sf::Vector2f(1080, 75), sf::IntRect(0, 0, 50, 50), sf::IntRect(50, 0, 50, 50), sf::IntRect(0, 0, 50, 50), m_renderWindow);
 
-	m_UILayers[m_UILayers.size() - 1]->AddSlider(sf::Vector2f(200, 300), &m_SFXVolumeSlider, "Textures/UI/SliderBar.png", "Textures/UI/SliderNub.png", 0, 1.0f);
+	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/UI/SFXIcon.png", sf::Vector2f(150, 250));
+
+	m_UILayers[m_UILayers.size() - 1]->AddSlider(sf::Vector2f(275, 250), &m_SFXVolumeSlider, "Textures/UI/SliderBar.png", "Textures/UI/SliderNub.png", 0, 1.0f, m_renderWindow);
 }
 
 void SceneManager::loadSpace()
@@ -469,19 +471,10 @@ void SceneManager::handleInput(sf::Event* event)
 	{
 		m_Player->handleInput(event);
 	}
-	if (event->type == sf::Event::MouseButtonPressed)
+	for (int i = 0; i < m_UILayers.size(); i++)
 	{
-		for (int i = 0; i < m_UILayers.size(); i++)
-		{
-			m_UILayers[i]->checkClick(static_cast<sf::Vector2f>(m_renderWindow->mapPixelToCoords(sf::Mouse::getPosition(*m_renderWindow))));
-		}
-	}
-	else if (event->type == sf::Event::MouseButtonReleased)
-	{
-		for (int i = 0; i < m_UILayers.size(); i++)
-		{
-			m_UILayers[i]->checkClickRelease(static_cast<sf::Vector2f>(m_renderWindow->mapPixelToCoords(sf::Mouse::getPosition(*m_renderWindow))));
-		}
+		m_UILayers[i]->handleInput(event);
+		//m_UILayers[i]->checkClick(static_cast<sf::Vector2f>(m_renderWindow->mapPixelToCoords(sf::Mouse::getPosition(*m_renderWindow))));
 	}
 }
 

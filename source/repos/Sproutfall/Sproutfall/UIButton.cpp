@@ -1,6 +1,6 @@
 #include "UIButton.h"
 
-UIButton::UIButton(string TexturePath, bool* switchBool, sf::Vector2f position, sf::IntRect unclickedTextureCoords, sf::IntRect clickedTextureCoords, sf::IntRect releasedTextureCoords, sf::Vector2f hitboxOffset)
+UIButton::UIButton(string TexturePath, bool* switchBool, sf::Vector2f position, sf::IntRect unclickedTextureCoords, sf::IntRect clickedTextureCoords, sf::IntRect releasedTextureCoords, sf::RenderWindow* window, sf::Vector2f hitboxOffset)
 {
 	m_Sprite = make_unique<sf::Sprite>();
 	m_Texture = make_unique<sf::Texture>();
@@ -26,6 +26,8 @@ UIButton::UIButton(string TexturePath, bool* switchBool, sf::Vector2f position, 
 	m_Hitbox.top = position.y + m_HitboxOffset.y;
 
 	m_Switch = switchBool;
+
+	m_renderWindow = window;
 }
 
 void UIButton::setPosition(sf::Vector2f pos)
@@ -45,34 +47,51 @@ void UIButton::checkClick(sf::Vector2f pos)
 	if (pos.x > m_Hitbox.left && pos.x < m_Hitbox.left + m_Hitbox.width && pos.y > m_Hitbox.top && pos.y < m_Hitbox.top + m_Hitbox.height)
 	{
 		m_Sprite->setTextureRect(m_ClickedTextureCoords);
+		m_clicked = true;
 	}
 }
 
 void UIButton::checkClickRelease(sf::Vector2f pos)
 {
-	if (pos.x > m_Hitbox.left && pos.x < m_Hitbox.left + m_Hitbox.width && pos.y > m_Hitbox.top && pos.y < m_Hitbox.top + m_Hitbox.height)
+	if (m_clicked)
 	{
-		if (*m_Switch)
+		if (pos.x > m_Hitbox.left && pos.x < m_Hitbox.left + m_Hitbox.width && pos.y > m_Hitbox.top && pos.y < m_Hitbox.top + m_Hitbox.height)
 		{
-			*m_Switch = false;
-			m_Sprite->setTextureRect(m_UnclickedTextureCoords);
+			if (*m_Switch)
+			{
+				*m_Switch = false;
+				m_Sprite->setTextureRect(m_UnclickedTextureCoords);
+			}
+			else
+			{
+				*m_Switch = true;
+				m_Sprite->setTextureRect(m_ReleasedTextureCoords);
+			}
 		}
 		else
 		{
-			*m_Switch = true;
-			m_Sprite->setTextureRect(m_ReleasedTextureCoords);
+			if (*m_Switch)
+			{
+				m_Sprite->setTextureRect(m_ReleasedTextureCoords);
+			}
+			else
+			{
+				m_Sprite->setTextureRect(m_UnclickedTextureCoords);
+			}
 		}
+		m_clicked = false;
 	}
-	else
+}
+
+void UIButton::handleInput(sf::Event* event)
+{
+	if (event->type == sf::Event::MouseButtonPressed)
 	{
-		if (*m_Switch)
-		{
-			m_Sprite->setTextureRect(m_ReleasedTextureCoords);
-		}
-		else
-		{
-			m_Sprite->setTextureRect(m_UnclickedTextureCoords);
-		}
+		checkClick(static_cast<sf::Vector2f>(m_renderWindow->mapPixelToCoords(sf::Mouse::getPosition(*m_renderWindow))));
+	}
+	else if (event->type == sf::Event::MouseButtonReleased)
+	{
+		checkClickRelease(static_cast<sf::Vector2f>(m_renderWindow->mapPixelToCoords(sf::Mouse::getPosition(*m_renderWindow))));
 	}
 }
 

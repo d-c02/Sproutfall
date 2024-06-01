@@ -28,12 +28,7 @@ void UIElement::setPosition(sf::Vector2f pos)
 	m_Sprite->setPosition(pos);
 }
 
-void UIElement::checkClick(sf::Vector2f mousePos)
-{
-	//Do nothing
-}
-
-void UIElement::checkClickRelease(sf::Vector2f mousePos)
+void UIElement::handleInput(sf::Event* event)
 {
 	//Do nothing
 }

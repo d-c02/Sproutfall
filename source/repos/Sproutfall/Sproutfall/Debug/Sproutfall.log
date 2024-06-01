@@ -28,6 +28,5 @@ C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(54,15): warni
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(166,21): warning C4018: '<': signed/unsigned mismatch
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(176,21): warning C4018: '<': signed/unsigned mismatch
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(246,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(474,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(481,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(474,20): warning C4018: '<': signed/unsigned mismatch
   Sproutfall.vcxproj -> C:\Users\djcas\source\repos\Sproutfall\Debug\Sproutfall.exe

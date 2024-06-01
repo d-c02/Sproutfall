@@ -8,8 +8,7 @@ public:
 	UIElement(string TexturePath);
 	virtual void Update(float tf);
 	virtual void setPosition(sf::Vector2f pos);
-	virtual void checkClick(sf::Vector2f mousePos);
-	virtual void checkClickRelease(sf::Vector2f mousePos);
+	virtual void handleInput(sf::Event* event);
 
 protected:
 	std::unique_ptr<sf::Sprite> m_Sprite;

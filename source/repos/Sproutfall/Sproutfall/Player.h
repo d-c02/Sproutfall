@@ -29,6 +29,7 @@ public:
 	void SetOutlineColor(sf::Glsl::Vec4 color);
 	void SetWindow(sf::RenderWindow* window);
 	bool isHurt();
+	void setVolume(float volume);
 protected:
 
 private:
@@ -54,6 +55,9 @@ private:
 	int m_CurrentState = neutral;
 	vector<std::unique_ptr<sf::Sound>> m_ShotgunShootSounds;
 	vector<std::unique_ptr<sf::SoundBuffer>>m_ShotgunShootBuffers;
+	vector<std::unique_ptr<sf::Sound>> m_ShotgunReloadSounds;
+	vector<std::unique_ptr<sf::SoundBuffer>> m_ShotgunReloadBuffers;
+
 	float neutralThreshold = 90;
 	float fallingThreshold = 600;
 	bool m_SpriteFlipped = false;
