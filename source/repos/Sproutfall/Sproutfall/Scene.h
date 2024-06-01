@@ -16,6 +16,9 @@ public:
 	void setParallax(bool parallax);
 	bool getParallax();
 	void Update(float tf);
+	void setGameplay(bool gaming);
+	bool hasGameplay();
+
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	vector<std::unique_ptr<BackgroundLayer>> m_Backgrounds;
@@ -27,4 +30,5 @@ private:
 	vector<std::unique_ptr<sf::Sprite>> m_BackgroundSprites;
 	vector<std::unique_ptr<sf::Texture>> m_BackgroundTextures;
 	bool m_Parallax = true;
+	bool m_HasGameplay = false;
 };

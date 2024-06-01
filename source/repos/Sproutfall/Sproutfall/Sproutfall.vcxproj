@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -171,6 +171,9 @@
     <ClCompile Include="ShellManager.cpp" />
     <ClCompile Include="Squid.cpp" />
     <ClCompile Include="Squirrel.cpp" />
+    <ClCompile Include="UIButton.cpp" />
+    <ClCompile Include="UIElement.cpp" />
+    <ClCompile Include="UIElementLayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pinecone.h" />
@@ -196,6 +199,9 @@
     <ClInclude Include="ShellManager.h" />
     <ClInclude Include="Squid.h" />
     <ClInclude Include="Squirrel.h" />
+    <ClInclude Include="UIButton.h" />
+    <ClInclude Include="UIElement.h" />
+    <ClInclude Include="UIElementLayer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

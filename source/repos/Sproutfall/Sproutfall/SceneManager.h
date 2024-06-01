@@ -2,6 +2,7 @@
 #include "SFML_Lib.h"
 #include "Scene.h"
 #include "EnemyManager.h"
+#include "UIElementLayer.h"
 class SceneManager : public sf::Drawable
 {
 public:
@@ -48,4 +49,8 @@ private:
 	bool m_ScreenShaking = false;
 	float m_CurrentScreenShakeTick = 0.0f;
 	sf::Vector2f m_ScreenShakeOffset = sf::Vector2f(0, 0);
+
+	vector<std::unique_ptr<UIElementLayer>> m_UILayers;
+	bool m_LoadSpace = false;
+
 };

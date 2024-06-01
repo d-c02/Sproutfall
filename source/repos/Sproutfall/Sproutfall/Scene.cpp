@@ -74,3 +74,13 @@ void Scene::Update(float tf)
 		m_Backgrounds[i]->Update(tf);
 	}
 }
+
+void Scene::setGameplay(bool gaming)
+{
+	m_HasGameplay = gaming;
+}
+
+bool Scene::hasGameplay()
+{
+	return m_HasGameplay;
+}

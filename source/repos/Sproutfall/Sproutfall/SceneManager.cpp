@@ -83,54 +83,66 @@ void SceneManager::loadScene(int scene)
 
 void SceneManager::Update(float tf)
 {
-
-	if (m_Player->getPosition().y >= (m_Scene->getLevelSize()))
+	if (m_LoadSpace)
 	{
-		loadScene(m_CurrentScene + 1);
+		m_LoadSpace = false;
+		loadSpace();
 	}
 
-	if (m_Player->getStatus())
+	if (m_CurrentScene == TitleScreen)
 	{
-		m_Player->Update(tf);
-		m_EnemyManager->Update(tf);
-		m_Scene->Update(tf);
+		
 	}
-	else if (m_smokeAnimationManager->isPlaying())
+	else
 	{
-		m_smokeAnimationManager->Update(tf);
-	}
-
-	m_playerSmoke->setPosition(m_Player->getPosition());
-
-	if (m_Player->IsScreenShaking())
-	{
-		m_ScreenShaking = true;
-		m_CurrentScreenShakeTime = 0.0f;
-		m_CurrentScreenShakeTick = 0.0f;
-		m_ScreenShakeOffset.x = (((float)rand() - (RAND_MAX / 2)) / (float)RAND_MAX / 2) * m_ScreenShakeSizeX;
-		m_ScreenShakeOffset.y = (((float)rand() - (RAND_MAX / 2)) / (float)RAND_MAX / 2) * m_ScreenShakeSizeY;
-	}
-
-	if (m_ScreenShaking)
-	{
-		m_CurrentScreenShakeTime += tf;
-		m_CurrentScreenShakeTick += tf;
-		if (m_CurrentScreenShakeTime > m_TotalScreenShakeTime)
+		if (m_Player->getPosition().y >= (m_Scene->getLevelSize()))
 		{
-			m_ScreenShaking = false;
-			m_ScreenShakeOffset = sf::Vector2f(0, 0);
+			loadScene(m_CurrentScene + 1);
 		}
-		else
-		{
-			if (m_CurrentScreenShakeTick > m_ScreenShakeTick)
-			{
-				//srand(time(NULL));
-				m_CurrentScreenShakeTick = 0.0f;
-				m_ScreenShakeOffset.x = (((float)rand() / (float)RAND_MAX)) * m_ScreenShakeSizeX * 2 - m_ScreenShakeSizeX;
-				m_ScreenShakeOffset.y = (((float)rand() / (float)RAND_MAX)) * m_ScreenShakeSizeY * 2 - m_ScreenShakeSizeY;
 
-				//cout << "X: " << m_ScreenShakeOffset.x << endl;
-				//cout << "Y: " << m_ScreenShakeOffset.y << endl;
+		if (m_Player->getStatus())
+		{
+			m_Player->Update(tf);
+			m_EnemyManager->Update(tf);
+			m_Scene->Update(tf);
+		}
+		else if (m_smokeAnimationManager->isPlaying())
+		{
+			m_smokeAnimationManager->Update(tf);
+		}
+
+		m_playerSmoke->setPosition(m_Player->getPosition());
+
+		if (m_Player->IsScreenShaking())
+		{
+			m_ScreenShaking = true;
+			m_CurrentScreenShakeTime = 0.0f;
+			m_CurrentScreenShakeTick = 0.0f;
+			m_ScreenShakeOffset.x = (((float)rand() - (RAND_MAX / 2)) / (float)RAND_MAX / 2) * m_ScreenShakeSizeX;
+			m_ScreenShakeOffset.y = (((float)rand() - (RAND_MAX / 2)) / (float)RAND_MAX / 2) * m_ScreenShakeSizeY;
+		}
+
+		if (m_ScreenShaking)
+		{
+			m_CurrentScreenShakeTime += tf;
+			m_CurrentScreenShakeTick += tf;
+			if (m_CurrentScreenShakeTime > m_TotalScreenShakeTime)
+			{
+				m_ScreenShaking = false;
+				m_ScreenShakeOffset = sf::Vector2f(0, 0);
+			}
+			else
+			{
+				if (m_CurrentScreenShakeTick > m_ScreenShakeTick)
+				{
+					//srand(time(NULL));
+					m_CurrentScreenShakeTick = 0.0f;
+					m_ScreenShakeOffset.x = (((float)rand() / (float)RAND_MAX)) * m_ScreenShakeSizeX * 2 - m_ScreenShakeSizeX;
+					m_ScreenShakeOffset.y = (((float)rand() / (float)RAND_MAX)) * m_ScreenShakeSizeY * 2 - m_ScreenShakeSizeY;
+
+					//cout << "X: " << m_ScreenShakeOffset.x << endl;
+					//cout << "Y: " << m_ScreenShakeOffset.y << endl;
+				}
 			}
 		}
 	}
@@ -138,23 +150,32 @@ void SceneManager::Update(float tf)
 
 void SceneManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-
 	sf::Vector2f playerPos;
-	if (m_Player->getPosition().y < (m_Scene->getLevelSize()) - (m_viewSizeY / 2))
+
+	if (m_Scene->hasGameplay())
 	{
-		playerPos = m_Player->getPosition();
+		if (m_Player->getPosition().y < (m_Scene->getLevelSize()) - (m_viewSizeY / 2))
+		{
+			playerPos = m_Player->getPosition();
+		}
+		else
+		{
+			playerPos = sf::Vector2f(m_viewSizeX / 2, (m_Scene->getLevelSize()) - (m_viewSizeY / 2));
+		}
 	}
 	else
 	{
-		playerPos = sf::Vector2f(m_viewSizeX / 2, (m_Scene->getLevelSize()) - (m_viewSizeY / 2));
+		playerPos = sf::Vector2f(m_viewSizeX / 2, m_viewSizeY / 2);
 	}
+
 
 	m_View->setCenter(m_viewSizeX / 2 + m_ScreenShakeOffset.x, playerPos.y + m_ScreenShakeOffset.y);
 	m_UpperBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, playerPos.y - (m_View->getSize().y / 2) - m_ScreenShakeSizeY);
 	m_LeftBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, playerPos.y - (m_View->getSize().y / 2) - m_ScreenShakeSizeY);
 	m_LowerBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, playerPos.y + (m_View->getSize().y / 2) - m_LowerBorder->getSize().y + m_ScreenShakeSizeY);
-		m_RightBorder->setPosition((m_viewSizeX / 2) + (m_View->getSize().x / 2) - m_RightBorder->getSize().x + m_ScreenShakeSizeX, playerPos.y - (m_View->getSize().y / 2));
-		m_Scene->UpdateBackgroundPositions(playerPos.y);
+	m_RightBorder->setPosition((m_viewSizeX / 2) + (m_View->getSize().x / 2) - m_RightBorder->getSize().x + m_ScreenShakeSizeX, playerPos.y - (m_View->getSize().y / 2));
+	m_Scene->UpdateBackgroundPositions(playerPos.y);
+
 	if (m_Player->getPosition().y < (m_Scene->getLevelSize() * m_viewSizeY) - (m_viewSizeY / 2))
 	{
 		if (!m_Scene->getParallax())
@@ -163,31 +184,67 @@ void SceneManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		}
 		target.setView(*m_View);
 	}
+
+	if (!m_Scene->hasGameplay())
+	{
+		target.setView(*m_View);
+	}
+
 	target.draw(*m_Scene);
-	target.draw(*m_EnemyManager);
-	if (m_Player->getStatus())
+
+	if (m_Scene->hasGameplay())
 	{
-		target.draw(*m_Player);
+		target.draw(*m_EnemyManager);
+		if (m_Player->getStatus())
+		{
+			target.draw(*m_Player);
+		}
+		else if (m_smokeAnimationManager->isPlaying())
+		{
+			target.draw(*m_playerSmoke);
+		}
 	}
-	else if (m_smokeAnimationManager->isPlaying())
-	{
-		target.draw(*m_playerSmoke);
-	}
+
 	target.draw(*m_UpperBorder.get());
 	target.draw(*m_LowerBorder.get());
 	target.draw(*m_RightBorder.get());
 	target.draw(*m_LeftBorder.get());
+
+	for (int i = 0; i < m_UILayers.size(); i++)
+	{
+		target.draw(*m_UILayers[i]);
+	}
 }
 
 void SceneManager::loadTitle()
 {
 	m_CurrentScene = TitleScreen;
+
+	m_Scene->setGameplay(false);
+
+	m_Scene->setBackgroundFillColor(0x655057ff);
+
+	m_UILayers.clear();
+
+	m_UILayers.push_back(make_unique<UIElementLayer>());
+
+	m_UILayers[m_UILayers.size() - 1]->setCurrent(true);
+
+	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/PlayButton.png", &m_LoadSpace, sf::IntRect(0,0,140,50), sf::IntRect(140, 0, 140, 50), sf::IntRect(0, 0, 140, 50));
+
+	m_UILayers[m_UILayers.size() - 1]->SetPosition(sf::Vector2f(m_viewSizeX / 2 - 140, m_viewSizeY / 2));
+
+	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/UI/logov2.png", sf::Vector2f(m_viewSizeX / 2 - 480, 100));
+
 }
 
 void SceneManager::loadSpace()
 {
 	m_CurrentScene = Space;
 	m_Scene.reset();
+
+	m_UILayers.clear();
+
 	m_EnemyManager->Clear();
 	m_Scene = make_unique<Scene>(m_Player.get(), m_viewSizeX, m_viewSizeY, 9600);
 
@@ -246,6 +303,8 @@ void SceneManager::loadSpace()
 	m_Player->SetFallingParams(500, 100);
 
 	m_Player->SetOutlineColor(sf::Glsl::Vec4(0.396078431372549f, 0.3137254901960784f, 0.3411764705882353f, 1.0f));
+
+	m_Scene->setGameplay(true);
 }
 
 void SceneManager::loadSky()
@@ -304,6 +363,8 @@ void SceneManager::loadSky()
 	m_Player->SetFallingParams(500, 300);
 
 	m_Player->SetOutlineColor(sf::Glsl::Vec4(0.396078431372549f, 0.3137254901960784f, 0.3411764705882353f, 1.0f));
+
+	m_Scene->setGameplay(true);
 }
 
 void SceneManager::loadForest()
@@ -339,10 +400,11 @@ void SceneManager::loadForest()
 
 	m_Scene->setBackgroundFillColor(0x655057ff);
 	m_Player->setPosition(640, 200);
-	m_Player->SetFallingParams(500, 200);
+	m_Player->SetFallingParams(500, 400);
 
 	m_Player->SetOutlineColor(sf::Glsl::Vec4(0.396078431372549f, 0.3137254901960784f, 0.3411764705882353f, 1.0f));
 
+	m_Scene->setGameplay(true);
 }
 
 void SceneManager::loadWin()
@@ -352,7 +414,24 @@ void SceneManager::loadWin()
 
 void SceneManager::handleInput(sf::Event* event)
 {
-	m_Player->handleInput(event);
+	if (m_Scene->hasGameplay())
+	{
+		m_Player->handleInput(event);
+	}
+	if (event->type == sf::Event::MouseButtonPressed)
+	{
+		for (int i = 0; i < m_UILayers.size(); i++)
+		{
+			m_UILayers[i]->checkClick(static_cast<sf::Vector2f>(m_renderWindow->mapPixelToCoords(sf::Mouse::getPosition(*m_renderWindow))));
+		}
+	}
+	else if (event->type == sf::Event::MouseButtonReleased)
+	{
+		for (int i = 0; i < m_UILayers.size(); i++)
+		{
+			m_UILayers[i]->checkClickRelease(static_cast<sf::Vector2f>(m_renderWindow->mapPixelToCoords(sf::Mouse::getPosition(*m_renderWindow))));
+		}
+	}
 }
 
 
