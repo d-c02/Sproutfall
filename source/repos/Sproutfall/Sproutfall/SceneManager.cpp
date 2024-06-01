@@ -5,6 +5,7 @@ SceneManager::SceneManager(float windowSizeX, float windowSizeY, sf::RenderWindo
 {
 	m_renderWindow = window;
 	m_Player = make_unique<Player>(window);
+	m_Player->setVolume(m_SFXVolumeSlider);
 	//m_viewSizeX = viewSizeX;
 	//m_viewSizeY = viewSizeY;
 	m_Scene = make_unique<Scene>(m_Player.get(), m_viewSizeX, m_viewSizeY);
@@ -179,6 +180,12 @@ void SceneManager::handleUIInput()
 		}
 		m_UILayers[UI_Options]->setCurrent(true);
 	}
+
+	if (m_SFXVolumeSliderHeld)
+	{
+		m_Player->playDemoSound();
+		m_Player->setVolume(m_SFXVolumeSlider);
+	}
 }
 
 void SceneManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -288,7 +295,7 @@ void SceneManager::loadTitle()
 
 	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/UI/SFXIcon.png", sf::Vector2f(150, 250));
 
-	m_UILayers[m_UILayers.size() - 1]->AddSlider(sf::Vector2f(275, 250), &m_SFXVolumeSlider, "Textures/UI/SliderBar.png", "Textures/UI/SliderNub.png", 0, 1.0f, m_renderWindow);
+	m_UILayers[m_UILayers.size() - 1]->AddSlider(sf::Vector2f(275, 250), &m_SFXVolumeSlider, &m_SFXVolumeSliderHeld, "Textures/UI/SliderBar.png", "Textures/UI/SliderNub.png", 0, 100.0f, m_renderWindow);
 }
 
 void SceneManager::loadSpace()

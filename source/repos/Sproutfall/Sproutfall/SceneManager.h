@@ -58,5 +58,6 @@ private:
 	bool m_QuitGame = false;
 	bool m_OpenOptions = false;
 	bool m_OpenMainTitle = false;
-	float m_SFXVolumeSlider = 0.0f;
+	float m_SFXVolumeSlider = 50.0f;
+	bool m_SFXVolumeSliderHeld = false;
 };

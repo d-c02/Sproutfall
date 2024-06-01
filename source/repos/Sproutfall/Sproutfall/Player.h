@@ -30,6 +30,7 @@ public:
 	void SetWindow(sf::RenderWindow* window);
 	bool isHurt();
 	void setVolume(float volume);
+	void playDemoSound();
 protected:
 
 private:
@@ -57,6 +58,12 @@ private:
 	vector<std::unique_ptr<sf::SoundBuffer>>m_ShotgunShootBuffers;
 	vector<std::unique_ptr<sf::Sound>> m_ShotgunReloadSounds;
 	vector<std::unique_ptr<sf::SoundBuffer>> m_ShotgunReloadBuffers;
+	vector<std::unique_ptr<sf::Sound>> m_ShotgunHitSounds;
+	vector<std::unique_ptr<sf::SoundBuffer>> m_ShotgunHitBuffers;
+	vector<std::unique_ptr<sf::Sound>> m_TakeDamageSounds;
+	vector<std::unique_ptr<sf::SoundBuffer>> m_TakeDamageBuffers;
+
+	//vector<vector<std::unique_ptr<sf::Sound>>*> m_DemoSounds;
 
 	float neutralThreshold = 90;
 	float fallingThreshold = 600;
@@ -84,5 +91,7 @@ private:
 		"    gl_FragColor = pixel;                              " \
 		"}";
 	std::unique_ptr<sf::Shader> m_outlineShader;
+	//int m_previousDemoSoundGroup = 0;
+	int m_previousDemoSoundIndex = 0;
 	//float m_RenderDistance = 2000;
 };

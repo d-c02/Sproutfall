@@ -2,9 +2,10 @@
 #include "SFML_Lib.h"
 #include "UISlider.h"
 
-UISlider::UISlider(sf::Vector2f position, float* sliderVal, string barTexturePath, string sliderNubTexturePath, float minVal, float maxVal, sf::RenderWindow* window, sf::Vector2f hitboxOffset)
+UISlider::UISlider(sf::Vector2f position, float* sliderVal, bool* buttonHeld, string barTexturePath, string sliderNubTexturePath, float minVal, float maxVal, sf::RenderWindow* window, sf::Vector2f hitboxOffset)
 {
 	m_sliderVal = sliderVal;
+	m_buttonHeld = buttonHeld;
 
 	m_Sprite = make_unique<sf::Sprite>();
 	m_Texture = make_unique<sf::Texture>();
@@ -58,13 +59,13 @@ void UISlider::checkClick(sf::Vector2f pos)
 {
 	if (pos.x > m_Hitbox.left && pos.x < m_Hitbox.left + m_Hitbox.width && pos.y > m_Hitbox.top && pos.y < m_Hitbox.top + m_Hitbox.height)
 	{
-		m_buttonHeld = true;
+		*m_buttonHeld = true;
 	}
 }
 
 void UISlider::checkClickRelease(sf::Vector2f pos)
 {
-	m_buttonHeld = false;
+	*m_buttonHeld = false;
 }
 
 void UISlider::handleInput(sf::Event* event)
@@ -80,7 +81,7 @@ void UISlider::handleInput(sf::Event* event)
 		checkClickRelease(pos);
 	}
 
-	if (m_buttonHeld)
+	if (*m_buttonHeld)
 	{
 
 		if (pos.x > m_Hitbox.left + m_Hitbox.width)

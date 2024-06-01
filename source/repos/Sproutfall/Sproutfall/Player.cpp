@@ -17,6 +17,7 @@ Player::Player(sf::RenderWindow* window)
 	m_Shotgun = make_unique<Shotgun>(m_Sprite.get(), window);
 	m_bulletManager = make_unique<BulletManager>();
 	configureAnimations();
+
 	for (int i = 0; i < 3; i++)
 	{
 		m_ShotgunShootBuffers.push_back(make_unique<sf::SoundBuffer>());
@@ -27,6 +28,45 @@ Player::Player(sf::RenderWindow* window)
 		m_ShotgunShootSounds.push_back(make_unique<sf::Sound>());
 		m_ShotgunShootSounds[i]->setBuffer(*m_ShotgunShootBuffers[i]);
 	}
+
+	for (int i = 0; i < 7; i++)
+	{
+		m_ShotgunReloadBuffers.push_back(make_unique<sf::SoundBuffer>());
+		if (!m_ShotgunReloadBuffers[i]->loadFromFile("Sounds/Player/reload" + std::to_string(i + 1) + ".ogg"))
+		{
+			cout << "Shotgun reload #" << i << " load failure\n";
+		}
+		m_ShotgunReloadSounds.push_back(make_unique<sf::Sound>());
+		m_ShotgunReloadSounds[i]->setBuffer(*m_ShotgunReloadBuffers[i]);
+	}
+
+	for (int i = 0; i < 3; i++)
+	{
+		m_ShotgunHitBuffers.push_back(make_unique<sf::SoundBuffer>());
+		if (!m_ShotgunHitBuffers[i]->loadFromFile("Sounds/Player/enemyhit" + std::to_string(i + 1) + ".ogg"))
+		{
+			cout << "Enemy hit #" << i << " load failure\n";
+		}
+		m_ShotgunHitSounds.push_back(make_unique<sf::Sound>());
+		m_ShotgunHitSounds[i]->setBuffer(*m_ShotgunHitBuffers[i]);
+	}
+
+	for (int i = 0; i < 3; i++)
+	{
+		m_TakeDamageBuffers.push_back(make_unique<sf::SoundBuffer>());
+		if (!m_TakeDamageBuffers[i]->loadFromFile("Sounds/Player/hit" + std::to_string(i + 1) + ".ogg"))
+		{
+			cout << "Player hit #" << i << " load failure\n";
+		}
+		m_TakeDamageSounds.push_back(make_unique<sf::Sound>());
+		m_TakeDamageSounds[i]->setBuffer(*m_TakeDamageBuffers[i]);
+	}
+
+	//m_DemoSounds.push_back(&m_ShotgunShootSounds);
+	//m_DemoSounds.push_back(&m_ShotgunReloadSounds);
+	//m_DemoSounds.push_back(&m_ShotgunHitSounds);
+	//m_DemoSounds.push_back(&m_ShotgunReloadSounds);
+
 
 	setHittable(true);
 	auto circ = make_unique<sf::CircleShape>();
@@ -392,4 +432,46 @@ void Player::SetWindow(sf::RenderWindow* window)
 bool Player::isHurt()
 {
 	return m_CurrentState == hurt;
+}
+
+void Player::setVolume(float volume)
+{
+	for (int i = 0; i < m_ShotgunShootSounds.size(); i++)
+	{
+		m_ShotgunShootSounds[i]->setVolume(volume);
+	}
+
+	for (int i = 0; i < m_ShotgunReloadSounds.size(); i++)
+	{
+		m_ShotgunReloadSounds[i]->setVolume(volume);
+	}
+
+	for (int i = 0; i < m_ShotgunHitSounds.size(); i++)
+	{
+		m_ShotgunHitSounds[i]->setVolume(volume);
+	}
+
+	for (int i = 0; i < m_TakeDamageSounds.size(); i++)
+	{
+		m_TakeDamageSounds[i]->setVolume(volume);
+	}
+}
+
+void Player::playDemoSound()
+{
+	//if (m_DemoSounds.size() != 0)
+	//{
+	//	if ((*m_DemoSounds[m_previousDemoSoundGroup])[m_previousDemoSoundIndex]->getStatus() == sf::SoundSource::Status::Stopped)
+	//	{
+	//		m_previousDemoSoundGroup = rand() % m_DemoSounds.size();
+	//		m_previousDemoSoundIndex = rand() % m_DemoSounds[m_previousDemoSoundGroup]->size();
+	//		(*m_DemoSounds[m_previousDemoSoundGroup])[m_previousDemoSoundIndex]->play();
+	//	}
+	//}
+
+	if (m_ShotgunShootSounds[m_previousDemoSoundIndex]->getStatus() == sf::SoundSource::Status::Stopped)
+	{
+		m_previousDemoSoundIndex = rand() % m_ShotgunShootSounds.size();
+		m_ShotgunShootSounds[m_previousDemoSoundIndex]->play();
+	}
 }
