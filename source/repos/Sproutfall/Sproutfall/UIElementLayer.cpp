@@ -45,6 +45,11 @@ void UIElementLayer::AddButton(string TexturePath, bool* switchBool, sf::Vector2
 	m_UIElements.push_back(make_unique<UIButton>(TexturePath, switchBool, position, unclickedTextureCoords, clickedTextureCoords, releasedTextureCoords, hitboxOffset));
 }
 
+void UIElementLayer::AddSlider(sf::Vector2f position, float* sliderVal, string barTexturePath, string sliderNubTexturePath, float minVal, float maxVal, sf::Vector2f m_HitboxOffset)
+{
+	m_UIElements.push_back(make_unique<UISlider>(position, sliderVal, barTexturePath, sliderNubTexturePath, minVal, maxVal, m_HitboxOffset));
+}
+
 void UIElementLayer::checkClick(sf::Vector2f mousePos)
 {
 	if (m_IsCurrent)

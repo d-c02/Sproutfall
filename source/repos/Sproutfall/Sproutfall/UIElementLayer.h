@@ -3,6 +3,7 @@
 #include "UIElement.h"
 #include "AnimationManager.h"
 #include "UIButton.h"
+#include "UISlider.h"
 
 class UIElementLayer : public sf::Drawable
 {
@@ -15,6 +16,8 @@ public:
 	void AddAnimatedVisualElement(string texturePath, sf::Vector2f position, vector<sf::IntRect> frameVector);
 	void SetPosition(sf::Vector2f pos);
 	void AddButton(string TexturePath, bool* switchBool, sf::Vector2f position, sf::IntRect unclickedTextureCoords, sf::IntRect clickedTextureCoords, sf::IntRect releasedTextureCoords, sf::Vector2f hitboxOffset = sf::Vector2f(0, 0));
+	void AddSlider(sf::Vector2f position, float* sliderVal, string barTexturePath, string sliderNubTexturePath, float minVal, float maxVal, sf::Vector2f m_HitboxOffset = sf::Vector2f(0, 0));
+	
 	void checkClick(sf::Vector2f mousePos);
 	void checkClickRelease(sf::Vector2f mousePos);
 

@@ -286,7 +286,7 @@ void SceneManager::loadTitle()
 
 	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/CloseButton.png", &m_OpenMainTitle, sf::Vector2f(1080, 75), sf::IntRect(0, 0, 50, 50), sf::IntRect(50, 0, 50, 50), sf::IntRect(0, 0, 50, 50));
 
-	
+	m_UILayers[m_UILayers.size() - 1]->AddSlider(sf::Vector2f(200, 300), &m_SFXVolumeSlider, "Textures/UI/SliderBar.png", "Textures/UI/SliderNub.png", 0, 1.0f);
 }
 
 void SceneManager::loadSpace()
