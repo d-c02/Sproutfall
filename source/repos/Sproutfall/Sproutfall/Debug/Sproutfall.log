@@ -25,8 +25,12 @@ C:\SFML-2.5.1\include\SFML\Graphics\RenderTarget.hpp(45,7): message : see declar
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\UIElement.h(4,7): message : see declaration of 'UIElement'
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(55,28): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(55,15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(171,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(181,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(262,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(527,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(176,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(196,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(294,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(303,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(336,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(418,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(493,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(557,20): warning C4018: '<': signed/unsigned mismatch
   Sproutfall.vcxproj -> C:\Users\djcas\source\repos\Sproutfall\Debug\Sproutfall.exe

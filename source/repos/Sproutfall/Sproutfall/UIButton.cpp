@@ -19,7 +19,8 @@ UIButton::UIButton(string TexturePath, bool* switchBool, sf::Vector2f position, 
 
 	m_Sprite->setTextureRect(m_UnclickedTextureCoords);
 
-	m_Sprite->setPosition(position);
+	m_UIPosition = position;
+	m_Sprite->setPosition(m_UIPosition);
 
 	m_Hitbox = m_Sprite->getGlobalBounds();
 	m_Hitbox.left = position.x + m_HitboxOffset.x;
@@ -32,9 +33,9 @@ UIButton::UIButton(string TexturePath, bool* switchBool, sf::Vector2f position, 
 
 void UIButton::setPosition(sf::Vector2f pos)
 {
-	m_Sprite->setPosition(pos);
-	m_Hitbox.left = pos.x + m_HitboxOffset.x;
-	m_Hitbox.top = pos.y + m_HitboxOffset.y;
+	m_Sprite->setPosition(m_UIPosition + pos);
+	m_Hitbox.left = (m_UIPosition + pos).x + m_HitboxOffset.x;
+	m_Hitbox.top = (m_UIPosition + pos).y + m_HitboxOffset.y;
 }
 
 void UIButton::Update(float tf)

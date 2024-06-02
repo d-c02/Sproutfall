@@ -21,8 +21,7 @@ void UIElementLayer::Update(float tf)
 
 void UIElementLayer::AddVisualElement(string texturePath, sf::Vector2f position)
 {
-	m_UIElements.push_back(make_unique<UIElement>(texturePath));
-	m_UIElements[m_UIElements.size() - 1]->setPosition(position);
+	m_UIElements.push_back(make_unique<UIElement>(texturePath, position));
 }
 
 void UIElementLayer::AddAnimatedVisualElement(string texturePath, sf::Vector2f position, vector<sf::IntRect> frameVector)

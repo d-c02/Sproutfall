@@ -21,6 +21,7 @@ private:
 	void loadForest();
 	void loadWin();
 	void borderView(int width, int height);
+	void configureUI();
 	void handleUIInput();
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
@@ -55,12 +56,12 @@ private:
 	vector<std::unique_ptr<UIElementLayer>> m_UILayers;
 	
 	//UI Stuff
-	enum TitleUI {UI_Main, UI_Options};
+	enum UI {UI_Title_Main, UI_Title_Options, UI_Gameplay_HUD, UI_Gameplay_Paused};
 
 	bool m_LoadSpace = false;
 	bool m_QuitGame = false;
 	bool m_OpenOptions = false;
-	bool m_OpenMainTitle = false;
+	bool m_CloseOptions = false;
 
 	float m_SFXVolumeSlider = 50.0f;
 	bool m_SFXVolumeSliderHeld = false;
@@ -68,7 +69,13 @@ private:
 	float m_MusicVolumeSlider = 50.0f;
 	bool m_MusicVolumeSliderHeld = false;
 
+	bool m_ClosePauseMenu = false;
+	bool m_LoadTitle = false;
+	bool m_Retry = false;
+
 	bool m_Fullscreen = false;
+
+	bool m_Paused = false;
 
 	std::unique_ptr<sf::Music> m_Music;
 };

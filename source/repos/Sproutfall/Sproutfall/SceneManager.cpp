@@ -57,6 +57,8 @@ SceneManager::SceneManager(float windowSizeX, float windowSizeY, sf::RenderWindo
 	m_Music = make_unique<sf::Music>();
 	m_Music->setLoop(true);
 	m_Music->setVolume(m_MusicVolumeSlider);
+
+	configureUI();
 }
 SceneManager::~SceneManager()
 {
@@ -91,11 +93,7 @@ void SceneManager::Update(float tf)
 	handleUIInput();
 
 	//Game Logic
-	if (m_CurrentScene == TitleScreen)
-	{
-		
-	}
-	else
+	if (m_Scene->hasGameplay() && !m_Paused)
 	{
 		if (m_Player->getPosition().y >= (m_Scene->getLevelSize()))
 		{
@@ -159,20 +157,37 @@ void SceneManager::handleUIInput()
 		loadSpace();
 	}
 
+	if (m_Retry)
+	{
+		m_Paused = false;
+		m_Retry = false;
+		loadScene(m_CurrentScene);
+	}
+
 	if (m_QuitGame)
 	{
 		m_QuitGame = false;
 		m_renderWindow->close();
 	}
 
-	if (m_OpenMainTitle)
+	if (m_CloseOptions)
 	{
-		m_OpenMainTitle = false;
+		m_CloseOptions = false;
 		for (int i = 0; i < m_UILayers.size(); i++)
 		{
 			m_UILayers[i]->setCurrent(false);
 		}
-		m_UILayers[UI_Main]->setCurrent(true);
+
+		if (m_CurrentScene == TitleScreen)
+		{
+			m_UILayers[UI_Title_Main]->setCurrent(true);
+		}
+		else if (m_Scene->hasGameplay())
+		{
+			m_UILayers[UI_Gameplay_HUD]->setCurrent(true);
+			m_UILayers[UI_Gameplay_Paused]->setCurrent(true);
+		}
+		
 	}
 
 	if (m_OpenOptions)
@@ -182,7 +197,7 @@ void SceneManager::handleUIInput()
 		{
 			m_UILayers[i]->setCurrent(false);
 		}
-		m_UILayers[UI_Options]->setCurrent(true);
+		m_UILayers[UI_Title_Options]->setCurrent(true);
 	}
 
 	if (m_SFXVolumeSliderHeld)
@@ -194,6 +209,19 @@ void SceneManager::handleUIInput()
 	if (m_MusicVolumeSliderHeld)
 	{
 		m_Music->setVolume(m_MusicVolumeSlider);
+	}
+
+	if (m_LoadTitle)
+	{
+		m_LoadTitle = false;
+		loadTitle();
+	}
+
+	if (m_ClosePauseMenu)
+	{
+		m_ClosePauseMenu = false;
+		m_Paused = false;
+		m_UILayers[UI_Gameplay_Paused]->setCurrent(false);
 	}
 }
 
@@ -224,6 +252,10 @@ void SceneManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	m_LowerBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, playerPos.y + (m_View->getSize().y / 2) - m_LowerBorder->getSize().y + m_ScreenShakeSizeY);
 	m_RightBorder->setPosition((m_viewSizeX / 2) + (m_View->getSize().x / 2) - m_RightBorder->getSize().x + m_ScreenShakeSizeX, playerPos.y - (m_View->getSize().y / 2));
 	m_Scene->UpdateBackgroundPositions(playerPos.y);
+
+	m_UILayers[UI_Gameplay_Paused]->SetPosition(sf::Vector2f(m_View->getCenter().x - m_viewSizeX / 2, m_View->getCenter().y - m_viewSizeY / 2));
+	m_UILayers[UI_Gameplay_HUD]->SetPosition(sf::Vector2f(m_View->getCenter().x - m_viewSizeX / 2, m_View->getCenter().y - m_viewSizeY / 2));
+	m_UILayers[UI_Title_Options]->SetPosition(sf::Vector2f(m_View->getCenter().x - m_viewSizeX / 2, m_View->getCenter().y - m_viewSizeY / 2));
 
 	if (m_Player->getPosition().y < (m_Scene->getLevelSize() * m_viewSizeY) - (m_viewSizeY / 2))
 	{
@@ -268,6 +300,14 @@ void SceneManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 void SceneManager::loadTitle()
 {
 
+	for (int i = 0; i < m_UILayers.size(); i++)
+	{
+		m_UILayers[i]->setCurrent(false);
+		m_UILayers[i]->SetPosition(sf::Vector2f(0, 0));
+	}
+
+	m_UILayers[UI_Title_Main]->setCurrent(true);
+
 	m_CurrentScene = TitleScreen;
 
 	m_Scene->setGameplay(false);
@@ -283,38 +323,6 @@ void SceneManager::loadTitle()
 	m_Scene->addBackgroundElement(sf::Vector2f(0, 0), 0, "Textures/space/earth2.png", frameVector, 1.0f, 10, 500);
 	frameVector.clear();
 
-	m_UILayers.clear();
-
-	m_UILayers.push_back(make_unique<UIElementLayer>());
-
-	m_UILayers[m_UILayers.size() - 1]->setCurrent(true);
-
-	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/PlayButton.png", &m_LoadSpace, sf::Vector2f(m_viewSizeX / 2 - 140, m_viewSizeY / 2), sf::IntRect(0,0,140,50), sf::IntRect(140, 0, 140, 50), sf::IntRect(0, 0, 140, 50), m_renderWindow);
-
-	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/OptionsButton.png", &m_OpenOptions, sf::Vector2f(m_viewSizeX / 2 - 225, m_viewSizeY / 2 + 250), sf::IntRect(0, 0, 225, 50), sf::IntRect(225, 0, 225, 50), sf::IntRect(0, 0, 225, 50), m_renderWindow);
-
-	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/QuitButton.png", &m_QuitGame, sf::Vector2f(m_viewSizeX / 2 - 140, m_viewSizeY / 2 + 350), sf::IntRect(0, 0, 140, 50), sf::IntRect(140, 0, 140, 50), sf::IntRect(0, 0, 140, 50), m_renderWindow);
-
-	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/UI/logov2.png", sf::Vector2f(m_viewSizeX / 2 - 480, 50));
-
-	m_UILayers.push_back(make_unique<UIElementLayer>());
-
-	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/UI/MenuBorderSmall.png", sf::Vector2f(100, 75));
-
-	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/CloseButton.png", &m_OpenMainTitle, sf::Vector2f(1080, 75), sf::IntRect(0, 0, 50, 50), sf::IntRect(50, 0, 50, 50), sf::IntRect(0, 0, 50, 50), m_renderWindow);
-
-	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/UI/SFXIcon.png", sf::Vector2f(150, 250));
-
-	m_UILayers[m_UILayers.size() - 1]->AddSlider(sf::Vector2f(275, 250), &m_SFXVolumeSlider, &m_SFXVolumeSliderHeld, "Textures/UI/SliderBar.png", "Textures/UI/SliderNub.png", 0, 100.0f, m_renderWindow);
-
-	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/UI/MusicIcon.png", sf::Vector2f(150, 400));
-
-	m_UILayers[m_UILayers.size() - 1]->AddSlider(sf::Vector2f(275, 400), &m_MusicVolumeSlider, &m_MusicVolumeSliderHeld, "Textures/UI/SliderBar.png", "Textures/UI/SliderNub.png", 0, 100.0f, m_renderWindow);
-	
-	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/UI/FullscreenIcon.png", sf::Vector2f(150, 550));
-
-	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/FullscreenButton.png", &m_Fullscreen, sf::Vector2f(500, 550), sf::IntRect(100, 0, 50, 50), sf::IntRect(50, 0, 50, 50), sf::IntRect(0, 0, 50, 50), m_renderWindow);
-
 	m_Music->stop();
 	if (!m_Music->openFromFile("Sounds/Music/jame_gam_main_theme.ogg"))
 	{
@@ -325,10 +333,16 @@ void SceneManager::loadTitle()
 
 void SceneManager::loadSpace()
 {
+	for (int i = 0; i < m_UILayers.size(); i++)
+	{
+		m_UILayers[i]->setCurrent(false);
+		m_UILayers[i]->SetPosition(sf::Vector2f(0, 0));
+	}
+
+	m_UILayers[UI_Gameplay_HUD]->setCurrent(true);
+
 	m_CurrentScene = Space;
 	m_Scene.reset();
-
-	m_UILayers.clear();
 
 	m_EnemyManager->Clear();
 	m_Scene = make_unique<Scene>(m_Player.get(), m_viewSizeX, m_viewSizeY, 9600);
@@ -401,6 +415,14 @@ void SceneManager::loadSpace()
 
 void SceneManager::loadSky()
 {
+	for (int i = 0; i < m_UILayers.size(); i++)
+	{
+		m_UILayers[i]->setCurrent(false);
+		m_UILayers[i]->SetPosition(sf::Vector2f(0, 0));
+	}
+
+	m_UILayers[UI_Gameplay_HUD]->setCurrent(true);
+
 	m_CurrentScene = Sky;
 	m_Scene.reset();
 	m_EnemyManager->Clear();
@@ -468,6 +490,14 @@ void SceneManager::loadSky()
 
 void SceneManager::loadForest()
 {
+	for (int i = 0; i < m_UILayers.size(); i++)
+	{
+		m_UILayers[i]->setCurrent(false);
+		m_UILayers[i]->SetPosition(sf::Vector2f(0, 0));
+	}
+
+	m_UILayers[UI_Gameplay_HUD]->setCurrent(true);
+
 	m_CurrentScene = Forest;
 	m_Scene.reset();
 	m_EnemyManager->Clear();
@@ -520,14 +550,36 @@ void SceneManager::loadWin()
 
 void SceneManager::handleInput(sf::Event* event)
 {
-	if (m_Scene->hasGameplay())
+	if (m_Scene->hasGameplay() && !m_Paused)
 	{
 		m_Player->handleInput(event);
 	}
 	for (int i = 0; i < m_UILayers.size(); i++)
 	{
 		m_UILayers[i]->handleInput(event);
-		//m_UILayers[i]->checkClick(static_cast<sf::Vector2f>(m_renderWindow->mapPixelToCoords(sf::Mouse::getPosition(*m_renderWindow))));
+	}
+	if (m_Scene->hasGameplay())
+	{
+		if (event->type == sf::Event::KeyPressed)
+		{
+			if (event->key.code == sf::Keyboard::Escape)
+			{
+				if (m_UILayers[UI_Gameplay_Paused]->isCurrent())
+				{
+					m_Paused = false;
+					m_ClosePauseMenu = true;
+				}
+				else if (m_UILayers[UI_Title_Options]->isCurrent())
+				{
+					m_CloseOptions = true;
+				}
+				else
+				{
+					m_UILayers[UI_Gameplay_Paused]->setCurrent(true);
+					m_Paused = true;
+				}
+			}
+		}
 	}
 }
 
@@ -535,6 +587,59 @@ void SceneManager::handleInput(sf::Event* event)
 void SceneManager::borderView(int width, int height)
 {
 
+}
+
+void SceneManager::configureUI()
+{
+	m_UILayers.clear();
+
+	//Main title
+	m_UILayers.push_back(make_unique<UIElementLayer>());
+
+	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/PlayButton.png", &m_LoadSpace, sf::Vector2f(m_viewSizeX / 2 - 140, m_viewSizeY / 2), sf::IntRect(0, 0, 140, 50), sf::IntRect(140, 0, 140, 50), sf::IntRect(0, 0, 140, 50), m_renderWindow);
+
+	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/OptionsButton.png", &m_OpenOptions, sf::Vector2f(m_viewSizeX / 2 - 225, m_viewSizeY / 2 + 250), sf::IntRect(0, 0, 225, 50), sf::IntRect(225, 0, 225, 50), sf::IntRect(0, 0, 225, 50), m_renderWindow);
+
+	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/QuitButton.png", &m_QuitGame, sf::Vector2f(m_viewSizeX / 2 - 140, m_viewSizeY / 2 + 350), sf::IntRect(0, 0, 140, 50), sf::IntRect(140, 0, 140, 50), sf::IntRect(0, 0, 140, 50), m_renderWindow);
+
+	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/UI/logov2.png", sf::Vector2f(m_viewSizeX / 2 - 480, 50));
+
+	//Main title options
+	m_UILayers.push_back(make_unique<UIElementLayer>());
+
+	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/UI/MenuBorderSmall.png", sf::Vector2f(100, 75));
+
+	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/CloseButton.png", &m_CloseOptions, sf::Vector2f(1080, 75), sf::IntRect(0, 0, 50, 50), sf::IntRect(50, 0, 50, 50), sf::IntRect(0, 0, 50, 50), m_renderWindow);
+
+	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/UI/SFXIcon.png", sf::Vector2f(150, 250));
+
+	m_UILayers[m_UILayers.size() - 1]->AddSlider(sf::Vector2f(275, 250), &m_SFXVolumeSlider, &m_SFXVolumeSliderHeld, "Textures/UI/SliderBar.png", "Textures/UI/SliderNub.png", 0, 100.0f, m_renderWindow);
+
+	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/UI/MusicIcon.png", sf::Vector2f(150, 400));
+
+	m_UILayers[m_UILayers.size() - 1]->AddSlider(sf::Vector2f(275, 400), &m_MusicVolumeSlider, &m_MusicVolumeSliderHeld, "Textures/UI/SliderBar.png", "Textures/UI/SliderNub.png", 0, 100.0f, m_renderWindow);
+
+	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/UI/FullscreenIcon.png", sf::Vector2f(150, 550));
+
+	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/FullscreenButton.png", &m_Fullscreen, sf::Vector2f(500, 550), sf::IntRect(100, 0, 50, 50), sf::IntRect(50, 0, 50, 50), sf::IntRect(0, 0, 50, 50), m_renderWindow);
+
+	//Gameplay HUD
+	m_UILayers.push_back(make_unique<UIElementLayer>());
+
+	//Gameplay paused
+	m_UILayers.push_back(make_unique<UIElementLayer>());
+
+	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/UI/MenuBorderSmall.png", sf::Vector2f(100, 75));
+
+	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/ResumeButton.png", &m_ClosePauseMenu, sf::Vector2f(m_viewSizeX / 2 - 140, 125), sf::IntRect(0, 0, 140, 50), sf::IntRect(140, 0, 140, 50), sf::IntRect(0, 0, 140, 50), m_renderWindow);
+
+	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/OptionsButton2.png", &m_OpenOptions, sf::Vector2f(m_viewSizeX / 2 - 140, 275), sf::IntRect(0, 0, 140, 50), sf::IntRect(140, 0, 140, 50), sf::IntRect(0, 0, 140, 50), m_renderWindow);
+
+	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/RetryButton.png", &m_Retry, sf::Vector2f(m_viewSizeX / 2 - 95, 425), sf::IntRect(0, 0, 95, 50), sf::IntRect(95, 0, 95, 50), sf::IntRect(0, 0, 95, 50), m_renderWindow);
+
+	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/QuitToTitleButton.png", &m_LoadTitle, sf::Vector2f(m_viewSizeX / 2 - 200, 575), sf::IntRect(0, 0, 200, 50), sf::IntRect(200, 0, 200, 50), sf::IntRect(0, 0, 200, 50), m_renderWindow);
+
+	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/QuitToDesktopButton.png", &m_QuitGame, sf::Vector2f(m_viewSizeX / 2 - 215, 725), sf::IntRect(0, 0, 215, 50), sf::IntRect(215, 0, 215, 50), sf::IntRect(0, 0, 215, 50), m_renderWindow);
 }
 
 void SceneManager::handleResize(int width, int height)

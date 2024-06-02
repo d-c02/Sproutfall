@@ -28,7 +28,8 @@ UISlider::UISlider(sf::Vector2f position, float* sliderVal, bool* buttonHeld, st
 	m_NubSprite->setOrigin(m_NubTexture->getSize().x / 2, 0);
 	m_NubSprite->setScale(2, 2);
 
-	m_Sprite->setPosition(position);
+	m_UIPosition = position;
+	m_Sprite->setPosition(m_UIPosition);
 
 	m_HitboxOffset = hitboxOffset;
 	m_Hitbox = m_Sprite->getGlobalBounds();
@@ -45,10 +46,10 @@ UISlider::UISlider(sf::Vector2f position, float* sliderVal, bool* buttonHeld, st
 
 void UISlider::setPosition(sf::Vector2f pos)
 {
-	m_Sprite->setPosition(pos);
-	m_NubSprite->setPosition(sf::Vector2f(pos.x, pos.y - m_NubTexture->getSize().y / 2));
-	m_Hitbox.left = pos.x + m_HitboxOffset.x;
-	m_Hitbox.top = pos.y + m_HitboxOffset.y;
+	m_Sprite->setPosition(m_UIPosition + pos);
+	m_NubSprite->setPosition(sf::Vector2f(((*m_sliderVal - m_minVal) / m_maxVal) * m_Hitbox.width + m_Hitbox.left, m_Sprite->getPosition().y - (m_NubTexture->getSize().y - m_Texture->getSize().y)));
+	m_Hitbox.left = (m_UIPosition + pos).x + m_HitboxOffset.x;
+	m_Hitbox.top = (m_UIPosition + pos).y + m_HitboxOffset.y;
 }
 
 void UISlider::Update(float tf)
