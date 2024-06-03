@@ -75,10 +75,23 @@ void BulletManager::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 	}
 }
 
-void BulletManager::checkCollisions(Enemy* enemy)
+bool BulletManager::checkCollisions(Enemy* enemy)
+{
+	bool collided = false;
+	for (int i = 0; i < m_bulletVector.size(); i++)
+	{
+		if (m_bulletVector[i]->checkCollision(enemy))
+		{
+			collided = true;
+		}
+	}
+	return collided;
+}
+
+void BulletManager::clearBullets()
 {
 	for (int i = 0; i < m_bulletVector.size(); i++)
 	{
-		m_bulletVector[i]->checkCollision(enemy);
+		m_bulletVector[i]->killBullet();
 	}
 }

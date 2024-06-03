@@ -55,8 +55,12 @@ void Bullet::Update(float tf)
 
 void Bullet::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	target.draw(*m_Sprite);
-	//target.draw(*m_Hitbox);
+	if (m_draw)
+	{
+		target.draw(*m_Sprite);
+		//target.draw(*m_Hitbox);
+	}
+
 }
 
 void Bullet::configureAnimations()
@@ -88,7 +92,7 @@ void Bullet::configureAnimations()
 	m_AnimationManager->setState(neutral);
 }
 
-void Bullet::checkCollision(Enemy* enemy)
+bool Bullet::checkCollision(Enemy* enemy)
 {
 	
 	if (m_IsHittable)
@@ -106,6 +110,7 @@ void Bullet::checkCollision(Enemy* enemy)
 				setHittable(false);
 				enemy->Hurt(sf::Vector2f(m_directionX * m_speed, m_directionY * m_speed));
 				m_speed = 0;
+				return true;
 			}
 		}
 		else
@@ -121,12 +126,23 @@ void Bullet::checkCollision(Enemy* enemy)
 				setHittable(false);
 				enemy->Hurt(sf::Vector2f(m_directionX * m_speed, m_directionY * m_speed));
 				m_speed = 0;
+				return true;
 			}
 		}
 	}
+	return false;
 }
 
 bool Bullet::canDespawn()
 {
 	return (!m_AnimationManager->isPlaying() && !m_Alive);
+}
+
+void Bullet::killBullet()
+{
+	m_Alive = false;
+	m_CurrentState = despawning;
+	m_AnimationManager->setState(despawning);
+	setHittable(false);
+	m_draw = false;
 }

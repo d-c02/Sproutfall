@@ -9,6 +9,7 @@ public:
 	void SetColor(sf::Color color);
 	void CreateShell(sf::Vector2f position, sf::Vector2f direction);
 	void SetGravity(float gravity);
+	void removeAll();
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 

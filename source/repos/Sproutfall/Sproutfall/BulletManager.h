@@ -9,7 +9,8 @@ public:
 	void removeBullet(int index);
 	void spawnVolley(sf::Vector2f direction, sf::Vector2f initialPos);
 	void Update(float tf);
-	void checkCollisions(Enemy* enemy);
+	bool checkCollisions(Enemy* enemy);
+	void clearBullets();
 
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;

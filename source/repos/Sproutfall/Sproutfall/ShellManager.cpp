@@ -39,6 +39,14 @@ void ShellManager::SetGravity(float gravity)
 	m_Gravity = gravity;
 }
 
+void ShellManager::removeAll()
+{
+	for (int i = 0; i < m_ShellVector.size(); i++)
+	{
+		m_ShellVector[i]->killShell();
+	}
+}
+
 void ShellManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	for (int i = 0; i < m_ShellVector.size(); i++)

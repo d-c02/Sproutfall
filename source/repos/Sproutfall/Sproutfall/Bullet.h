@@ -10,8 +10,9 @@ public:
 	~Bullet();
 	void Update(float tf);
 	void configureAnimations();
-	void checkCollision(Enemy* enemy);
+	bool checkCollision(Enemy* enemy);
 	bool canDespawn();
+	void killBullet();
 	sf::CircleShape* getHitbox();
 private:
 	sf::Texture* m_Texture;
@@ -29,4 +30,5 @@ private:
 	bool m_Alive = true;
 	int m_CurrentState;
 	std::unique_ptr<sf::CircleShape> m_Hitbox;
+	bool m_draw = true;
 };

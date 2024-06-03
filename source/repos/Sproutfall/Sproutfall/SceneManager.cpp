@@ -161,6 +161,7 @@ void SceneManager::handleUIInput()
 	{
 		m_Paused = false;
 		m_Retry = false;
+		m_Player->resetGameplay();
 		loadScene(m_CurrentScene);
 	}
 
@@ -214,6 +215,8 @@ void SceneManager::handleUIInput()
 	if (m_LoadTitle)
 	{
 		m_LoadTitle = false;
+		m_Paused = false;
+		m_Player->resetGameplay();
 		loadTitle();
 	}
 
@@ -596,32 +599,32 @@ void SceneManager::configureUI()
 	//Main title
 	m_UILayers.push_back(make_unique<UIElementLayer>());
 
-	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/PlayButton.png", &m_LoadSpace, sf::Vector2f(m_viewSizeX / 2 - 140, m_viewSizeY / 2), sf::IntRect(0, 0, 140, 50), sf::IntRect(140, 0, 140, 50), sf::IntRect(0, 0, 140, 50), m_renderWindow);
+	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/PlayButtonBorder.png", &m_LoadSpace, sf::Vector2f(m_viewSizeX / 2 - 140, m_viewSizeY / 2), sf::IntRect(0, 0, 140, 50), sf::IntRect(140, 0, 140, 50), sf::IntRect(0, 0, 140, 50), m_renderWindow);
 
-	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/OptionsButton.png", &m_OpenOptions, sf::Vector2f(m_viewSizeX / 2 - 225, m_viewSizeY / 2 + 250), sf::IntRect(0, 0, 225, 50), sf::IntRect(225, 0, 225, 50), sf::IntRect(0, 0, 225, 50), m_renderWindow);
+	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/OptionsButtonOutline2.png", &m_OpenOptions, sf::Vector2f(m_viewSizeX / 2 - 225, m_viewSizeY / 2 + 250), sf::IntRect(0, 0, 225, 50), sf::IntRect(225, 0, 225, 50), sf::IntRect(0, 0, 225, 50), m_renderWindow);
 
-	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/QuitButton.png", &m_QuitGame, sf::Vector2f(m_viewSizeX / 2 - 140, m_viewSizeY / 2 + 350), sf::IntRect(0, 0, 140, 50), sf::IntRect(140, 0, 140, 50), sf::IntRect(0, 0, 140, 50), m_renderWindow);
+	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/QuitButtonOutline.png", &m_QuitGame, sf::Vector2f(m_viewSizeX / 2 - 140, m_viewSizeY / 2 + 350), sf::IntRect(0, 0, 140, 50), sf::IntRect(140, 0, 140, 50), sf::IntRect(0, 0, 140, 50), m_renderWindow);
 
 	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/UI/logov2.png", sf::Vector2f(m_viewSizeX / 2 - 480, 50));
 
 	//Main title options
 	m_UILayers.push_back(make_unique<UIElementLayer>());
 
-	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/UI/MenuBorderSmall.png", sf::Vector2f(100, 75));
+	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/UI/MenuBorderSmallRough.png", sf::Vector2f(100, 75));
 
-	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/CloseButton.png", &m_CloseOptions, sf::Vector2f(1080, 75), sf::IntRect(0, 0, 50, 50), sf::IntRect(50, 0, 50, 50), sf::IntRect(0, 0, 50, 50), m_renderWindow);
+	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/CloseButtonRough.png", &m_CloseOptions, sf::Vector2f(1040, 125), sf::IntRect(0, 0, 50, 50), sf::IntRect(50, 0, 50, 50), sf::IntRect(0, 0, 50, 50), m_renderWindow);
 
-	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/UI/SFXIcon.png", sf::Vector2f(150, 250));
+	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/UI/SFXIconRough.png", sf::Vector2f(175, 250));
 
-	m_UILayers[m_UILayers.size() - 1]->AddSlider(sf::Vector2f(275, 250), &m_SFXVolumeSlider, &m_SFXVolumeSliderHeld, "Textures/UI/SliderBar.png", "Textures/UI/SliderNub.png", 0, 100.0f, m_renderWindow);
+	m_UILayers[m_UILayers.size() - 1]->AddSlider(sf::Vector2f(275, 250), &m_SFXVolumeSlider, &m_SFXVolumeSliderHeld, "Textures/UI/SliderBarRough.png", "Textures/UI/SliderNubRough.png", 0, 100.0f, m_renderWindow);
 
 	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/UI/MusicIcon.png", sf::Vector2f(150, 400));
 
-	m_UILayers[m_UILayers.size() - 1]->AddSlider(sf::Vector2f(275, 400), &m_MusicVolumeSlider, &m_MusicVolumeSliderHeld, "Textures/UI/SliderBar.png", "Textures/UI/SliderNub.png", 0, 100.0f, m_renderWindow);
+	m_UILayers[m_UILayers.size() - 1]->AddSlider(sf::Vector2f(275, 400), &m_MusicVolumeSlider, &m_MusicVolumeSliderHeld, "Textures/UI/SliderBarRough.png", "Textures/UI/SliderNubRough.png", 0, 100.0f, m_renderWindow);
 
 	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/UI/FullscreenIcon.png", sf::Vector2f(150, 550));
 
-	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/FullscreenButton.png", &m_Fullscreen, sf::Vector2f(500, 550), sf::IntRect(100, 0, 50, 50), sf::IntRect(50, 0, 50, 50), sf::IntRect(0, 0, 50, 50), m_renderWindow);
+	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/FullscreenButtonRough.png", &m_Fullscreen, sf::Vector2f(500, 550), sf::IntRect(100, 0, 50, 50), sf::IntRect(50, 0, 50, 50), sf::IntRect(0, 0, 50, 50), m_renderWindow);
 
 	//Gameplay HUD
 	m_UILayers.push_back(make_unique<UIElementLayer>());
@@ -629,7 +632,7 @@ void SceneManager::configureUI()
 	//Gameplay paused
 	m_UILayers.push_back(make_unique<UIElementLayer>());
 
-	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/UI/MenuBorderSmall.png", sf::Vector2f(100, 75));
+	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/UI/MenuBorderSmallRough.png", sf::Vector2f(100, 75));
 
 	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/ResumeButton.png", &m_ClosePauseMenu, sf::Vector2f(m_viewSizeX / 2 - 140, 125), sf::IntRect(0, 0, 140, 50), sf::IntRect(140, 0, 140, 50), sf::IntRect(0, 0, 140, 50), m_renderWindow);
 

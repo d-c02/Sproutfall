@@ -31,6 +31,7 @@ public:
 	bool isHurt();
 	void setVolume(float volume);
 	void playDemoSound();
+	void resetGameplay();
 protected:
 
 private:
@@ -62,6 +63,9 @@ private:
 	vector<std::unique_ptr<sf::SoundBuffer>> m_ShotgunHitBuffers;
 	vector<std::unique_ptr<sf::Sound>> m_TakeDamageSounds;
 	vector<std::unique_ptr<sf::SoundBuffer>> m_TakeDamageBuffers;
+
+	int m_previousHitSound = 0;
+	int m_previousDamageSound = 0;
 
 	//vector<vector<std::unique_ptr<sf::Sound>>*> m_DemoSounds;
 

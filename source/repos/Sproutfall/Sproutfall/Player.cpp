@@ -189,6 +189,7 @@ void Player::Update(float tf)
 	{
 		m_reloadProgress = 0;
 		m_bullets++;
+		m_ShotgunReloadSounds[rand() % m_ShotgunReloadSounds.size()]->play();
 	}
 	m_bulletManager->Update(tf);
 	m_AnimationManager->Update(tf);
@@ -321,6 +322,7 @@ void Player::configureAnimations()
 
 void Player::CheckCollisions(Enemy* enemy)
 {
+	bool collided = false;
 	if (abs(enemy->getPosition().y - getPosition().y) < 2000)
 	{
 		sf::CircleShape* playerHitbox = dynamic_cast<sf::CircleShape*>(m_Hitbox.get());
@@ -331,21 +333,7 @@ void Player::CheckCollisions(Enemy* enemy)
 				sf::CircleShape* enemyHitbox = dynamic_cast<sf::CircleShape*>(enemy->getHitbox());
 				if (calculateCollision(playerHitbox, enemyHitbox))
 				{
-					if (m_Health > 0)
-					{
-						m_CurrentState = hurt;
-						m_VelocityX = m_VelocityX * m_CollisionSlowdown;
-						m_VelocityY = m_VelocityY * m_CollisionSlowdown;
-						m_AnimationManager->setState(hurt);
-						m_Health--;
-					}
-					else
-					{
-						m_CurrentState = dead;
-						m_VelocityX = 0;
-						m_VelocityY = 0;
-					}
-					setHittable(false);
+					collided = true;
 				}
 			}
 			else
@@ -353,32 +341,55 @@ void Player::CheckCollisions(Enemy* enemy)
 				sf::RectangleShape* enemyHitbox = dynamic_cast<sf::RectangleShape*>(enemy->getHitbox());
 				if (calculateCollision(playerHitbox, enemyHitbox))
 				{
-					enemyHitbox->setFillColor(sf::Color(0x00ff00aa));
-					m_CurrentState = hurt;
-					m_VelocityX = m_VelocityX * m_CollisionSlowdown;
-					m_VelocityY = m_VelocityY * m_CollisionSlowdown;
-					m_AnimationManager->setState(hurt);
-					m_Health--;
-					setHittable(false);
+					//enemyHitbox->setFillColor(sf::Color(0x00ff00aa));
+					//m_CurrentState = hurt;
+					//m_VelocityX = m_VelocityX * m_CollisionSlowdown;
+					//m_VelocityY = m_VelocityY * m_CollisionSlowdown;
+					//m_AnimationManager->setState(hurt);
+					//m_Health--;
+					//setHittable(false);
+					collided = true;
 				}
 			}
 		}
 		if (enemy->getShootable())
 		{
-			m_bulletManager->checkCollisions(enemy);
+			if (m_bulletManager->checkCollisions(enemy))
+			{
+				if (m_ShotgunHitSounds[m_previousHitSound]->getStatus() != sf::Sound::Playing)
+				{
+					m_ShotgunHitSounds[m_previousHitSound]->play();
+				}
+			}
 		}
 
 		if (enemy->hasProjectiles())
 		{
 			if (enemy->checkProjectiles() && m_IsHittable)
 			{
-				m_CurrentState = hurt;
+				/*m_CurrentState = hurt;
 				m_VelocityX = m_VelocityX * m_CollisionSlowdown;
 				m_VelocityY = m_VelocityY * m_CollisionSlowdown;
 				m_AnimationManager->setState(hurt);
 				m_Health--;
-				setHittable(false);
+				setHittable(false);*/
+				collided = true;
 			}
+		}
+	}
+	if (collided)
+	{
+		m_CurrentState = hurt;
+		m_VelocityX = m_VelocityX * m_CollisionSlowdown;
+		m_VelocityY = m_VelocityY * m_CollisionSlowdown;
+		m_AnimationManager->setState(hurt);
+		m_Health--;
+		setHittable(false);
+
+		if (m_TakeDamageSounds[m_previousDamageSound]->getStatus() != sf::Sound::Playing)
+		{
+			m_previousDamageSound = rand() % m_TakeDamageSounds.size();
+			m_TakeDamageSounds[m_previousDamageSound]->play();
 		}
 	}
 }
@@ -474,4 +485,17 @@ void Player::playDemoSound()
 		m_previousDemoSoundIndex = rand() % m_ShotgunShootSounds.size();
 		m_ShotgunShootSounds[m_previousDemoSoundIndex]->play();
 	}
+}
+
+void Player::resetGameplay()
+{
+	m_reloadProgress = 0;
+	m_bullets = m_bulletsMax;
+	m_VelocityX = 0;
+	m_VelocityY = 0;
+	m_Health = 3;
+	m_bulletManager->clearBullets();
+	m_ShellManager->removeAll();
+	m_Alive = true;
+	m_AnimationManager->setState(neutral);
 }

@@ -59,6 +59,11 @@ bool Shell::CanDespawn()
 	return !m_Alive;
 }
 
+void Shell::killShell()
+{
+	m_Alive = false;
+}
+
 void Shell::configureAnimations()
 {
 	m_AnimationManager = make_unique<AnimationManager>(m_Sprite.get());

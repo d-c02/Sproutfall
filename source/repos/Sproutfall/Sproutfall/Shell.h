@@ -9,6 +9,7 @@ public:
 	Shell(sf::Texture* Texture, sf::Color color, float gravity, sf::Vector2f initialPosition, sf::Vector2f direction);
 	void Update(float tf);
 	bool CanDespawn();
+	void killShell();
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	void configureAnimations();
