@@ -42,6 +42,17 @@ EnemyManager::EnemyManager(sf::Vector2f viewSize, Player* player)
 		{
 
 		}
+		else if (i == b_Pinecone)
+		{
+
+		}
+		else if (i == b_Squirrel)
+		{
+			if (!m_EnemyTextures[b_Squirrel]->loadFromFile("Textures/Enemies/forest_squirrel.png"))
+			{
+				cout << "Textures/Enemies/forest_squirrel.png load failure" << endl;
+			}
+		}
 	}
 	m_ViewSizeX = viewSize.x;
 	m_ViewSizeY = viewSize.y;
@@ -88,7 +99,7 @@ void EnemyManager::AddEnemy(int type, sf::Vector2f position)
 	}
 	else if (type == b_Branch)
 	{
-		m_Enemies[m_Enemies.size() - 1]->setPosition(position);
+		//m_Enemies[m_Enemies.size() - 1]->setPosition(position);
 	}
 	else if (type == b_Bug)
 	{
@@ -100,10 +111,23 @@ void EnemyManager::AddEnemy(int type, sf::Vector2f position)
 	}
 	else if (type == b_Squirrel)
 	{
-
+		m_Enemies.push_back(make_unique<Squirrel>(m_EnemyTextures[b_Squirrel].get(), m_Player, m_whiteShader.get()));
+		int result = rand() % 3;
+		if (result == 0)
+		{
+			position.x = (rand() % 148) + 32;
+		}
+		else if (result == 1)
+		{
+			position.x = (rand() % 240) + 460;
+		}
+		else
+		{
+			position.x = (rand() % 180) + 1100;
+		}
 	}
 
-	if (type != b_Branch && type != b_Pinecone && type != b_Squirrel)
+	if (type != b_Branch)
 	{
 		m_Enemies[m_Enemies.size() - 1]->setPosition(position);
 	}

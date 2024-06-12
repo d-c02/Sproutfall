@@ -59,6 +59,8 @@ private:
 	enum UI {UI_Title_Main, UI_Title_Options, UI_Gameplay_HUD, UI_Gameplay_Paused};
 
 	bool m_LoadSpace = false;
+	bool m_LoadSky = false;
+	bool m_LoadForest = false;
 	bool m_QuitGame = false;
 	bool m_OpenOptions = false;
 	bool m_CloseOptions = false;

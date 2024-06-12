@@ -156,6 +156,18 @@ void SceneManager::handleUIInput()
 		m_LoadSpace = false;
 		loadSpace();
 	}
+	
+	if (m_LoadSky)
+	{
+		m_LoadSky = false;
+		loadSky();
+	}
+
+	if (m_LoadForest)
+	{
+		m_LoadForest = false;
+		loadForest();
+	}
 
 	if (m_Retry)
 	{
@@ -530,6 +542,8 @@ void SceneManager::loadForest()
 	m_Scene->addBackgroundElement(sf::Vector2f(0, 0), 28800, "Textures/forest/forest_level_7.png", frameVector, 0.25f, 28800, -480);
 	frameVector.clear();
 
+	m_EnemyManager->generateEnemies(b_Squirrel, m_viewSizeY / 10, m_viewSizeY / 10, 29);
+
 	m_Scene->setBackgroundFillColor(0x655057ff);
 	m_Player->setPosition(640, 200);
 	m_Player->SetFallingParams(500, 400);
@@ -604,6 +618,10 @@ void SceneManager::configureUI()
 	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/OptionsButtonOutline2.png", &m_OpenOptions, sf::Vector2f(m_viewSizeX / 2 - 225, m_viewSizeY / 2 + 250), sf::IntRect(0, 0, 225, 50), sf::IntRect(225, 0, 225, 50), sf::IntRect(0, 0, 225, 50), m_renderWindow);
 
 	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/QuitButtonOutline.png", &m_QuitGame, sf::Vector2f(m_viewSizeX / 2 - 140, m_viewSizeY / 2 + 350), sf::IntRect(0, 0, 140, 50), sf::IntRect(140, 0, 140, 50), sf::IntRect(0, 0, 140, 50), m_renderWindow);
+
+	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/debug_skyButton.png", &m_LoadSky, sf::Vector2f(1000, 400), sf::IntRect(0, 0, 100, 50), sf::IntRect(0, 0, 100, 50), sf::IntRect(0, 0, 100, 50), m_renderWindow);
+
+	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/debug_woodsButton.png", &m_LoadForest, sf::Vector2f(1000, 600), sf::IntRect(0, 0, 100, 50), sf::IntRect(0, 0, 100, 50), sf::IntRect(0, 0, 100, 50), m_renderWindow);
 
 	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/UI/logov2.png", sf::Vector2f(m_viewSizeX / 2 - 480, 50));
 
