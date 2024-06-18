@@ -81,9 +81,6 @@
     <ClCompile Include="Squirrel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PineconeBullet.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="UIElement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -94,6 +91,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UISlider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyBullet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyBulletManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -164,9 +167,6 @@
     <ClInclude Include="Pinecone.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PineconeBullet.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="UIElement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -177,6 +177,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UISlider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyBullet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyBulletManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

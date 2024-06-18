@@ -39,7 +39,7 @@ void Squirrel::Update(float tf)
 				m_Sprite->setScale(m_Sprite->getScale().x, 2);
 			}
 
-			float dist = sqrt(pow(m_Player->getPosition().x - getPosition().x, 2) + pow(m_Player->getPosition().y - getPosition().y, 2));
+			float dist = sqrt(pow(abs(m_Player->getPosition().x - getPosition().x), 2) + pow(abs(m_Player->getPosition().y - getPosition().y), 2));
 			if (dist < m_attackRange)
 			{
 				m_CurrentState = jumping;
@@ -112,7 +112,7 @@ void Squirrel::Update(float tf)
 				else
 				m_VelocityX -= m_airResistanceX * tf;
 			}
-			if ((getPosition().x > 40 && getPosition().x < 170) || (getPosition().x > 470 && getPosition().x < 680) || (getPosition().x > 1080 && getPosition().x < 1250))
+			if ((getPosition().x > 40 && getPosition().x < 170) || (getPosition().x > 470 && getPosition().x < 680) || (getPosition().x > 1110 && getPosition().x < 1250))
 			{
 				float dist = sqrt(pow(m_Player->getPosition().x - getPosition().x, 2) + pow(m_Player->getPosition().y - getPosition().y, 2));
 				if (dist > m_attackRange)

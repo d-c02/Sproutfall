@@ -44,7 +44,10 @@ EnemyManager::EnemyManager(sf::Vector2f viewSize, Player* player)
 		}
 		else if (i == b_Pinecone)
 		{
-
+			if (!m_EnemyTextures[b_Pinecone]->loadFromFile("Textures/Enemies/pinebomb_64x64.png"))
+			{
+				cout << "Textures/Enemies/pinebomb_64x64.png load failure" << endl;
+			}
 		}
 		else if (i == b_Squirrel)
 		{
@@ -73,6 +76,12 @@ EnemyManager::EnemyManager(sf::Vector2f viewSize, Player* player)
 	if (!m_lightningTexture->loadFromFile("Textures/Enemies/sky_badcloud_lightning.png"))
 	{
 		cout << "Failure to load sky_badcloud_lightning.png" << endl;
+	}
+
+	m_EnemyBulletTexture = make_unique<sf::Texture>();
+	if (!m_EnemyBulletTexture->loadFromFile("Textures/Enemies/enemy_bullet.png"))
+	{
+		cout << "Enemy bullet texture load failure" << endl;
 	}
 }
 EnemyManager::~EnemyManager()
@@ -107,7 +116,7 @@ void EnemyManager::AddEnemy(int type, sf::Vector2f position)
 	}
 	else if (type == b_Pinecone)
 	{
-
+		m_Enemies.push_back(make_unique<Pinecone>(m_EnemyTextures[b_Pinecone].get(), m_EnemyBulletTexture.get(), m_Player, m_whiteShader.get()));
 	}
 	else if (type == b_Squirrel)
 	{

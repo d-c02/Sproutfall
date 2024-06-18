@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="EnemyBulletManager.cpp" />
     <ClCompile Include="Pinecone.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AnimationManager.cpp" />
@@ -162,7 +163,7 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
-    <ClCompile Include="PineconeBullet.cpp" />
+    <ClCompile Include="EnemyBullet.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Shotgun.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -177,6 +178,7 @@
     <ClCompile Include="UISlider.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EnemyBulletManager.h" />
     <ClInclude Include="Pinecone.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationManager.h" />
@@ -190,7 +192,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="Entity.h" />
-    <ClInclude Include="PineconeBullet.h" />
+    <ClInclude Include="EnemyBullet.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Shotgun.h" />
     <ClInclude Include="Scene.h" />

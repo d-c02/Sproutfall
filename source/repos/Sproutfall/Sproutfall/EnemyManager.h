@@ -6,6 +6,7 @@
 #include "Bird.h"
 #include "BadCloud.h"
 #include "Squirrel.h"
+#include "Pinecone.h"
 
 class EnemyManager : public sf::Drawable
 {
@@ -47,4 +48,5 @@ private:
 	std::unique_ptr<sf::Shader> m_whiteShader;
 	std::unique_ptr<sf::Texture> m_lightningTexture;
 	const float m_RenderDistance = 2000;
+	std::unique_ptr<sf::Texture> m_EnemyBulletTexture;
 };

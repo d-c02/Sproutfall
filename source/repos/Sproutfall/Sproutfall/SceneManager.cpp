@@ -8,7 +8,6 @@ SceneManager::SceneManager(float windowSizeX, float windowSizeY, sf::RenderWindo
 	m_Player->setVolume(m_SFXVolumeSlider);
 	//m_viewSizeX = viewSizeX;
 	//m_viewSizeY = viewSizeY;
-	m_Scene = make_unique<Scene>(m_Player.get(), m_viewSizeX, m_viewSizeY);
 	m_View = make_unique<sf::View>();
 	//m_View->setSize(m_viewSizeX, m_viewSizeY);
 	m_EnemyManager = make_unique<EnemyManager>(sf::Vector2f(m_viewSizeX, m_viewSizeY), m_Player.get());
@@ -325,6 +324,10 @@ void SceneManager::loadTitle()
 
 	m_CurrentScene = TitleScreen;
 
+	m_Scene.reset();
+
+	m_Scene = make_unique<Scene>(m_Player.get(), m_viewSizeX, m_viewSizeY);
+
 	m_Scene->setGameplay(false);
 
 	m_Scene->setBackgroundFillColor(0x655057ff);
@@ -542,7 +545,9 @@ void SceneManager::loadForest()
 	m_Scene->addBackgroundElement(sf::Vector2f(0, 0), 28800, "Textures/forest/forest_level_7.png", frameVector, 0.25f, 28800, -480);
 	frameVector.clear();
 
-	m_EnemyManager->generateEnemies(b_Squirrel, m_viewSizeY / 10, m_viewSizeY / 10, 29);
+	//m_EnemyManager->generateEnemies(b_Squirrel, m_viewSizeY / 10, m_viewSizeY / 10, 29);
+
+	m_EnemyManager->generateEnemies(b_Pinecone, m_viewSizeY / 10, m_viewSizeY / 10, 29);
 
 	m_Scene->setBackgroundFillColor(0x655057ff);
 	m_Player->setPosition(640, 200);

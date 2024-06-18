@@ -498,4 +498,5 @@ void Player::resetGameplay()
 	m_ShellManager->removeAll();
 	m_Alive = true;
 	m_AnimationManager->setState(neutral);
+
 }

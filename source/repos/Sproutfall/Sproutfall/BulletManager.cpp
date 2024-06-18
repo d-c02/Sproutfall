@@ -1,4 +1,4 @@
-#include "BulletManager.h"
+ #include "BulletManager.h"
 BulletManager::BulletManager()
 {
 	m_bulletTexture = make_unique<sf::Texture>();

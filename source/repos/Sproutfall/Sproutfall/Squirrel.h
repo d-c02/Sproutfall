@@ -21,7 +21,7 @@ private:
 	const float m_JumpVelocity = 750;
 	enum States { neutral, climbing, jumping, dead };
 	Player* m_Player;
-	const float m_attackRange = 400;
+	const float m_attackRange = 500;
 	const float m_runRange = 2000;
 	sf::Shader* m_whiteShader;
 	float m_currentDeathTime = 0.0f;

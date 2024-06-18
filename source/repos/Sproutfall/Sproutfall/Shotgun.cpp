@@ -26,29 +26,22 @@ void Shotgun::Update(float tf)
 	float xpos = m_window->mapPixelToCoords(sf::Mouse::getPosition(*m_window)).x - m_playerSprite->getPosition().x;
 	float ypos = m_window->mapPixelToCoords(sf::Mouse::getPosition(*m_window)).y - m_playerSprite->getPosition().y;
 	float scalingFactor = m_distanceFromPlayer;
-	if (xpos != 0)
+	float rads = atan(ypos / xpos);
+	float rotationMod = 0;
+	if (xpos < 0)
 	{
-		float rads = atan(ypos / xpos);
-		float rotationMod = 0;
-		if (xpos < 0)
-		{
-			scalingFactor = scalingFactor * -1;
-			rotationMod = 180;
-			m_Sprite->setScale(2, -2);
-		}
-		else
-		{
-			m_Sprite->setScale(2, 2);
-		}
-		float tmpx = m_playerSprite->getPosition().x + (scalingFactor * cos(rads));
-		float tmpy = m_playerSprite->getPosition().y + (scalingFactor * sin(rads));
-		m_Sprite->setPosition(tmpx, tmpy);
-		m_Sprite->setRotation(rotationMod + (rads * (180.0 / 3.141592653589793238463)));
+		scalingFactor = scalingFactor * -1;
+		rotationMod = 180;
+		m_Sprite->setScale(2, -2);
 	}
 	else
 	{
-		m_Sprite->setPosition(m_playerSprite->getPosition().x, (m_playerSprite->getPosition().y + 1) * scalingFactor);
+		m_Sprite->setScale(2, 2);
 	}
+	float tmpx = m_playerSprite->getPosition().x + (scalingFactor * cos(rads));
+	float tmpy = m_playerSprite->getPosition().y + (scalingFactor * sin(rads));
+	m_Sprite->setPosition(tmpx, tmpy);
+	m_Sprite->setRotation(rotationMod + (rads * (180.0 / 3.141592653589793238463)));
 
 
 	m_AnimationManager->Update(tf);
