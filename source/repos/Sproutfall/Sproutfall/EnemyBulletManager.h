@@ -22,5 +22,8 @@ private:
 	float m_spread = 0.3;
 	float m_shotgunPelletSpeed = 1000;
 	float m_randomInitialPelletSpeed = 100;
+
+	float m_PineconeExplosionSpeed = 500;
+	float m_PineconeExplosionTravelTime = 1.0f;
 	enum Behaviors { Bullet, ShotgunPellet };
 };

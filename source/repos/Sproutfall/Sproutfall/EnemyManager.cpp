@@ -117,6 +117,15 @@ void EnemyManager::AddEnemy(int type, sf::Vector2f position)
 	else if (type == b_Pinecone)
 	{
 		m_Enemies.push_back(make_unique<Pinecone>(m_EnemyTextures[b_Pinecone].get(), m_EnemyBulletTexture.get(), m_Player, m_whiteShader.get()));
+		int result = rand() % 2;
+		if (result == 0)
+		{
+			position.x = (rand() % 280) + 180;
+		}
+		else if (result == 1)
+		{
+			position.x = (rand() % 400) + 700;
+		}
 	}
 	else if (type == b_Squirrel)
 	{

@@ -174,6 +174,7 @@ void SceneManager::handleUIInput()
 		m_Retry = false;
 		m_Player->resetGameplay();
 		loadScene(m_CurrentScene);
+		m_smokeAnimationManager->setState(0);
 	}
 
 	if (m_QuitGame)
@@ -228,6 +229,7 @@ void SceneManager::handleUIInput()
 		m_LoadTitle = false;
 		m_Paused = false;
 		m_Player->resetGameplay();
+		m_smokeAnimationManager->setState(0);
 		loadTitle();
 	}
 
@@ -545,9 +547,9 @@ void SceneManager::loadForest()
 	m_Scene->addBackgroundElement(sf::Vector2f(0, 0), 28800, "Textures/forest/forest_level_7.png", frameVector, 0.25f, 28800, -480);
 	frameVector.clear();
 
-	//m_EnemyManager->generateEnemies(b_Squirrel, m_viewSizeY / 10, m_viewSizeY / 10, 29);
+	m_EnemyManager->generateEnemies(b_Squirrel, m_viewSizeY / 8, m_viewSizeY / 8, 29);
 
-	m_EnemyManager->generateEnemies(b_Pinecone, m_viewSizeY / 10, m_viewSizeY / 10, 29);
+	m_EnemyManager->generateEnemies(b_Pinecone, m_viewSizeY / 8, m_viewSizeY / 8, 29);
 
 	m_Scene->setBackgroundFillColor(0x655057ff);
 	m_Player->setPosition(640, 200);

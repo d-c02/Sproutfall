@@ -36,17 +36,26 @@ void EnemyBulletManager::spawnVolley(sf::Vector2f direction, sf::Vector2f initia
 			double tmpx = (scalingFactor * cos(rads));
 			double tmpy = (scalingFactor * sin(rads));
 			float rotation = rotationMod + (rads * (180.0 / 3.141592653589793238463));
-			m_bulletVector.push_back(make_unique<EnemyBullet>(m_bulletTexture, sf::Vector2f(tmpx, tmpy), rotation, initialPos, ShotgunPellet, m_shotgunPelletSpeed + (((float)rand() - (RAND_MAX / 2)) / (float)RAND_MAX / 2) * m_randomInitialPelletSpeed));
+			m_bulletVector.push_back(make_unique<EnemyBullet>(m_bulletTexture, sf::Vector2f(tmpx, tmpy), rotation, initialPos, ShotgunPellet, m_shotgunPelletSpeed + (((float)rand() - (RAND_MAX / 2)) / (float)RAND_MAX / 2) * m_randomInitialPelletSpeed, 0.2));
 		}
 		else
 		{
-			m_bulletVector.push_back(make_unique<EnemyBullet>(m_bulletTexture, sf::Vector2f(0, direction.y), -90, initialPos, ShotgunPellet, m_shotgunPelletSpeed + (((float)rand() - (RAND_MAX / 2)) / (float)RAND_MAX / 2) * m_randomInitialPelletSpeed));
+			m_bulletVector.push_back(make_unique<EnemyBullet>(m_bulletTexture, sf::Vector2f(0, direction.y), -90, initialPos, ShotgunPellet, m_shotgunPelletSpeed + (((float)rand() - (RAND_MAX / 2)) / (float)RAND_MAX / 2) * m_randomInitialPelletSpeed, 0.2));
 		}
 	}
 }
 
 void EnemyBulletManager::spawnPineconeExplosion(sf::Vector2f initialPos)
 {
+	float sq2d2 = sqrt(2) / 2;
+	m_bulletVector.push_back(make_unique<EnemyBullet>(m_bulletTexture, sf::Vector2f(1, 0), 0, initialPos, Bullet, m_PineconeExplosionSpeed, m_PineconeExplosionTravelTime));
+	m_bulletVector.push_back(make_unique<EnemyBullet>(m_bulletTexture, sf::Vector2f(sq2d2, sq2d2), 45, initialPos, Bullet, m_PineconeExplosionSpeed, m_PineconeExplosionTravelTime));
+	m_bulletVector.push_back(make_unique<EnemyBullet>(m_bulletTexture, sf::Vector2f(0, 1), 90, initialPos, Bullet, m_PineconeExplosionSpeed, m_PineconeExplosionTravelTime));
+	m_bulletVector.push_back(make_unique<EnemyBullet>(m_bulletTexture, sf::Vector2f(-sq2d2, sq2d2), 135, initialPos, Bullet, m_PineconeExplosionSpeed, m_PineconeExplosionTravelTime));
+	m_bulletVector.push_back(make_unique<EnemyBullet>(m_bulletTexture, sf::Vector2f(-1, 0), 180, initialPos, Bullet, m_PineconeExplosionSpeed, m_PineconeExplosionTravelTime));
+	m_bulletVector.push_back(make_unique<EnemyBullet>(m_bulletTexture, sf::Vector2f(-sq2d2, -sq2d2), 225, initialPos, Bullet, m_PineconeExplosionSpeed, m_PineconeExplosionTravelTime));
+	m_bulletVector.push_back(make_unique<EnemyBullet>(m_bulletTexture, sf::Vector2f(0, -1), 270, initialPos, Bullet, m_PineconeExplosionSpeed, m_PineconeExplosionTravelTime));
+	m_bulletVector.push_back(make_unique<EnemyBullet>(m_bulletTexture, sf::Vector2f(sq2d2, -sq2d2), 315, initialPos, Bullet, m_PineconeExplosionSpeed, m_PineconeExplosionTravelTime));
 }
 
 void EnemyBulletManager::spawnBullet(sf::Vector2f direction, sf::Vector2f initialPos)

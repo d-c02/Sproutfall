@@ -7,7 +7,7 @@
 class EnemyBullet : public Entity, public sf::Drawable
 {
 public:
-	EnemyBullet(sf::Texture* Texture, sf::Vector2f direction, float degrees, sf::Vector2f initialPosition, int behavior, float velocity);
+	EnemyBullet(sf::Texture* Texture, sf::Vector2f direction, float degrees, sf::Vector2f initialPosition, int behavior, float velocity, float maxTravelTime);
 	void configureAnimations();
 
 	void Update(float tf);

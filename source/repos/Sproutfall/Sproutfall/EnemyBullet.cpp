@@ -1,6 +1,6 @@
 #include "EnemyBullet.h"
 
-EnemyBullet::EnemyBullet(sf::Texture* Texture, sf::Vector2f direction, float degrees, sf::Vector2f initialPosition, int behavior, float velocity)
+EnemyBullet::EnemyBullet(sf::Texture* Texture, sf::Vector2f direction, float degrees, sf::Vector2f initialPosition, int behavior, float velocity, float maxTravelTime)
 {
 	m_Sprite = make_unique<sf::Sprite>();
 	m_Texture = Texture;
@@ -11,10 +11,9 @@ EnemyBullet::EnemyBullet(sf::Texture* Texture, sf::Vector2f direction, float deg
 	m_Sprite->setRotation(degrees);
 	m_Sprite->setScale(2, 2);
 	m_Sprite->setOrigin(16, 16);
-	configureAnimations();
 	setHittable(true);
 	m_Hitbox = make_unique<sf::CircleShape>();
-	m_Hitbox->setRadius(3);
+	m_Hitbox->setRadius(4.5);
 	m_Hitbox->setScale(m_Sprite->getScale());
 	m_Hitbox->setFillColor(sf::Color(0xff0000aa));
 	m_Hitbox->setOrigin(m_Hitbox->getGlobalBounds().left + m_Hitbox->getRadius(), m_Hitbox->getGlobalBounds().top + m_Hitbox->getRadius());
@@ -22,7 +21,9 @@ EnemyBullet::EnemyBullet(sf::Texture* Texture, sf::Vector2f direction, float deg
 	m_Sprite->setRotation(m_Sprite->getRotation() + 90);
 
 	m_speed = velocity;
-	//m_speed += (((float)rand() - (RAND_MAX / 2)) / (float)RAND_MAX / 2) * m_randomInitialSpeed;
+	m_maxTravelTime = maxTravelTime;
+	
+	configureAnimations();
 }
 
 void EnemyBullet::configureAnimations()
@@ -61,10 +62,11 @@ void EnemyBullet::Update(float tf)
 	m_travelTime += tf;
 	if (m_behavior == Bullet)
 	{
-		if (m_travelTime > m_maxTravelTime)
+		if (m_CurrentState != despawning && m_travelTime > m_maxTravelTime)
 		{
 			m_CurrentState = despawning;
 			m_AnimationManager->setState(despawning);
+			//m_AnimationManager->Play();
 			setHittable(false);
 		}
 
