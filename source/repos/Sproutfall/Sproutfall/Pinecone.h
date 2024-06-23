@@ -28,7 +28,7 @@ private:
 
 	const float m_ExplosionVFXRange = 32.0f;
 
-	const float m_terminalVelocity = 400;
+	const float m_terminalVelocity = 825;
 	const float m_gravity = 500;
 	const float m_airResistance = -250;
 	

@@ -9,6 +9,7 @@ public:
 	SceneManager(float windowSizeX, float windowSizeY, sf::RenderWindow* window);
 	~SceneManager();
 	void loadScene(int scene);
+	void loadSceneWithTransition(int scene);
 	void Update(float tf);
 	void handleInput(sf::Event* event);
 	void handleResize(int width, int height);
@@ -80,4 +81,11 @@ private:
 	bool m_Paused = false;
 
 	std::unique_ptr<sf::Music> m_Music;
+
+	std::unique_ptr<sf::Texture> m_TransitionTexture;
+	std::unique_ptr<sf::Sprite> m_TransitionSprite;
+	bool m_Transitioning = false;
+	bool m_TransitionFlipped = false;
+	float m_TransitionSpeed = -2000.0f;
+	int m_nextScene = 0;
 };

@@ -447,6 +447,10 @@ bool Player::isHurt()
 
 void Player::setVolume(float volume)
 {
+	if (volume < 1)
+	{
+		volume = 0;
+	}
 	for (int i = 0; i < m_ShotgunShootSounds.size(); i++)
 	{
 		m_ShotgunShootSounds[i]->setVolume(volume);

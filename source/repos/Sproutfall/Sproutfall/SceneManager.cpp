@@ -17,6 +17,17 @@ SceneManager::SceneManager(float windowSizeX, float windowSizeY, sf::RenderWindo
 	{
 		cout << "Player smoke texture load failure" << endl;
 	}
+
+	m_TransitionTexture = make_unique<sf::Texture>();
+	if (!m_TransitionTexture->loadFromFile("Textures/TransitionWipe.png"))
+	{
+		cout << "Transition wipe texture load failure" << endl;
+	}
+	m_TransitionSprite = make_unique<sf::Sprite>();
+	m_TransitionSprite->setScale(2, 2);
+	m_TransitionSprite->setTexture(*m_TransitionTexture);
+	m_TransitionSprite->setOrigin(0, m_TransitionTexture->getSize().y / 2);
+
 	m_playerSmoke->setTexture(*m_smokeTexture);
 	m_smokeAnimationManager = make_unique<AnimationManager>(m_playerSmoke.get());
 	vector<sf::IntRect> frameVector;
@@ -65,6 +76,7 @@ SceneManager::~SceneManager()
 }
 void SceneManager::loadScene(int scene)
 {
+	m_Player->resetGameplay();
 	if (scene == TitleScreen)
 	{
 		loadTitle();
@@ -85,6 +97,17 @@ void SceneManager::loadScene(int scene)
 	{
 		loadWin();
 	}
+	m_Music->play();
+}
+
+void SceneManager::loadSceneWithTransition(int scene)
+{
+	m_Transitioning = true;
+	m_TransitionFlipped = false;
+	//m_Music->stop();
+	m_TransitionSprite->setPosition(m_TransitionSprite->getPosition().x, m_View->getCenter().y + m_viewSizeY / 2 + m_TransitionTexture->getSize().y);
+	m_TransitionSprite->setScale(2, 2);
+	m_nextScene = scene;
 }
 
 void SceneManager::Update(float tf)
@@ -92,11 +115,11 @@ void SceneManager::Update(float tf)
 	handleUIInput();
 
 	//Game Logic
-	if (m_Scene->hasGameplay() && !m_Paused)
+	if (m_Scene->hasGameplay() && !m_Paused && !m_Transitioning)
 	{
 		if (m_Player->getPosition().y >= (m_Scene->getLevelSize()))
 		{
-			loadScene(m_CurrentScene + 1);
+			loadSceneWithTransition(m_CurrentScene + 1);
 		}
 
 		if (m_Player->getStatus())
@@ -145,6 +168,34 @@ void SceneManager::Update(float tf)
 			}
 		}
 	}
+
+	if (m_Transitioning)
+	{
+		if (!m_TransitionFlipped && m_TransitionSprite->getPosition().y > m_View->getCenter().y - m_viewSizeY / 2 - 25)
+		{
+			m_TransitionSprite->move(0, m_TransitionSpeed * tf);
+		}
+		if (!m_TransitionFlipped && m_TransitionSprite->getPosition().y < m_View->getCenter().y - m_viewSizeY / 2 - 25 + m_TransitionTexture->getSize().y)
+		{
+			loadScene(m_nextScene);
+			m_Music->play();
+			m_TransitionFlipped = true;
+			m_Player->Update(0.00001f);
+			m_Scene->Update(0.00001f);
+			m_EnemyManager->Update(0.00001f);
+			m_View->setCenter(m_viewSizeX / 2, m_Player->getPosition().y);
+			m_TransitionSprite->setPosition(m_TransitionSprite->getPosition().x, m_View->getCenter().y - m_viewSizeY / 2 + m_TransitionTexture->getSize().y);
+			m_TransitionSprite->setScale(2, -2);
+		}
+		if (m_TransitionFlipped && m_TransitionSprite->getPosition().y > m_View->getCenter().y - m_viewSizeY);
+		{
+			m_TransitionSprite->move(0, m_TransitionSpeed * tf);
+		}
+		if (m_TransitionFlipped && m_TransitionSprite->getPosition().y < m_View->getCenter().y - m_viewSizeY - 25)
+		{
+			m_Transitioning = false;
+		}
+	}
 }
 
 void SceneManager::handleUIInput()
@@ -153,7 +204,7 @@ void SceneManager::handleUIInput()
 	if (m_LoadSpace)
 	{
 		m_LoadSpace = false;
-		loadSpace();
+		loadSceneWithTransition(Space);
 	}
 	
 	if (m_LoadSky)
@@ -311,6 +362,11 @@ void SceneManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 		target.draw(*m_UILayers[i]);
 	}
+
+	if (m_Transitioning)
+	{
+		target.draw(*m_TransitionSprite);
+	}
 }
 
 void SceneManager::loadTitle()
@@ -412,9 +468,9 @@ void SceneManager::loadSpace()
 
 	m_Scene->setBackgroundFillColor(0x655057ff);
 
-	m_EnemyManager->generateEnemies(b_Squid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
+	//m_EnemyManager->generateEnemies(b_Squid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
 
-	m_EnemyManager->generateEnemies(b_Asteroid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
+	//m_EnemyManager->generateEnemies(b_Asteroid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
 
 	m_Player->setPosition(640, 200);
 	m_Player->SetShellColor(sf::Color(0xf6edcdff));
@@ -425,12 +481,13 @@ void SceneManager::loadSpace()
 
 	m_Scene->setGameplay(true);
 
-	m_Music->stop();
+	//m_Music->stop();
 	if (!m_Music->openFromFile("Sounds/Music/jame_gam_space_v2.ogg"))
 	{
 		cout << "Space music load failure" << endl;
 	}
-	m_Music->play();
+
+	//m_Music->play();
 }
 
 void SceneManager::loadSky()
@@ -500,12 +557,12 @@ void SceneManager::loadSky()
 
 	m_Scene->setGameplay(true);
 
-	m_Music->stop();
+	//m_Music->stop();
 	if (!m_Music->openFromFile("Sounds/Music/jame_gam_sky.ogg"))
 	{
 		cout << "Sky music load failure" << endl;
 	}
-	m_Music->play();
+	//m_Music->play();
 }
 
 void SceneManager::loadForest()
@@ -559,12 +616,12 @@ void SceneManager::loadForest()
 
 	m_Scene->setGameplay(true);
 
-	m_Music->stop();
+	//m_Music->stop();
 	if (!m_Music->openFromFile("Sounds/Music/jame_gam_29_v4.ogg"))
 	{
 		cout << "Forest music load failure" << endl;
 	}
-	m_Music->play();
+	//m_Music->play();
 }
 
 void SceneManager::loadWin()
@@ -574,7 +631,7 @@ void SceneManager::loadWin()
 
 void SceneManager::handleInput(sf::Event* event)
 {
-	if (m_Scene->hasGameplay() && !m_Paused)
+	if (m_Scene->hasGameplay() && !m_Paused && !m_Transitioning)
 	{
 		m_Player->handleInput(event);
 	}
