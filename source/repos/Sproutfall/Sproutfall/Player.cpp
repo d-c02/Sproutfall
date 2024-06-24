@@ -497,11 +497,31 @@ void Player::resetGameplay()
 	m_bullets = m_bulletsMax;
 	m_VelocityX = 0;
 	m_VelocityY = 0;
-	m_Health = 3;
+	m_Health = m_maxHealth;
 	m_bulletManager->clearBullets();
 	m_ShellManager->removeAll();
 	m_Alive = true;
 	m_AnimationManager->setState(neutral);
 	setHittable(true);
 
+}
+
+int* Player::getBulletPointer()
+{
+	return &m_bullets;
+}
+
+int Player::getMaxBullets()
+{
+	return m_bulletsMax;
+}
+
+int* Player::getHealthPointer()
+{
+	return &m_Health;
+}
+
+int Player::getMaxHealth()
+{
+	return m_maxHealth;
 }

@@ -173,6 +173,7 @@
     <ClCompile Include="Squid.cpp" />
     <ClCompile Include="Squirrel.cpp" />
     <ClCompile Include="UIButton.cpp" />
+    <ClCompile Include="UICounter.cpp" />
     <ClCompile Include="UIElement.cpp" />
     <ClCompile Include="UIElementLayer.cpp" />
     <ClCompile Include="UISlider.cpp" />
@@ -203,6 +204,7 @@
     <ClInclude Include="Squid.h" />
     <ClInclude Include="Squirrel.h" />
     <ClInclude Include="UIButton.h" />
+    <ClInclude Include="UICounter.h" />
     <ClInclude Include="UIElement.h" />
     <ClInclude Include="UIElementLayer.h" />
     <ClInclude Include="UISlider.h" />

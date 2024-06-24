@@ -32,6 +32,10 @@ public:
 	void setVolume(float volume);
 	void playDemoSound();
 	void resetGameplay();
+	int* getBulletPointer();
+	int getMaxBullets();
+	int* getHealthPointer();
+	int getMaxHealth();
 protected:
 
 private:
@@ -75,6 +79,7 @@ private:
 	//std::unique_ptr<sf::CircleShape> m_Hitbox;
 	const float m_CollisionSlowdown = 0.2;
 	int m_Health = 3;
+	const int m_maxHealth = 3;
 	sf::RenderWindow* m_RenderWindow;
 	bool m_Alive = true;
 	std::unique_ptr<ShellManager> m_ShellManager;

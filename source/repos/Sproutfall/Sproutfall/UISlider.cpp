@@ -54,6 +54,7 @@ void UISlider::setPosition(sf::Vector2f pos)
 
 void UISlider::Update(float tf)
 {
+	
 }
 
 void UISlider::checkClick(sf::Vector2f pos)

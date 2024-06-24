@@ -113,7 +113,10 @@ void SceneManager::loadSceneWithTransition(int scene)
 void SceneManager::Update(float tf)
 {
 	handleUIInput();
-
+	for (int i = 0; i < m_UILayers.size(); i++)
+	{
+		m_UILayers[i]->Update(tf);
+	}
 	//Game Logic
 	if (m_Scene->hasGameplay() && !m_Paused && !m_Transitioning)
 	{
@@ -194,6 +197,7 @@ void SceneManager::Update(float tf)
 		if (m_TransitionFlipped && m_TransitionSprite->getPosition().y < m_View->getCenter().y - m_viewSizeY - 25)
 		{
 			m_Transitioning = false;
+			m_UILayers[UI_Gameplay_HUD]->setCurrent(true);
 		}
 	}
 }
@@ -210,13 +214,13 @@ void SceneManager::handleUIInput()
 	if (m_LoadSky)
 	{
 		m_LoadSky = false;
-		loadSky();
+		loadSceneWithTransition(Sky);
 	}
 
 	if (m_LoadForest)
 	{
 		m_LoadForest = false;
-		loadForest();
+		loadSceneWithTransition(Forest);
 	}
 
 	if (m_Retry)
@@ -319,9 +323,10 @@ void SceneManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	m_LowerBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, playerPos.y + (m_View->getSize().y / 2) - m_LowerBorder->getSize().y + m_ScreenShakeSizeY);
 	m_RightBorder->setPosition((m_viewSizeX / 2) + (m_View->getSize().x / 2) - m_RightBorder->getSize().x + m_ScreenShakeSizeX, playerPos.y - (m_View->getSize().y / 2));
 	m_Scene->UpdateBackgroundPositions(playerPos.y);
+	m_UILayers[UI_Gameplay_HUD]->SetPosition(sf::Vector2f(m_View->getCenter().x + m_viewSizeX / 2 - (m_Player->getMaxBullets() * 64), playerPos.y + m_viewSizeY / 2 - 64));
 
 	m_UILayers[UI_Gameplay_Paused]->SetPosition(sf::Vector2f(m_View->getCenter().x - m_viewSizeX / 2, m_View->getCenter().y - m_viewSizeY / 2));
-	m_UILayers[UI_Gameplay_HUD]->SetPosition(sf::Vector2f(m_View->getCenter().x - m_viewSizeX / 2, m_View->getCenter().y - m_viewSizeY / 2));
+	//m_UILayers[UI_Gameplay_HUD]->SetPosition(sf::Vector2f(m_View->getCenter().x - m_viewSizeX / 2, m_View->getCenter().y - m_viewSizeY / 2));
 	m_UILayers[UI_Title_Options]->SetPosition(sf::Vector2f(m_View->getCenter().x - m_viewSizeX / 2, m_View->getCenter().y - m_viewSizeY / 2));
 
 	if (m_Player->getPosition().y < (m_Scene->getLevelSize() * m_viewSizeY) - (m_viewSizeY / 2))
@@ -639,7 +644,7 @@ void SceneManager::handleInput(sf::Event* event)
 	{
 		m_UILayers[i]->handleInput(event);
 	}
-	if (m_Scene->hasGameplay())
+	if (m_Scene->hasGameplay() && !m_Transitioning)
 	{
 		if (event->type == sf::Event::KeyPressed)
 		{
@@ -710,6 +715,8 @@ void SceneManager::configureUI()
 
 	//Gameplay HUD
 	m_UILayers.push_back(make_unique<UIElementLayer>());
+
+	m_UILayers[m_UILayers.size() - 1]->AddCounter("Textures/UI/UIBulletSheet.png", m_Player->getBulletPointer(), m_Player->getMaxBullets(), sf::IntRect(0, 0, 64, 64), sf::IntRect(64, 0, 64, 64), sf::Vector2f(m_View->getCenter().x + m_viewSizeX / 2 - (m_Player->getMaxBullets() * 64), m_View->getCenter().y + m_viewSizeY / 2 - 64));
 
 	//Gameplay paused
 	m_UILayers.push_back(make_unique<UIElementLayer>());

@@ -17,6 +17,10 @@ bool UIElementLayer::isCurrent()
 
 void UIElementLayer::Update(float tf)
 {
+	for (int i = 0; i < m_UIElements.size(); i++)
+	{
+		m_UIElements[i]->Update(tf);
+	}
 }
 
 void UIElementLayer::AddVisualElement(string texturePath, sf::Vector2f position)
@@ -47,6 +51,11 @@ void UIElementLayer::AddButton(string TexturePath, bool* switchBool, sf::Vector2
 void UIElementLayer::AddSlider(sf::Vector2f position, float* sliderVal, bool* buttonHeld, string barTexturePath, string sliderNubTexturePath, float minVal, float maxVal, sf::RenderWindow* window, sf::Vector2f m_HitboxOffset)
 {
 	m_UIElements.push_back(make_unique<UISlider>(position, sliderVal, buttonHeld, barTexturePath, sliderNubTexturePath, minVal, maxVal, window, m_HitboxOffset));
+}
+
+void UIElementLayer::AddCounter(string TexturePath, int* countVal, int maxVal, sf::IntRect ActiveTextureCoords, sf::IntRect InactiveTextureCoords, sf::Vector2f position)
+{
+	m_UIElements.push_back(make_unique<UICounter>(TexturePath, countVal, maxVal, ActiveTextureCoords, InactiveTextureCoords, position));
 }
 
 void UIElementLayer::handleInput(sf::Event* event)
