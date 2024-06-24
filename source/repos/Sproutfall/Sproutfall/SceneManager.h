@@ -81,6 +81,11 @@ private:
 	bool m_Paused = false;
 
 	std::unique_ptr<sf::Music> m_Music;
+	std::unique_ptr<sf::SoundBuffer> m_MenuStartSoundBuffer;
+	std::unique_ptr<sf::Sound> m_MenuStartSound;
+	std::unique_ptr<sf::SoundBuffer> m_TransitionSoundBuffer;
+	std::unique_ptr<sf::Sound> m_TransitionSound;
+	bool m_StartSoundPlayed = true;
 
 	std::unique_ptr<sf::Texture> m_TransitionTexture;
 	std::unique_ptr<sf::Sprite> m_TransitionSprite;

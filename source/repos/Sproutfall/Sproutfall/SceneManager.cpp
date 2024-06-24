@@ -28,6 +28,23 @@ SceneManager::SceneManager(float windowSizeX, float windowSizeY, sf::RenderWindo
 	m_TransitionSprite->setTexture(*m_TransitionTexture);
 	m_TransitionSprite->setOrigin(0, m_TransitionTexture->getSize().y / 2);
 
+	m_MenuStartSoundBuffer = make_unique<sf::SoundBuffer>();
+	if (!m_MenuStartSoundBuffer->loadFromFile("Sounds/start.ogg"))
+	{
+		cout << "Menu start sound load failure" << endl;
+	}
+	m_MenuStartSound = make_unique<sf::Sound>();
+	m_MenuStartSound->setBuffer(*m_MenuStartSoundBuffer);
+
+
+	m_TransitionSoundBuffer = make_unique<sf::SoundBuffer>();
+	if (!m_TransitionSoundBuffer->loadFromFile("Sounds/transition.ogg"))
+	{
+		cout << "Menu start sound load failure" << endl;
+	}
+	m_TransitionSound = make_unique<sf::Sound>();
+	m_TransitionSound->setBuffer(*m_TransitionSoundBuffer);
+
 	m_playerSmoke->setTexture(*m_smokeTexture);
 	m_smokeAnimationManager = make_unique<AnimationManager>(m_playerSmoke.get());
 	vector<sf::IntRect> frameVector;
@@ -108,11 +125,18 @@ void SceneManager::loadSceneWithTransition(int scene)
 	m_TransitionSprite->setPosition(m_TransitionSprite->getPosition().x, m_View->getCenter().y + m_viewSizeY / 2 + m_TransitionTexture->getSize().y);
 	m_TransitionSprite->setScale(2, 2);
 	m_nextScene = scene;
+	if (m_CurrentScene != TitleScreen)
+	{
+		m_TransitionSound->play();
+	}
 }
 
 void SceneManager::Update(float tf)
 {
-	handleUIInput();
+	if (!m_Transitioning)
+	{
+		handleUIInput();
+	}
 	for (int i = 0; i < m_UILayers.size(); i++)
 	{
 		m_UILayers[i]->Update(tf);
@@ -174,30 +198,38 @@ void SceneManager::Update(float tf)
 
 	if (m_Transitioning)
 	{
-		if (!m_TransitionFlipped && m_TransitionSprite->getPosition().y > m_View->getCenter().y - m_viewSizeY / 2 - 25)
+		if (m_StartSoundPlayed && m_MenuStartSound->getStatus() == sf::Sound::Status::Stopped)
 		{
-			m_TransitionSprite->move(0, m_TransitionSpeed * tf);
+			if (!m_TransitionFlipped && m_TransitionSprite->getPosition().y > m_View->getCenter().y - m_viewSizeY / 2 - 25)
+			{
+				m_TransitionSprite->move(0, m_TransitionSpeed * tf);
+			}
+			if (!m_TransitionFlipped && m_TransitionSprite->getPosition().y < m_View->getCenter().y - m_viewSizeY / 2 - 25 + m_TransitionTexture->getSize().y)
+			{
+				loadScene(m_nextScene);
+				m_Music->play();
+				m_TransitionFlipped = true;
+				m_Player->Update(0.00001f);
+				m_Scene->Update(0.00001f);
+				m_EnemyManager->Update(0.00001f);
+				m_View->setCenter(m_viewSizeX / 2, m_Player->getPosition().y);
+				m_TransitionSprite->setPosition(m_TransitionSprite->getPosition().x, m_View->getCenter().y - m_viewSizeY / 2 + m_TransitionTexture->getSize().y);
+				m_TransitionSprite->setScale(2, -2);
+			}
+			if (m_TransitionFlipped && m_TransitionSprite->getPosition().y > m_View->getCenter().y - m_viewSizeY);
+			{
+				m_TransitionSprite->move(0, m_TransitionSpeed * tf);
+			}
+			if (m_TransitionFlipped && m_TransitionSprite->getPosition().y < m_View->getCenter().y - m_viewSizeY - 25)
+			{
+				m_Transitioning = false;
+				m_UILayers[UI_Gameplay_HUD]->setCurrent(true);
+			}
 		}
-		if (!m_TransitionFlipped && m_TransitionSprite->getPosition().y < m_View->getCenter().y - m_viewSizeY / 2 - 25 + m_TransitionTexture->getSize().y)
+		else if (!m_StartSoundPlayed && m_MenuStartSound->getStatus() == sf::Sound::Status::Stopped)
 		{
-			loadScene(m_nextScene);
-			m_Music->play();
-			m_TransitionFlipped = true;
-			m_Player->Update(0.00001f);
-			m_Scene->Update(0.00001f);
-			m_EnemyManager->Update(0.00001f);
-			m_View->setCenter(m_viewSizeX / 2, m_Player->getPosition().y);
-			m_TransitionSprite->setPosition(m_TransitionSprite->getPosition().x, m_View->getCenter().y - m_viewSizeY / 2 + m_TransitionTexture->getSize().y);
-			m_TransitionSprite->setScale(2, -2);
-		}
-		if (m_TransitionFlipped && m_TransitionSprite->getPosition().y > m_View->getCenter().y - m_viewSizeY);
-		{
-			m_TransitionSprite->move(0, m_TransitionSpeed * tf);
-		}
-		if (m_TransitionFlipped && m_TransitionSprite->getPosition().y < m_View->getCenter().y - m_viewSizeY - 25)
-		{
-			m_Transitioning = false;
-			m_UILayers[UI_Gameplay_HUD]->setCurrent(true);
+			m_StartSoundPlayed = true;
+			m_TransitionSound->play();
 		}
 	}
 }
@@ -208,6 +240,11 @@ void SceneManager::handleUIInput()
 	if (m_LoadSpace)
 	{
 		m_LoadSpace = false;
+		if (m_CurrentScene == TitleScreen)
+		{
+			m_MenuStartSound->play();
+			m_StartSoundPlayed = false;
+		}
 		loadSceneWithTransition(Space);
 	}
 	
@@ -272,6 +309,13 @@ void SceneManager::handleUIInput()
 	{
 		m_Player->playDemoSound();
 		m_Player->setVolume(m_SFXVolumeSlider);
+		float volume = m_SFXVolumeSlider;
+		if (volume < 1)
+		{
+			volume = 0;
+		}
+		m_MenuStartSound->setVolume(volume);
+		m_TransitionSound->setVolume(volume);
 	}
 
 	if (m_MusicVolumeSliderHeld)
@@ -474,9 +518,9 @@ void SceneManager::loadSpace()
 
 	m_Scene->setBackgroundFillColor(0x655057ff);
 
-	m_EnemyManager->generateEnemies(b_Squid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
+	//m_EnemyManager->generateEnemies(b_Squid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
 
-	m_EnemyManager->generateEnemies(b_Asteroid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
+	//m_EnemyManager->generateEnemies(b_Asteroid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
 
 	m_Player->setPosition(640, 200);
 	m_Player->SetShellColor(sf::Color(0xf6edcdff));
@@ -637,33 +681,36 @@ void SceneManager::loadWin()
 
 void SceneManager::handleInput(sf::Event* event)
 {
-	if (m_Scene->hasGameplay() && !m_Paused && !m_Transitioning)
+	if (!m_Transitioning)
 	{
-		m_Player->handleInput(event);
-	}
-	for (int i = 0; i < m_UILayers.size(); i++)
-	{
-		m_UILayers[i]->handleInput(event);
-	}
-	if (m_Scene->hasGameplay() && !m_Transitioning)
-	{
-		if (event->type == sf::Event::KeyPressed)
+		if (m_Scene->hasGameplay() && !m_Paused && !m_Transitioning)
 		{
-			if (event->key.code == sf::Keyboard::Escape)
+			m_Player->handleInput(event);
+		}
+		for (int i = 0; i < m_UILayers.size(); i++)
+		{
+			m_UILayers[i]->handleInput(event);
+		}
+		if (m_Scene->hasGameplay())
+		{
+			if (event->type == sf::Event::KeyPressed)
 			{
-				if (m_UILayers[UI_Gameplay_Paused]->isCurrent())
+				if (event->key.code == sf::Keyboard::Escape)
 				{
-					m_Paused = false;
-					m_ClosePauseMenu = true;
-				}
-				else if (m_UILayers[UI_Title_Options]->isCurrent())
-				{
-					m_CloseOptions = true;
-				}
-				else
-				{
-					m_UILayers[UI_Gameplay_Paused]->setCurrent(true);
-					m_Paused = true;
+					if (m_UILayers[UI_Gameplay_Paused]->isCurrent())
+					{
+						m_Paused = false;
+						m_ClosePauseMenu = true;
+					}
+					else if (m_UILayers[UI_Title_Options]->isCurrent())
+					{
+						m_CloseOptions = true;
+					}
+					else
+					{
+						m_UILayers[UI_Gameplay_Paused]->setCurrent(true);
+						m_Paused = true;
+					}
 				}
 			}
 		}
