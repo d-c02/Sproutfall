@@ -323,10 +323,11 @@ void SceneManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	m_LowerBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, playerPos.y + (m_View->getSize().y / 2) - m_LowerBorder->getSize().y + m_ScreenShakeSizeY);
 	m_RightBorder->setPosition((m_viewSizeX / 2) + (m_View->getSize().x / 2) - m_RightBorder->getSize().x + m_ScreenShakeSizeX, playerPos.y - (m_View->getSize().y / 2));
 	m_Scene->UpdateBackgroundPositions(playerPos.y);
-	m_UILayers[UI_Gameplay_HUD]->SetPosition(sf::Vector2f(m_View->getCenter().x + m_viewSizeX / 2 - (m_Player->getMaxBullets() * 64), playerPos.y + m_viewSizeY / 2 - 64));
+	//m_UILayers[UI_Gameplay_HUD]->SetPosition(sf::Vector2f(m_View->getCenter().x + m_viewSizeX / 2 - (m_Player->getMaxBullets() * 64), playerPos.y + m_viewSizeY / 2 - 64));
 
 	m_UILayers[UI_Gameplay_Paused]->SetPosition(sf::Vector2f(m_View->getCenter().x - m_viewSizeX / 2, m_View->getCenter().y - m_viewSizeY / 2));
-	//m_UILayers[UI_Gameplay_HUD]->SetPosition(sf::Vector2f(m_View->getCenter().x - m_viewSizeX / 2, m_View->getCenter().y - m_viewSizeY / 2));
+	m_UILayers[UI_Gameplay_HUD]->SetPosition(sf::Vector2f(m_View->getCenter().x - m_viewSizeX / 2, m_View->getCenter().y - m_viewSizeY / 2));
+	//m_UILayers[UI_Gameplay_HUD]->SetPosition(sf::Vector2f(m_View->getCenter().x, m_View->getCenter().y));
 	m_UILayers[UI_Title_Options]->SetPosition(sf::Vector2f(m_View->getCenter().x - m_viewSizeX / 2, m_View->getCenter().y - m_viewSizeY / 2));
 
 	if (m_Player->getPosition().y < (m_Scene->getLevelSize() * m_viewSizeY) - (m_viewSizeY / 2))
@@ -473,9 +474,9 @@ void SceneManager::loadSpace()
 
 	m_Scene->setBackgroundFillColor(0x655057ff);
 
-	//m_EnemyManager->generateEnemies(b_Squid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
+	m_EnemyManager->generateEnemies(b_Squid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
 
-	//m_EnemyManager->generateEnemies(b_Asteroid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
+	m_EnemyManager->generateEnemies(b_Asteroid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
 
 	m_Player->setPosition(640, 200);
 	m_Player->SetShellColor(sf::Color(0xf6edcdff));
@@ -716,7 +717,9 @@ void SceneManager::configureUI()
 	//Gameplay HUD
 	m_UILayers.push_back(make_unique<UIElementLayer>());
 
-	m_UILayers[m_UILayers.size() - 1]->AddCounter("Textures/UI/UIBulletSheet.png", m_Player->getBulletPointer(), m_Player->getMaxBullets(), sf::IntRect(0, 0, 64, 64), sf::IntRect(64, 0, 64, 64), sf::Vector2f(m_View->getCenter().x + m_viewSizeX / 2 - (m_Player->getMaxBullets() * 64), m_View->getCenter().y + m_viewSizeY / 2 - 64));
+	m_UILayers[m_UILayers.size() - 1]->AddCounter("Textures/UI/UIBulletSheet.png", m_Player->getBulletPointer(), m_Player->getMaxBullets(), sf::IntRect(0, 0, 64, 64), sf::IntRect(64, 0, 64, 64), sf::Vector2f(m_View->getCenter().x + m_viewSizeX / 2 - (m_Player->getMaxBullets() * 32), m_View->getCenter().y + m_viewSizeY / 2 - 64));
+
+	m_UILayers[m_UILayers.size() - 1]->AddCounter("Textures/UI/UIHealthSheet.png", m_Player->getHealthPointer(), m_Player->getMaxHealth(), sf::IntRect(0, 0, 64, 64), sf::IntRect(64, 0, 64, 64), sf::Vector2f(m_View->getCenter().x - m_viewSizeX / 2 + (m_Player->getMaxHealth() * 64), m_View->getCenter().y - m_viewSizeY / 2 + 32));
 
 	//Gameplay paused
 	m_UILayers.push_back(make_unique<UIElementLayer>());

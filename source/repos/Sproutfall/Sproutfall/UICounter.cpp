@@ -21,12 +21,15 @@ UICounter::UICounter(string TexturePath, int* countVal, int maxVal, sf::IntRect 
 	m_countVal = countVal;
 	m_maxVal = maxVal;
 	m_prevCountVal = *m_countVal;
+	m_UIPosition = position;
 }
 
 void UICounter::setPosition(sf::Vector2f pos)
 {
 	for (int i = 0; i < m_maxVal; i++) {
-		m_CounterSprites[i]->setPosition(pos.x + i * m_ActiveTextureCoords.width, pos.y);
+		m_CounterSprites[i]->setPosition(m_UIPosition + pos);
+		m_CounterSprites[i]->setPosition(m_CounterSprites[i]->getPosition().x + i * m_InactiveTextureCoords.width, m_CounterSprites[i]->getPosition().y);
+		//m_CounterSprites[i]->setPosition(pos.x + i * m_ActiveTextureCoords.width, pos.y);
 	}
 }
 
