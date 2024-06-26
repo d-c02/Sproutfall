@@ -86,11 +86,19 @@ SceneManager::SceneManager(float windowSizeX, float windowSizeY, sf::RenderWindo
 	m_Music->setVolume(m_MusicVolumeSlider);
 
 	m_HighscoreManager = make_unique<HighScoreManager>();
-	m_HighscoreManager->AddScore("NUT", 20, 45);
-	m_HighscoreManager->AddScore("FOX", 12, 33);
-	m_HighscoreManager->AddScore("CRE", 20, 58);
-	m_HighscoreManager->AddScore("SRF", 5, 3);
-	m_HighscoreManager->AddScore("BDN", 2, 10);
+	//m_HighscoreManager->AddScore("NUT", 20, 45);
+	//m_HighscoreManager->AddScore("FOX", 12, 33);
+	//m_HighscoreManager->AddScore("CRE", 20, 58);
+	//m_HighscoreManager->AddScore("SRF", 5, 3);
+	//m_HighscoreManager->AddScore("BDN", 2, 10);
+
+	m_LetterAtlas = make_unique<sf::Texture>();
+	if (!m_LetterAtlas->loadFromFile("Textures/UI/fontspritesheetrough.png"))
+	{
+		cout << "Text atlas loading failure" << endl;
+	}
+
+	m_Timer = make_unique<Timer>(m_LetterAtlas.get(), sf::Vector2f(m_View->getCenter().x - 128, m_View->getCenter().y - m_viewSizeY / 2 + 64));
 
 	configureUI();
 }
@@ -161,6 +169,7 @@ void SceneManager::Update(float tf)
 			m_Player->Update(tf);
 			m_EnemyManager->Update(tf);
 			m_Scene->Update(tf);
+			m_Timer->Update(tf);
 		}
 		else if (m_smokeAnimationManager->isPlaying())
 		{
@@ -374,6 +383,8 @@ void SceneManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	m_LowerBorder->setPosition((m_viewSizeX / 2) - (m_View->getSize().x / 2) - m_ScreenShakeSizeX, playerPos.y + (m_View->getSize().y / 2) - m_LowerBorder->getSize().y + m_ScreenShakeSizeY);
 	m_RightBorder->setPosition((m_viewSizeX / 2) + (m_View->getSize().x / 2) - m_RightBorder->getSize().x + m_ScreenShakeSizeX, playerPos.y - (m_View->getSize().y / 2));
 	m_Scene->UpdateBackgroundPositions(playerPos.y);
+
+	m_Timer->setPosition(sf::Vector2f(m_View->getCenter().x - 128, m_View->getCenter().y - m_viewSizeY / 2 + 64));
 	//m_UILayers[UI_Gameplay_HUD]->SetPosition(sf::Vector2f(m_View->getCenter().x + m_viewSizeX / 2 - (m_Player->getMaxBullets() * 64), playerPos.y + m_viewSizeY / 2 - 64));
 
 	m_UILayers[UI_Gameplay_Paused]->SetPosition(sf::Vector2f(m_View->getCenter().x - m_viewSizeX / 2, m_View->getCenter().y - m_viewSizeY / 2));
@@ -414,6 +425,11 @@ void SceneManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(*m_LowerBorder.get());
 	target.draw(*m_RightBorder.get());
 	target.draw(*m_LeftBorder.get());
+
+	if (m_Scene->hasGameplay())
+	{
+		target.draw(*m_Timer);
+	}
 
 	for (int i = 0; i < m_UILayers.size(); i++)
 	{

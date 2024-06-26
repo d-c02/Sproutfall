@@ -98,5 +98,7 @@ private:
 	int m_nextScene = 0;
 
 	std::unique_ptr<HighScoreManager> m_HighscoreManager;
+
+	std::unique_ptr<sf::Texture> m_LetterAtlas;
 	std::unique_ptr<Timer> m_Timer;
 };

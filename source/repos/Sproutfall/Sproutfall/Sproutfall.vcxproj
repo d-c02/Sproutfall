@@ -173,6 +173,7 @@
     <ClCompile Include="ShellManager.cpp" />
     <ClCompile Include="Squid.cpp" />
     <ClCompile Include="Squirrel.cpp" />
+    <ClCompile Include="Timer.cpp" />
     <ClCompile Include="UIButton.cpp" />
     <ClCompile Include="UICounter.cpp" />
     <ClCompile Include="UIElement.cpp" />
@@ -205,6 +206,7 @@
     <ClInclude Include="ShellManager.h" />
     <ClInclude Include="Squid.h" />
     <ClInclude Include="Squirrel.h" />
+    <ClInclude Include="Timer.h" />
     <ClInclude Include="UIButton.h" />
     <ClInclude Include="UICounter.h" />
     <ClInclude Include="UIElement.h" />
