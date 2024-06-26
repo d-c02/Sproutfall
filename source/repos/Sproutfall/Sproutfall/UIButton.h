@@ -2,7 +2,7 @@
 #include "SFML_Lib.h"
 #include "UIElement.h"
 
-class UIButton : public sf::Drawable, public UIElement
+class UIButton : public UIElement
 {
 public:
 	UIButton(string TexturePath, bool* switchBool, sf::Vector2f position, sf::IntRect unclickedTextureCoords, sf::IntRect clickedTextureCoords, sf::IntRect releasedTextureCoords, sf::RenderWindow* window, sf::Vector2f hitboxOffset = sf::Vector2f(0, 0));

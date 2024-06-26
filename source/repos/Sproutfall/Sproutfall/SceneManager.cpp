@@ -85,6 +85,13 @@ SceneManager::SceneManager(float windowSizeX, float windowSizeY, sf::RenderWindo
 	m_Music->setLoop(true);
 	m_Music->setVolume(m_MusicVolumeSlider);
 
+	m_HighscoreManager = make_unique<HighScoreManager>();
+	m_HighscoreManager->AddScore("NUT", 20, 45);
+	m_HighscoreManager->AddScore("FOX", 12, 33);
+	m_HighscoreManager->AddScore("CRE", 20, 58);
+	m_HighscoreManager->AddScore("SRF", 5, 3);
+	m_HighscoreManager->AddScore("BDN", 2, 10);
+
 	configureUI();
 }
 SceneManager::~SceneManager()
@@ -518,9 +525,9 @@ void SceneManager::loadSpace()
 
 	m_Scene->setBackgroundFillColor(0x655057ff);
 
-	//m_EnemyManager->generateEnemies(b_Squid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
+	m_EnemyManager->generateEnemies(b_Squid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
 
-	//m_EnemyManager->generateEnemies(b_Asteroid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
+	m_EnemyManager->generateEnemies(b_Asteroid, m_viewSizeY / 10, m_viewSizeY / 10, 9);
 
 	m_Player->setPosition(640, 200);
 	m_Player->SetShellColor(sf::Color(0xf6edcdff));

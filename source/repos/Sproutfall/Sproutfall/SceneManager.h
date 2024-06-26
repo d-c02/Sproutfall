@@ -3,6 +3,9 @@
 #include "Scene.h"
 #include "EnemyManager.h"
 #include "UIElementLayer.h"
+#include "HighScoreManager.h"
+#include "Timer.h"
+
 class SceneManager : public sf::Drawable
 {
 public:
@@ -93,4 +96,7 @@ private:
 	bool m_TransitionFlipped = false;
 	float m_TransitionSpeed = -2000.0f;
 	int m_nextScene = 0;
+
+	std::unique_ptr<HighScoreManager> m_HighscoreManager;
+	std::unique_ptr<Timer> m_Timer;
 };

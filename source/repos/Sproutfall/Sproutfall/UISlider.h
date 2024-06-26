@@ -2,7 +2,7 @@
 #include "SFML_Lib.h"
 #include "UIElement.h"
 
-class UISlider : public sf::Drawable, public UIElement
+class UISlider : public UIElement
 {
 public:
 	UISlider(sf::Vector2f position, float* sliderVal, bool* buttonHeld, string barTexturePath, string sliderNubTexturePath, float minVal, float maxVal, sf::RenderWindow* window, sf::Vector2f m_HitboxOffset = sf::Vector2f(0,0));

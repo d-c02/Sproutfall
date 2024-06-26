@@ -54,15 +54,14 @@ void BackgroundLayer::UpdatePosition(float pos)
 		}
 	}
 
+
+	//Linear interpolation
 	m_TruePosition = ((m_StartPosition) * (1 - t)) + (m_EndPosition * t);
-	//cout << parallaxPosition << endl;
+
 	m_Sprite->setPosition(0, m_TruePosition + m_ParallaxShift);
 	m_Upper->setPosition(0, - textureSize + m_TruePosition + m_ParallaxShift);
 	m_Lower->setPosition(0, + textureSize + m_TruePosition + m_ParallaxShift);
 
-	//m_Sprite->move(0, -m_Player->getVelocity().y * tf * m_ParallaxSpeed * m_Parallax);
-	//m_Upper->move(0, -m_Player->getVelocity().y * tf * m_ParallaxSpeed * m_Parallax);
-	//m_Lower->move(0, -m_Player->getVelocity().y * tf * m_ParallaxSpeed * m_Parallax);
 }
 
 //void BackgroundLayer::Update(float tf)

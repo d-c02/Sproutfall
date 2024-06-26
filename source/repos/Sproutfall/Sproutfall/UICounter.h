@@ -2,7 +2,7 @@
 #include "SFML_Lib.h"
 #include "UIElement.h"
 
-class UICounter : public sf::Drawable, public UIElement
+class UICounter : public UIElement
 {
 public:
 	UICounter(string TexturePath, int* countVal, int maxVal, sf::IntRect ActiveTextureCoords, sf::IntRect InactiveTextureCoords, sf::Vector2f position);
