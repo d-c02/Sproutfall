@@ -20,6 +20,7 @@ public:
 	void setGameplay(bool gaming);
 	bool hasGameplay();
 	virtual bool isScreenShaking();
+	virtual sf::Vector2f getViewCenter();
 
 protected:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;

@@ -54,7 +54,7 @@ private:
 	float m_TotalScreenShakeTime = 0.05f;
 	float m_ScreenShakeTick = 0.001f;
 	const float m_ShootScreenShakeTime = 0.05f;
-	const float m_CutsceneScreenShakeTime = 2.3f;
+	const float m_CutsceneScreenShakeTime = 3.3f;
 	float m_CurrentScreenShakeTime = 0.0f;
 	bool m_ScreenShaking = false;
 	float m_CurrentScreenShakeTick = 0.0f;
@@ -97,11 +97,14 @@ private:
 	std::unique_ptr<sf::Sprite> m_TransitionSprite;
 	bool m_Transitioning = false;
 	bool m_TransitionFlipped = false;
-	float m_TransitionSpeed = 2000.0f;
+	float m_TransitionSpeed = -2000.0f;
 	int m_nextScene = 0;
 
 	std::unique_ptr<HighScoreManager> m_HighscoreManager;
 
 	std::unique_ptr<sf::Texture> m_LetterAtlas;
 	std::unique_ptr<Timer> m_Timer;
+
+	bool m_SpeedUpCredits = false;
+	float m_CreditsSpeedUpFactor = 10;
 };

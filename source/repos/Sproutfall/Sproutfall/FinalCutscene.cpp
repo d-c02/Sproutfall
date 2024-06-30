@@ -1,6 +1,6 @@
 #include "FinalCutscene.h"
 
-FinalCutscene::FinalCutscene(float viewSizeX, float viewSizeY)
+FinalCutscene::FinalCutscene(float viewSizeX, float viewSizeY, sf::Texture* TransitionTexture)
 {
 	m_viewSizeX = viewSizeX;
 	m_viewSizeY = viewSizeY;
@@ -51,9 +51,42 @@ FinalCutscene::FinalCutscene(float viewSizeX, float viewSizeY)
 	}
 	m_SproutAnimationManager->addState(0, frameVector, false, 0.05f);
 	m_SproutAnimationManager->setState(0);
+	m_SproutSprite->setTextureRect(sf::IntRect(0, 0, 150, 300));
+	frameVector.clear();
+
+	m_TransitionTexture = TransitionTexture;
+	m_TransitionSprite = make_unique<sf::Sprite>();
+	m_TransitionSprite->setScale(2, 2);
+	m_TransitionSprite->setTexture(*m_TransitionTexture);
+	m_TransitionSprite->setOrigin(0, m_TransitionTexture->getSize().y / 2);
+	m_TransitionSprite->setPosition(m_initialTransitionPosition);
+	m_TransitionSprite->setScale(2, -2);
+
+	m_GrowingSproutTexture = make_unique<sf::Texture>();
+	if (!m_GrowingSproutTexture->loadFromFile("Textures/finalcutscene/growingsprout.png"))
+	{
+		cout << "Final cutscene growing sprout texture load failure" << endl;
+	}
+
+	m_GrowingSproutSprite = make_unique<sf::Sprite>();
+	m_GrowingSproutSprite->setTexture(*m_GrowingSproutTexture);
+	m_GrowingSproutSprite->setOrigin(75, 0);
+	m_GrowingSproutSprite->setScale(2, 2);
+	m_GrowingSproutSprite->setPosition(sf::Vector2f(1280 / 2, 960 - 100));
+
+	m_GrowingSproutAnimationManager = make_unique<AnimationManager>(m_GrowingSproutSprite.get());
+	for (int i = 0; i < 5; i++)
+	{
+		frameVector.push_back(sf::IntRect(i * 150, 0, 150, 50));
+	}
+	m_GrowingSproutAnimationManager->addState(0, frameVector, true, 0.5f);
+	m_GrowingSproutAnimationManager->setState(0);
+	m_GrowingSproutSprite->setTextureRect(sf::IntRect(0, 0, 150, 450));
 	frameVector.clear();
 
 	m_State = s_PlayerFalling;
+
+	setBackgroundFillColor(0x655057ff);
 }
 
 void FinalCutscene::Update(float tf)
@@ -86,11 +119,135 @@ void FinalCutscene::Update(float tf)
 		if (m_TimeAccumulator >= m_MaxShakingTime)
 		{
 			m_State = s_SproutGrowing;
+			m_TimeAccumulator = 0;
 		}
 	}
 	else if (m_State == s_SproutGrowing)
 	{
 		m_SproutAnimationManager->Update(tf);
+		if (!m_SproutAnimationManager->isPlaying())
+		{
+			m_NextScene = s_Forest;
+			UpdateTransitionPos();
+			m_State = s_Transitioning;
+		}
+	}
+	else if (m_State == s_Transitioning)
+	{
+		for (int i = 0; i < m_Backgrounds.size(); i++)
+		{
+			m_Backgrounds[i]->Update(tf);
+		}
+		m_TimeAccumulator += tf;
+		if (!m_TransitionFlipped)
+		{
+			m_TransitionSprite->setPosition(m_finalTransitionPosition * (m_TimeAccumulator / m_MaxTransitionTime) + m_initialTransitionPosition * (1.0f - (m_TimeAccumulator / m_MaxTransitionTime)));
+		}
+		else
+		{
+			m_TransitionSprite->setPosition(m_finalTransitionPosition2 * (m_TimeAccumulator / m_MaxTransitionTime) + m_finalTransitionPosition * (1.0f - (m_TimeAccumulator / m_MaxTransitionTime)));
+		}
+		if (m_TimeAccumulator > m_MaxTransitionTime)
+		{
+			m_TimeAccumulator = 0;
+			if (!m_TransitionFlipped)
+			{
+				m_TransitionFlipped = true;
+				m_TransitionSprite->setScale(2, 2);
+				loadScene(m_NextScene);
+			}
+			else
+			{
+				m_TransitionFlipped = false;
+				m_TransitionSprite->setScale(2, -2);
+				m_State = m_NextScene;
+			}
+		}
+	}
+	else if (m_State == s_Forest)
+	{
+		for (int i = 0; i < m_Backgrounds.size(); i++)
+		{
+			m_Backgrounds[i]->Update(tf);
+		}
+		m_GrowingSproutAnimationManager->Update(tf);
+		m_EnemyAnimationManager1->Update(tf);
+		m_EnemyAnimationManager2->Update(tf);
+		m_BGUpdatePos += m_BGUpdateTick * tf;
+		if (!m_HoldingTextPos && !m_MovingPastText)
+		{
+			if (m_EnemySprite1->getPosition().y >= m_BGUpdatePos)
+			{
+				m_HoldingTextPos = true;
+			}
+		}
+		else
+		{
+			m_TimeAccumulator += tf;
+			if (!m_MovingPastText)
+			{
+				if (m_TimeAccumulator >= m_ReadingTime)
+				{
+					m_HoldingTextPos = false;
+					m_MovingPastText = true;
+					m_TimeAccumulator = 0.0f;
+				}
+			}
+			else
+			{
+				if (m_TimeAccumulator >= m_ReadingTime)
+				{
+					m_MovingPastText = false;
+					m_TimeAccumulator = 0.0f;
+					m_State = s_Transitioning;
+					m_NextScene = s_Sky;
+					UpdateTransitionPos();
+					m_TransitionSprite->setPosition(m_initialTransitionPosition.x, m_BGUpdatePos + m_initialTransitionPosition.y);
+				}
+			}
+		}
+	}
+	else if (m_State == s_Sky)
+	{
+		for (int i = 0; i < m_Backgrounds.size(); i++)
+		{
+    			m_Backgrounds[i]->Update(tf);
+		}
+		m_GrowingSproutAnimationManager->Update(tf);
+		m_EnemyAnimationManager1->Update(tf);
+		m_EnemyAnimationManager2->Update(tf);
+		m_BGUpdatePos += m_BGUpdateTick * tf;
+		if (!m_HoldingTextPos && !m_MovingPastText)
+		{
+			if (m_EnemySprite1->getPosition().y >= m_BGUpdatePos)
+			{
+				m_HoldingTextPos = true;
+			}
+		}
+		else
+		{
+			m_TimeAccumulator += tf;
+			if (!m_MovingPastText)
+			{
+				if (m_TimeAccumulator >= m_ReadingTime)
+				{
+					m_HoldingTextPos = false;
+					m_MovingPastText = true;
+					m_TimeAccumulator = 0.0f;
+				}
+			}
+			else
+			{
+				if (m_TimeAccumulator >= m_ReadingTime)
+				{
+					m_MovingPastText = false;
+					m_TimeAccumulator = 0.0f;
+					m_State = s_Transitioning;
+					UpdateTransitionPos();
+					m_NextScene = s_Space;
+				}
+			}
+		}
 	}
 }
 
@@ -104,11 +261,17 @@ bool FinalCutscene::isScreenShaking()
 	return m_ScreenShaking;
 }
 
+sf::Vector2f FinalCutscene::getViewCenter()
+{
+	return sf::Vector2f(640, m_BGUpdatePos);
+}
+
 void FinalCutscene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.clear(sf::Color(m_BackgroundFillColor));
 	for (int i = 0; i < m_Backgrounds.size(); i++)
 	{
+		m_Backgrounds[i]->UpdatePosition(m_BGUpdatePos);
 		target.draw(*m_Backgrounds[i]);
 	}
 	for (int i = 0; i < m_BackgroundSprites.size(); i++)
@@ -119,8 +282,241 @@ void FinalCutscene::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 	{
 		target.draw(*m_playerSprite);
 	}
-	if (m_State == s_SproutGrowing)
+	if (m_State == s_SproutGrowing || m_State == s_Transitioning)
 	{
-		target.draw(*m_SproutSprite);
+		if (!m_TransitionFlipped)
+		{
+			target.draw(*m_SproutSprite);
+		}
+		else
+		{
+			target.draw(*m_GrowingSproutSprite);
+		}
+		if (m_NextScene == s_Sky || m_NextScene == s_Space)
+		{
+			target.draw(*m_GrowingSproutSprite);
+		}
+		target.draw(*m_TransitionSprite);
 	}
+	if (m_State == s_Forest || m_State == s_Sky || m_State == s_Space)
+	{
+		m_GrowingSproutSprite->setPosition(m_GrowingSproutSprite->getPosition().x, m_BGUpdatePos + 380);
+		if (m_HoldingTextPos)
+		{
+			m_EnemySprite1->setPosition(m_EnemySprite1->getPosition().x, m_BGUpdatePos);
+			m_EnemySprite2->setPosition(m_EnemySprite2->getPosition().x, m_BGUpdatePos);
+			m_TextSprite->setPosition(m_TextSprite->getPosition().x, m_BGUpdatePos);
+		}
+		target.draw(*m_EnemySprite1);
+		target.draw(*m_EnemySprite2);
+		target.draw(*m_TextSprite);
+		target.draw(*m_GrowingSproutSprite);
+	}
+}
+
+void FinalCutscene::loadScene(int Scene)
+{
+	if (Scene == s_Forest)
+	{
+		loadForest();
+	}
+	if (Scene == s_Sky)
+	{
+		loadSky();
+	}
+}
+
+void FinalCutscene::loadForest()
+{
+	m_Backgrounds.clear();
+
+	vector<sf::IntRect> frameVector;
+
+	addBackground(0.0, 18000, "Textures/forest/forest_level_1.png", 28800);
+
+	addBackground(0.0, 17600, "Textures/forest/forest_level_2.png", 28800);
+
+	frameVector.push_back(sf::IntRect(0, 0, 640, 480));
+	addBackgroundElement(sf::Vector2f(0, 0), 28800, "Textures/forest/forest_level_3.png", frameVector, 0.25f, 28800, -480);
+	frameVector.clear();
+
+	addBackground(0.0, 17200, "Textures/forest/forest_level_4.png", 28800);
+
+	frameVector.push_back(sf::IntRect(0, 0, 640, 480));
+	addBackgroundElement(sf::Vector2f(0, 0), 28800, "Textures/forest/forest_level_5.png", frameVector, 0.25f, 28800, -480);
+	frameVector.clear();
+
+	addBackground(0.0, 16800, "Textures/forest/forest_level_6.png", 28800);
+
+	frameVector.push_back(sf::IntRect(0, 0, 640, 480));
+	addBackgroundElement(sf::Vector2f(0, 0), 28800, "Textures/forest/forest_level_7.png", frameVector, 0.25f, 28800, -480);
+	frameVector.clear();
+
+	m_EnemyTexture1 = make_unique<sf::Texture>();
+	if (!m_EnemyTexture1->loadFromFile("Textures/Enemies/forest_squirrel.png"))
+	{
+		cout << "Squirrel texture load failure" << endl;
+	}
+	
+	m_EnemySprite1 = make_unique<sf::Sprite>();
+	m_EnemySprite1->setScale(2, 2);
+	m_EnemySprite1->setOrigin(32, 32);
+	m_EnemySprite1->setTextureRect(sf::IntRect(64, 0, 64, 64));
+	m_EnemySprite1->setPosition(200, m_CreditsOffset);
+	m_EnemySprite1->setTexture(*m_EnemyTexture1);
+
+	m_EnemyAnimationManager1 = make_unique<AnimationManager>(m_EnemySprite1.get());
+
+	//Climbing state
+	frameVector.push_back(sf::IntRect(64, 0, 64, 64));
+	frameVector.push_back(sf::IntRect(128, 0, 64, 64));
+	frameVector.push_back(sf::IntRect(192, 0, 64, 64));
+	frameVector.push_back(sf::IntRect(256, 0, 64, 64));
+	frameVector.push_back(sf::IntRect(320, 0, 64, 64));
+	m_EnemyAnimationManager1->addState(0, frameVector, true, 0.2f);
+	frameVector.clear();
+	
+	m_EnemyAnimationManager1->setState(0);
+	
+	m_EnemyTexture2 = make_unique<sf::Texture>();
+	if (!m_EnemyTexture2->loadFromFile("Textures/Enemies/pinebomb_64x64.png"))
+	{
+		cout << "Pinebomb texture load failure credits" << endl;
+	}
+
+	m_EnemySprite2 = make_unique<sf::Sprite>();
+	m_EnemySprite2->setScale(2, 2);
+	m_EnemySprite2->setOrigin(16, 16);
+	m_EnemySprite2->setTextureRect(sf::IntRect(0, 0, 32, 32));
+	m_EnemySprite2->setPosition(1000, m_CreditsOffset);
+	m_EnemySprite2->setTexture(*m_EnemyTexture2);
+
+	m_EnemyAnimationManager2 = make_unique<AnimationManager>(m_EnemySprite2.get());
+
+	//Neutral state
+	frameVector.push_back(sf::IntRect(0, 0, 32, 32));
+	m_EnemyAnimationManager2->addState(0, frameVector, false, 1.0f);
+	frameVector.clear();
+
+	m_EnemyAnimationManager2->setState(0);
+
+	m_TextTexture = make_unique<sf::Texture>();
+	if (!m_TextTexture->loadFromFile("Textures/finalcutscene/MusicByAtticFox.png"))
+	{
+		cout << "Atticfox credits load failure" << endl;
+	}
+	m_TextSprite = make_unique<sf::Sprite>();
+	m_TextSprite->setTexture(*m_TextTexture);
+	m_TextSprite->setOrigin(m_TextTexture->getSize().x / 2, m_TextTexture->getSize().y / 2);
+	m_TextSprite->setPosition(640, m_CreditsOffset);
+}
+
+void FinalCutscene::loadSky()
+{
+
+	m_Backgrounds.clear();
+	m_BackgroundSprites.clear();
+
+	vector<sf::IntRect> frameVector;
+
+	frameVector.push_back(sf::IntRect(0, 0, 640, 600));
+	addBackgroundElement(sf::Vector2f(0, m_BGUpdatePos - 18600), m_BGUpdatePos, "Textures/sky/sky_backgound_sky.png", frameVector, 1.0f, 18600, 0);
+	frameVector.clear();
+	
+	addBackground(0.0, 18400, "Textures/sky/sky_backgound_cloud_small.png", 19200);
+
+	frameVector.push_back(sf::IntRect(144, 24, 6, 14));
+	addBackgroundElement(sf::Vector2f(300, m_BGUpdatePos - 18300), m_BGUpdatePos, "Textures/sky/objects_58.png", frameVector, 0.25f, 19200, 1100);
+	frameVector.clear();
+
+	frameVector.push_back(sf::IntRect(16, 11, 26, 42));
+	addBackgroundElement(sf::Vector2f(550, m_BGUpdatePos - 18300), m_BGUpdatePos, "Textures/sky/objects_58.png", frameVector, 0.25f, 19200, 1500);
+	frameVector.clear();
+
+	frameVector.push_back(sf::IntRect(72, 25, 37, 17));
+	addBackgroundElement(sf::Vector2f(1100, m_BGUpdatePos - 18250), m_BGUpdatePos, "Textures/sky/objects_58.png", frameVector, 0.25f, 19200, 900);
+	frameVector.clear();
+
+	addBackground(m_BGUpdatePos - 18200, m_BGUpdatePos - 960, "Textures/sky/sky_backgound_cloud_mid.png", 19200);
+	
+	
+	//Bird animation config
+	for (int i = 0; i < 8; i++)
+	{
+		frameVector.push_back(sf::IntRect(i * 46, 0, 46, 32));
+	}
+
+	addBackgroundElement(sf::Vector2f(100, m_BGUpdatePos - 18000), m_BGUpdatePos, "Textures/sky/birds_46.png", frameVector, 0.25f, 19200, 1100);
+	frameVector.clear();
+
+	addBackground(m_BGUpdatePos - 17200 + 960, m_BGUpdatePos, "Textures/sky/sky_backgound_cloud.png", 19200);
+
+	frameVector.push_back(sf::IntRect(0, 0, 640, 480));
+
+	addBackgroundElement(sf::Vector2f(0, m_BGUpdatePos - 16800), m_BGUpdatePos, "Textures/sky/sky_backgound_trees.png", frameVector, 1.0f, 19200, 1760);
+	frameVector.clear();
+	
+	if (!m_EnemyTexture1->loadFromFile("Textures/Enemies/sky_badcloud.png"))
+	{
+		cout << "Badcloud texture load failure credits" << endl;
+	}
+
+	m_EnemySprite1->setOrigin(16, 16);
+	m_EnemySprite1->setTextureRect(sf::IntRect(0, 0, 32, 32));
+	m_EnemySprite1->setPosition(200, m_BGUpdatePos + m_CreditsOffset);
+	m_EnemySprite1->setTexture(*m_EnemyTexture1);
+
+	m_EnemyAnimationManager1 = make_unique<AnimationManager>(m_EnemySprite1.get());
+
+	//Climbing state
+	frameVector.push_back(sf::IntRect(0, 0, 32, 32));
+	frameVector.push_back(sf::IntRect(32, 0, 32, 32));
+	m_EnemyAnimationManager1->addState(0, frameVector, true, 0.75f);
+	frameVector.clear();
+
+	m_EnemyAnimationManager1->setState(0);
+	m_EnemyAnimationManager1->Play();
+
+	if (!m_EnemyTexture2->loadFromFile("Textures/Enemies/sky_bird.png"))
+	{
+		cout << "Bird texture load failure" << endl;
+	}
+
+	m_EnemySprite2->setOrigin(16, 16);
+	m_EnemySprite2->setTextureRect(sf::IntRect(0, 0, 32, 32));
+	m_EnemySprite2->setPosition(1000, m_BGUpdatePos + m_CreditsOffset);
+	m_EnemySprite2->setTexture(*m_EnemyTexture2);
+
+	m_EnemyAnimationManager2 = make_unique<AnimationManager>(m_EnemySprite2.get());
+
+	//Neutral state
+	frameVector.push_back(sf::IntRect(0, 0, 32, 32));
+	frameVector.push_back(sf::IntRect(32, 0, 32, 32));
+	frameVector.push_back(sf::IntRect(64, 0, 32, 32));
+	frameVector.push_back(sf::IntRect(96, 0, 32, 32));
+	frameVector.push_back(sf::IntRect(128, 0, 32, 32));
+	frameVector.push_back(sf::IntRect(160, 0, 32, 32));
+	m_EnemyAnimationManager2->addState(0, frameVector, true, 0.11f);
+	frameVector.clear();
+
+	if (!m_TextTexture->loadFromFile("Textures/finalcutscene/MusicAndSFXByCore3.png"))
+	{
+		cout << "Core credits load failure" << endl;
+	}
+	m_TextSprite = make_unique<sf::Sprite>();
+	m_TextSprite->setTexture(*m_TextTexture);
+	m_TextSprite->setOrigin(m_TextTexture->getSize().x / 2, m_TextTexture->getSize().y / 2);
+	m_TextSprite->setPosition(640, m_BGUpdatePos + m_CreditsOffset);
+}
+
+void FinalCutscene::loadSpace()
+{
+
+}
+
+void FinalCutscene::UpdateTransitionPos()
+{
+	m_initialTransitionPosition = sf::Vector2f(0, m_BGUpdatePos - 960);
+	m_finalTransitionPosition = sf::Vector2f(0, m_BGUpdatePos);
+	m_finalTransitionPosition2 = sf::Vector2f(0, m_BGUpdatePos + (960));
 }

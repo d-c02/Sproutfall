@@ -1,85 +1,105 @@
-﻿  SceneManager.cpp
+﻿  FinalCutscene.cpp
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Bullet.h(28,26): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.h(20,19): warning C4305: 'initializing': truncation from 'double' to 'float'
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.h(80,36): warning C4305: 'initializing': truncation from 'double' to 'const float'
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BackgroundElement.h(7,38): warning C4584: 'BackgroundElement': base-class 'sf::Drawable' is already a base-class of 'BackgroundLayer'
 C:\SFML-2.5.1\include\SFML\Graphics\RenderTarget.hpp(45,7): message : see declaration of 'sf::Drawable'
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BackgroundLayer.h(4,7): message : see declaration of 'BackgroundLayer'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Asteroid.h(5,25): warning C4584: 'Asteroid': base-class 'sf::Drawable' is already a base-class of 'Enemy'
-C:\SFML-2.5.1\include\SFML\Graphics\RenderTarget.hpp(45,7): message : see declaration of 'sf::Drawable'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Enemy.h(4,7): message : see declaration of 'Enemy'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Squid.h(6,26): warning C4584: 'Squid': base-class 'sf::Drawable' is already a base-class of 'Enemy'
-C:\SFML-2.5.1\include\SFML\Graphics\RenderTarget.hpp(45,7): message : see declaration of 'sf::Drawable'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Enemy.h(4,7): message : see declaration of 'Enemy'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Bird.h(7,25): warning C4584: 'Bird': base-class 'sf::Drawable' is already a base-class of 'Enemy'
-C:\SFML-2.5.1\include\SFML\Graphics\RenderTarget.hpp(45,7): message : see declaration of 'sf::Drawable'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Enemy.h(4,7): message : see declaration of 'Enemy'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BadCloud.h(8,29): warning C4584: 'BadCloud': base-class 'sf::Drawable' is already a base-class of 'Enemy'
-C:\SFML-2.5.1\include\SFML\Graphics\RenderTarget.hpp(45,7): message : see declaration of 'sf::Drawable'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Enemy.h(4,7): message : see declaration of 'Enemy'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Squirrel.h(7,29): warning C4584: 'Squirrel': base-class 'sf::Drawable' is already a base-class of 'Enemy'
-C:\SFML-2.5.1\include\SFML\Graphics\RenderTarget.hpp(45,7): message : see declaration of 'sf::Drawable'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Enemy.h(4,7): message : see declaration of 'Enemy'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\EnemyBullet.h(29,26): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\EnemyBulletManager.h(22,19): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Pinecone.h(8,29): warning C4584: 'Pinecone': base-class 'sf::Drawable' is already a base-class of 'Enemy'
-C:\SFML-2.5.1\include\SFML\Graphics\RenderTarget.hpp(45,7): message : see declaration of 'sf::Drawable'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Enemy.h(4,7): message : see declaration of 'Enemy'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(29,68): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(61,68): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(82,28): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(82,15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(155,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(274,105): warning C4390: ';': empty controlled statement found; is this the intent?
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(343,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(363,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(482,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(496,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(533,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(616,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(691,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(749,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\SceneManager.cpp(787,21): warning C4018: '<': signed/unsigned mismatch
-  Game.cpp
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Bullet.h(28,26): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BulletManager.h(20,19): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Player.h(80,36): warning C4305: 'initializing': truncation from 'double' to 'const float'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BackgroundElement.h(7,38): warning C4584: 'BackgroundElement': base-class 'sf::Drawable' is already a base-class of 'BackgroundLayer'
-C:\SFML-2.5.1\include\SFML\Graphics\RenderTarget.hpp(45,7): message : see declaration of 'sf::Drawable'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BackgroundLayer.h(4,7): message : see declaration of 'BackgroundLayer'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Asteroid.h(5,25): warning C4584: 'Asteroid': base-class 'sf::Drawable' is already a base-class of 'Enemy'
-C:\SFML-2.5.1\include\SFML\Graphics\RenderTarget.hpp(45,7): message : see declaration of 'sf::Drawable'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Enemy.h(4,7): message : see declaration of 'Enemy'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Squid.h(6,26): warning C4584: 'Squid': base-class 'sf::Drawable' is already a base-class of 'Enemy'
-C:\SFML-2.5.1\include\SFML\Graphics\RenderTarget.hpp(45,7): message : see declaration of 'sf::Drawable'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Enemy.h(4,7): message : see declaration of 'Enemy'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Bird.h(7,25): warning C4584: 'Bird': base-class 'sf::Drawable' is already a base-class of 'Enemy'
-C:\SFML-2.5.1\include\SFML\Graphics\RenderTarget.hpp(45,7): message : see declaration of 'sf::Drawable'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Enemy.h(4,7): message : see declaration of 'Enemy'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\BadCloud.h(8,29): warning C4584: 'BadCloud': base-class 'sf::Drawable' is already a base-class of 'Enemy'
-C:\SFML-2.5.1\include\SFML\Graphics\RenderTarget.hpp(45,7): message : see declaration of 'sf::Drawable'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Enemy.h(4,7): message : see declaration of 'Enemy'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Squirrel.h(7,29): warning C4584: 'Squirrel': base-class 'sf::Drawable' is already a base-class of 'Enemy'
-C:\SFML-2.5.1\include\SFML\Graphics\RenderTarget.hpp(45,7): message : see declaration of 'sf::Drawable'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Enemy.h(4,7): message : see declaration of 'Enemy'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\EnemyBullet.h(29,26): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\EnemyBulletManager.h(22,19): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Pinecone.h(8,29): warning C4584: 'Pinecone': base-class 'sf::Drawable' is already a base-class of 'Enemy'
-C:\SFML-2.5.1\include\SFML\Graphics\RenderTarget.hpp(45,7): message : see declaration of 'sf::Drawable'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Enemy.h(4,7): message : see declaration of 'Enemy'
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Game.cpp(20,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Game.cpp(23,67): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(137,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(169,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(176,35): warning C4244: '+=': conversion from 'float' to 'long', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(212,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(219,35): warning C4244: '+=': conversion from 'float' to 'long', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(266,27): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(272,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(274,36): warning C4244: 'argument': conversion from 'const long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(277,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(303,92): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(306,65): warning C4244: 'argument': conversion from 'const long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(307,65): warning C4244: 'argument': conversion from 'const long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(308,61): warning C4244: 'argument': conversion from 'const long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(410,85): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Game.cpp(23,47): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(410,53): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\Game.cpp(63,21): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(423,53): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(423,63): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(429,55): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(429,65): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(433,55): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(433,65): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(437,56): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(437,66): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(440,53): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(440,30): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(449,55): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(449,65): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(452,45): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(452,38): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(456,53): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(456,63): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(508,85): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(508,53): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(514,62): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(515,46): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(516,61): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
   Sproutfall.vcxproj -> C:\Users\djcas\source\repos\Sproutfall\Debug\Sproutfall.exe

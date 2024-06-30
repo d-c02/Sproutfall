@@ -109,6 +109,10 @@ SceneManager::~SceneManager()
 void SceneManager::loadScene(int scene)
 {
 	m_Player->resetGameplay();
+	if (scene != Win)
+	{
+		m_SpeedUpCredits = false;
+	}
 	if (scene == TitleScreen)
 	{
 		loadTitle();
@@ -215,6 +219,10 @@ void SceneManager::Update(float tf)
 
 	else if (m_CurrentScene == Win && !m_Transitioning)
 	{
+		if (m_SpeedUpCredits)
+		{
+			tf *= m_CreditsSpeedUpFactor;
+		}
 		m_Scene->Update(tf);
 
 		if (m_Scene->isScreenShaking())
@@ -259,7 +267,7 @@ void SceneManager::Update(float tf)
 			{
 				m_TransitionSprite->move(0, m_TransitionSpeed * tf);
 			}
-			if (!m_TransitionFlipped && m_TransitionSprite->getPosition().y < m_View->getCenter().y - m_viewSizeY / 2 - 25 + m_TransitionTexture->getSize().y)
+			if (!m_TransitionFlipped && m_TransitionSprite->getPosition().y < m_View->getCenter().y - m_viewSizeY / 2 - 50 + m_TransitionTexture->getSize().y)
 			{
 				loadScene(m_nextScene);
 				m_Music->play();
@@ -418,6 +426,10 @@ void SceneManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		{
 			playerPos = sf::Vector2f(m_viewSizeX / 2, (m_Scene->getLevelSize()) - (m_viewSizeY / 2));
 		}
+	}
+	else if (m_CurrentScene == Win)
+	{
+		playerPos = m_Scene->getViewCenter();
 	}
 	else
 	{
@@ -661,13 +673,13 @@ void SceneManager::loadSky()
 	m_Scene->addBackground(0.0, 17200, "Textures/sky/sky_backgound_cloud.png", 19200);
 
 	frameVector.push_back(sf::IntRect(0, 0, 640, 480));
-	//m_Scene->addBackgroundElement(sf::Vector2f(0, 300), -0.97, "Textures/sky/sky_backgound_trees.png", frameVector, 1.0f, true, 19200.0f - 480.0f);
+
 	m_Scene->addBackgroundElement(sf::Vector2f(0, 0), 16800, "Textures/sky/sky_backgound_trees.png", frameVector, 1.0f, 19200, 1860);
 	frameVector.clear();
 
-	m_EnemyManager->generateEnemies(b_Bird, m_viewSizeY / 5, m_viewSizeY / 5, 19);
+	//m_EnemyManager->generateEnemies(b_Bird, m_viewSizeY / 5, m_viewSizeY / 5, 19);
 
-	m_EnemyManager->generateEnemies(b_Cloud, m_viewSizeY / 10, m_viewSizeY / 10, 19);
+	//m_EnemyManager->generateEnemies(b_Cloud, m_viewSizeY / 10, m_viewSizeY / 10, 19);
 
 	m_Scene->setBackgroundFillColor(0x655057ff);
 
@@ -758,7 +770,7 @@ void SceneManager::loadWin()
 	m_Scene.reset();
 	m_EnemyManager->Clear();
 
-	m_Scene = make_unique<FinalCutscene>(m_viewSizeX, m_viewSizeY);
+	m_Scene = make_unique<FinalCutscene>(m_viewSizeX, m_viewSizeY, m_TransitionTexture.get());
 
 	m_Scene->setGameplay(false);
 
@@ -773,14 +785,14 @@ void SceneManager::loadWin()
 		cout << "Win music load failure" << endl;
 	}
 
-	m_Scene->addBackground(0.0, 0, "Textures/finalcutscene/forest_level_ground_back.png", m_viewSizeY, false);
+	m_Scene->addBackground(0.0, 0, "Textures/finalcutscene/forest_level_ground_back2.png", m_viewSizeY, false);
 }
 
 void SceneManager::handleInput(sf::Event* event)
 {
 	if (!m_Transitioning)
 	{
-		if (m_Scene->hasGameplay() && !m_Paused && !m_Transitioning)
+		if (m_Scene->hasGameplay() && !m_Paused)
 		{
 			m_Player->handleInput(event);
 		}
@@ -808,6 +820,23 @@ void SceneManager::handleInput(sf::Event* event)
 						m_UILayers[UI_Gameplay_Paused]->setCurrent(true);
 						m_Paused = true;
 					}
+				}
+			}
+		}
+		if (m_CurrentScene == Win)
+		{
+			if (event->type == sf::Event::MouseButtonPressed || event->type == sf::Event::KeyPressed)
+			{
+				if (event->key.code == sf::Keyboard::Space || event->mouseButton.button == sf::Mouse::Left)
+				{
+					m_SpeedUpCredits = true;
+				}
+			}
+			else if (event->type == sf::Event::MouseButtonReleased || event->type == sf::Event::KeyReleased)
+			{
+				if (event->key.code == sf::Keyboard::Space || event->mouseButton.button == sf::Mouse::Left)
+				{
+					m_SpeedUpCredits = false;
 				}
 			}
 		}

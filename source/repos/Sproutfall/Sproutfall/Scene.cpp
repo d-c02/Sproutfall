@@ -73,10 +73,10 @@ bool Scene::getParallax()
 
 void Scene::Update(float tf)
 {
-	//for (int i = 0; i < m_Backgrounds.size(); i++)
-	//{
-	//	m_Backgrounds[i]->Update(tf);
-	//}
+	for (int i = 0; i < m_Backgrounds.size(); i++)
+	{
+		m_Backgrounds[i]->Update(tf);
+	}
 }
 
 void Scene::setGameplay(bool gaming)
@@ -92,4 +92,9 @@ bool Scene::hasGameplay()
 bool Scene::isScreenShaking()
 {
 	return false;
+}
+
+sf::Vector2f Scene::getViewCenter()
+{
+	return sf::Vector2f(0, 0);
 }
