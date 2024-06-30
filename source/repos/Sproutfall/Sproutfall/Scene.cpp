@@ -1,5 +1,9 @@
 #include "Scene.h"
 
+Scene::Scene()
+{
+}
+
 Scene::Scene(Player* player, float viewSizeX, float viewSizeY, int levelSize)
 {
 	m_Player = player;
@@ -69,10 +73,10 @@ bool Scene::getParallax()
 
 void Scene::Update(float tf)
 {
-	for (int i = 0; i < m_Backgrounds.size(); i++)
-	{
-		m_Backgrounds[i]->Update(tf);
-	}
+	//for (int i = 0; i < m_Backgrounds.size(); i++)
+	//{
+	//	m_Backgrounds[i]->Update(tf);
+	//}
 }
 
 void Scene::setGameplay(bool gaming)
@@ -83,4 +87,9 @@ void Scene::setGameplay(bool gaming)
 bool Scene::hasGameplay()
 {
 	return m_HasGameplay;
+}
+
+bool Scene::isScreenShaking()
+{
+	return false;
 }

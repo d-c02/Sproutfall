@@ -5,6 +5,7 @@
 #include "UIElementLayer.h"
 #include "HighScoreManager.h"
 #include "Timer.h"
+#include "FinalCutscene.h"
 
 class SceneManager : public sf::Drawable
 {
@@ -48,10 +49,12 @@ private:
 	std::unique_ptr<AnimationManager> m_smokeAnimationManager;
 	sf::RenderWindow* m_renderWindow;
 
-	float m_ScreenShakeSizeX = 0.0f;
-	float m_ScreenShakeSizeY = 0.0f;
+	float m_ScreenShakeSizeX = 3.0f;
+	float m_ScreenShakeSizeY = 3.0f;
 	float m_TotalScreenShakeTime = 0.05f;
 	float m_ScreenShakeTick = 0.001f;
+	const float m_ShootScreenShakeTime = 0.05f;
+	const float m_CutsceneScreenShakeTime = 2.3f;
 	float m_CurrentScreenShakeTime = 0.0f;
 	bool m_ScreenShaking = false;
 	float m_CurrentScreenShakeTick = 0.0f;
@@ -94,7 +97,7 @@ private:
 	std::unique_ptr<sf::Sprite> m_TransitionSprite;
 	bool m_Transitioning = false;
 	bool m_TransitionFlipped = false;
-	float m_TransitionSpeed = -2000.0f;
+	float m_TransitionSpeed = 2000.0f;
 	int m_nextScene = 0;
 
 	std::unique_ptr<HighScoreManager> m_HighscoreManager;

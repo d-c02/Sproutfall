@@ -20,26 +20,26 @@ private:
 	float m_SecondCounter = 0;
 	sf::Vector2f m_Position;
 	vector<unique_ptr<sf::Sprite>> m_Sprites;
-	const float m_horizontalLetterOffset = 64;
+	const float m_horizontalLetterOffset = 48;
 	float m_leftShift = 0;
 	const sf::IntRect m_DisplayPos[10] = {
-		sf::IntRect(128, 256, 64, 64),
-		sf::IntRect(192, 256, 64, 64), 
-		sf::IntRect(256, 256, 64, 64),
-		sf::IntRect(320, 256, 64, 64), 
-		sf::IntRect(0, 320, 64, 64),
-		sf::IntRect(64, 320, 64, 64),
-		sf::IntRect(128, 320, 64, 64),
-		sf::IntRect(192, 320, 64, 64),
-		sf::IntRect(256, 320, 64, 64),
-		sf::IntRect(320, 320, 64, 64)
+		sf::IntRect(64, 128, 32, 32),
+		sf::IntRect(96, 128, 32, 32), 
+		sf::IntRect(128, 128, 32, 32),
+		sf::IntRect(160, 128, 32, 32), 
+		sf::IntRect(0, 160, 32, 32),
+		sf::IntRect(32, 160, 32, 32),
+		sf::IntRect(64, 160, 32, 32),
+		sf::IntRect(96, 160, 32, 32),
+		sf::IntRect(128, 160, 32, 32),
+		sf::IntRect(160, 160, 32, 32)
 	};
-	const sf::IntRect m_ColonTextureRect = sf::IntRect(0, 384, 64, 64);
+	const sf::IntRect m_ColonTextureRect = sf::IntRect(0, 192, 32, 32);
 	const sf::IntRect m_SLOWTextureRects[4] = { 
-		sf::IntRect(0, 192, 64, 64),
-		sf::IntRect(320, 64, 64, 64),
-		sf::IntRect(128, 128, 64, 64),
-		sf::IntRect(256, 192, 64, 64) 
+		sf::IntRect(0, 96, 32, 32),
+		sf::IntRect(160, 32, 32, 32),
+		sf::IntRect(64, 64, 32, 32),
+		sf::IntRect(128, 96, 32, 32) 
 	};
 	sf::Texture* m_Texture;
 	bool m_timedOut = false;

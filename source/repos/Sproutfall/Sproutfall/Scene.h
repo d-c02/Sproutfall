@@ -6,6 +6,7 @@
 class Scene : public sf::Drawable
 {
 public:
+	Scene();
 	Scene(Player* player, float viewSizeX, float viewSizeY, int levelSize = 0);
 	~Scene();
 	void addBackground(float StartPos, float EndPos, string texturePath, float levelSize, bool drawOthers = true);
@@ -15,11 +16,12 @@ public:
 	int getLevelSize();
 	void setParallax(bool parallax);
 	bool getParallax();
-	void Update(float tf);
+	virtual void Update(float tf);
 	void setGameplay(bool gaming);
 	bool hasGameplay();
+	virtual bool isScreenShaking();
 
-private:
+protected:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	vector<std::unique_ptr<BackgroundLayer>> m_Backgrounds;
 	unsigned int m_BackgroundFillColor = 0x000000ff;

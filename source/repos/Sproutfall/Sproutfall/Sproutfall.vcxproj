@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="EnemyBulletManager.cpp" />
+    <ClCompile Include="FinalCutscene.cpp" />
     <ClCompile Include="HighScoreManager.cpp" />
     <ClCompile Include="Pinecone.cpp" />
     <ClCompile Include="Animation.cpp" />
@@ -182,6 +183,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EnemyBulletManager.h" />
+    <ClInclude Include="FinalCutscene.h" />
     <ClInclude Include="HighScoreManager.h" />
     <ClInclude Include="Pinecone.h" />
     <ClInclude Include="Animation.h" />

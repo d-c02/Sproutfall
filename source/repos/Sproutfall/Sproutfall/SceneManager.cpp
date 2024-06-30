@@ -93,12 +93,12 @@ SceneManager::SceneManager(float windowSizeX, float windowSizeY, sf::RenderWindo
 	//m_HighscoreManager->AddScore("BDN", 2, 10);
 
 	m_LetterAtlas = make_unique<sf::Texture>();
-	if (!m_LetterAtlas->loadFromFile("Textures/UI/fontspritesheetrough.png"))
+	if (!m_LetterAtlas->loadFromFile("Textures/UI/fontspritesheet.png"))
 	{
 		cout << "Text atlas loading failure" << endl;
 	}
 
-	m_Timer = make_unique<Timer>(m_LetterAtlas.get(), sf::Vector2f(m_View->getCenter().x - 128, m_View->getCenter().y - m_viewSizeY / 2 + 64));
+	m_Timer = make_unique<Timer>(m_LetterAtlas.get(), sf::Vector2f(m_View->getCenter().x - 64, m_View->getCenter().y - m_viewSizeY / 2 + 64));
 
 	configureUI();
 }
@@ -183,6 +183,7 @@ void SceneManager::Update(float tf)
 			m_ScreenShaking = true;
 			m_CurrentScreenShakeTime = 0.0f;
 			m_CurrentScreenShakeTick = 0.0f;
+			m_TotalScreenShakeTime = m_ShootScreenShakeTime;
 			m_ScreenShakeOffset.x = (((float)rand() - (RAND_MAX / 2)) / (float)RAND_MAX / 2) * m_ScreenShakeSizeX;
 			m_ScreenShakeOffset.y = (((float)rand() - (RAND_MAX / 2)) / (float)RAND_MAX / 2) * m_ScreenShakeSizeY;
 		}
@@ -212,6 +213,44 @@ void SceneManager::Update(float tf)
 		}
 	}
 
+	else if (m_CurrentScene == Win && !m_Transitioning)
+	{
+		m_Scene->Update(tf);
+
+		if (m_Scene->isScreenShaking())
+		{
+			m_ScreenShaking = true;
+			m_TotalScreenShakeTime = m_CutsceneScreenShakeTime;
+			m_CurrentScreenShakeTime = 0.0f;
+			m_CurrentScreenShakeTick = 0.0f;
+			m_ScreenShakeOffset.x = (((float)rand() - (RAND_MAX / 2)) / (float)RAND_MAX / 2) * m_ScreenShakeSizeX;
+			m_ScreenShakeOffset.y = (((float)rand() - (RAND_MAX / 2)) / (float)RAND_MAX / 2) * m_ScreenShakeSizeY;
+		}
+
+		if (m_ScreenShaking)
+		{
+			m_CurrentScreenShakeTime += tf;
+			m_CurrentScreenShakeTick += tf;
+			if (m_CurrentScreenShakeTime > m_TotalScreenShakeTime)
+			{
+				m_ScreenShaking = false;
+				m_ScreenShakeOffset = sf::Vector2f(0, 0);
+			}
+			else
+			{
+				if (m_CurrentScreenShakeTick > m_ScreenShakeTick)
+				{
+					//srand(time(NULL));
+					m_CurrentScreenShakeTick = 0.0f;
+					m_ScreenShakeOffset.x = (((float)rand() / (float)RAND_MAX)) * m_ScreenShakeSizeX * 2 - m_ScreenShakeSizeX;
+					m_ScreenShakeOffset.y = (((float)rand() / (float)RAND_MAX)) * m_ScreenShakeSizeY * 2 - m_ScreenShakeSizeY;
+
+					//cout << "X: " << m_ScreenShakeOffset.x << endl;
+					//cout << "Y: " << m_ScreenShakeOffset.y << endl;
+				}
+			}
+		}
+	}
 	if (m_Transitioning)
 	{
 		if (m_StartSoundPlayed && m_MenuStartSound->getStatus() == sf::Sound::Status::Stopped)
@@ -239,7 +278,10 @@ void SceneManager::Update(float tf)
 			if (m_TransitionFlipped && m_TransitionSprite->getPosition().y < m_View->getCenter().y - m_viewSizeY - 25)
 			{
 				m_Transitioning = false;
-				m_UILayers[UI_Gameplay_HUD]->setCurrent(true);
+				if (m_Scene->hasGameplay())
+				{
+					//m_UILayers[UI_Gameplay_HUD]->setCurrent(true);
+				}
 			}
 		}
 		else if (!m_StartSoundPlayed && m_MenuStartSound->getStatus() == sf::Sound::Status::Stopped)
@@ -283,6 +325,10 @@ void SceneManager::handleUIInput()
 		m_Player->resetGameplay();
 		loadScene(m_CurrentScene);
 		m_smokeAnimationManager->setState(0);
+		if (m_CurrentScene == Space)
+		{
+			m_Timer->Reset();
+		}
 	}
 
 	if (m_QuitGame)
@@ -345,6 +391,7 @@ void SceneManager::handleUIInput()
 		m_Paused = false;
 		m_Player->resetGameplay();
 		m_smokeAnimationManager->setState(0);
+		m_Timer->Reset();
 		loadTitle();
 	}
 
@@ -358,6 +405,7 @@ void SceneManager::handleUIInput()
 
 void SceneManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+	//cout << m_View->getCenter().x << " " << m_View->getCenter().y << endl;
 	sf::Vector2f playerPos;
 
 	if (m_Scene->hasGameplay())
@@ -384,7 +432,7 @@ void SceneManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	m_RightBorder->setPosition((m_viewSizeX / 2) + (m_View->getSize().x / 2) - m_RightBorder->getSize().x + m_ScreenShakeSizeX, playerPos.y - (m_View->getSize().y / 2));
 	m_Scene->UpdateBackgroundPositions(playerPos.y);
 
-	m_Timer->setPosition(sf::Vector2f(m_View->getCenter().x - 128, m_View->getCenter().y - m_viewSizeY / 2 + 64));
+	m_Timer->setPosition(sf::Vector2f(m_View->getCenter().x - 64, m_View->getCenter().y - m_viewSizeY / 2 + 64));
 	//m_UILayers[UI_Gameplay_HUD]->SetPosition(sf::Vector2f(m_View->getCenter().x + m_viewSizeX / 2 - (m_Player->getMaxBullets() * 64), playerPos.y + m_viewSizeY / 2 - 64));
 
 	m_UILayers[UI_Gameplay_Paused]->SetPosition(sf::Vector2f(m_View->getCenter().x - m_viewSizeX / 2, m_View->getCenter().y - m_viewSizeY / 2));
@@ -652,10 +700,9 @@ void SceneManager::loadForest()
 	m_Scene.reset();
 	m_EnemyManager->Clear();
 
-	m_Scene = make_unique<Scene>(m_Player.get(), m_viewSizeX, m_viewSizeY, 30 * 960); //28800
+	//m_Scene = make_unique<Scene>(m_Player.get(), m_viewSizeX, m_viewSizeY, 30 * 960); //28800
+	m_Scene = make_unique<Scene>(m_Player.get(), m_viewSizeX, m_viewSizeY, 1 * 960);
 	vector<sf::IntRect> frameVector;
-
-	float fogOffset = 1000;
 
 	m_Scene->addBackground(0.0, 18000, "Textures/forest/forest_level_1.png", 28800);
 
@@ -677,9 +724,9 @@ void SceneManager::loadForest()
 	m_Scene->addBackgroundElement(sf::Vector2f(0, 0), 28800, "Textures/forest/forest_level_7.png", frameVector, 0.25f, 28800, -480);
 	frameVector.clear();
 
-	m_EnemyManager->generateEnemies(b_Squirrel, m_viewSizeY / 8, m_viewSizeY / 8, 29);
+	//m_EnemyManager->generateEnemies(b_Squirrel, m_viewSizeY / 8, m_viewSizeY / 8, 29);
 
-	m_EnemyManager->generateEnemies(b_Pinecone, m_viewSizeY / 8, m_viewSizeY / 8, 29);
+	//m_EnemyManager->generateEnemies(b_Pinecone, m_viewSizeY / 8, m_viewSizeY / 8, 29);
 
 	m_Scene->setBackgroundFillColor(0x655057ff);
 	m_Player->setPosition(640, 200);
@@ -699,7 +746,34 @@ void SceneManager::loadForest()
 
 void SceneManager::loadWin()
 {
+	for (int i = 0; i < m_UILayers.size(); i++)
+	{
+		m_UILayers[i]->setCurrent(false);
+		m_UILayers[i]->SetPosition(sf::Vector2f(0, 0));
+	}
+
+	m_UILayers[UI_Gameplay_HUD]->setCurrent(false);
+
 	m_CurrentScene = Win;
+	m_Scene.reset();
+	m_EnemyManager->Clear();
+
+	m_Scene = make_unique<FinalCutscene>(m_viewSizeX, m_viewSizeY);
+
+	m_Scene->setGameplay(false);
+
+	//m_Player->setPosition(0, 0);
+	m_Player->resetGameplay();
+	m_Player->setPosition(640, 370);
+
+	m_Scene->setBackgroundFillColor(0x655057ff);
+
+	if (!m_Music->openFromFile("Sounds/Music/jame_game_song_ending.ogg"))
+	{
+		cout << "Win music load failure" << endl;
+	}
+
+	m_Scene->addBackground(0.0, 0, "Textures/finalcutscene/forest_level_ground_back.png", m_viewSizeY, false);
 }
 
 void SceneManager::handleInput(sf::Event* event)

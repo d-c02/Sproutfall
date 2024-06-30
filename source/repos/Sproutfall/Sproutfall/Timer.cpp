@@ -126,6 +126,32 @@ void Timer::Update(float tf)
 	}
 }
 
+void Timer::Reset()
+{
+	m_Sprites.clear();
+	m_leftShift = 0;
+	m_Hours = 0;
+	m_Seconds = 0;
+	m_Minutes = 0;
+
+	for (int i = 0; i < 4; i++)
+	{
+		m_Sprites.push_back(make_unique<sf::Sprite>());
+		m_Sprites[i]->setTexture(*m_Texture);
+		m_Sprites[i]->setOrigin(32, 32);
+		m_Sprites[i]->setScale(2, 2);
+		if (i == 1)
+		{
+			m_Sprites[i]->setTextureRect(m_ColonTextureRect);
+		}
+		else
+		{
+			m_Sprites[i]->setTextureRect(m_DisplayPos[0]);
+		}
+	}
+	setPosition(m_Position);
+}
+
 void Timer::Timeout()
 {
 	m_timedOut = true;
