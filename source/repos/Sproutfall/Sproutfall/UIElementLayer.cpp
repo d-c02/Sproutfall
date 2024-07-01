@@ -68,6 +68,14 @@ void UIElementLayer::AddHighScoreView(sf::Texture* atlasTexture, sf::Vector2f po
 	m_UIElements.push_back(make_unique<UIHighscoreView>(atlasTexture, position, highScoreManager));
 }
 
+void UIElementLayer::UpdateHighScores()
+{
+	for (int i = 0; i < m_UIElements.size(); i++)
+	{
+		m_UIElements[i]->updateHighScores();
+	}
+}
+
 void UIElementLayer::handleInput(sf::Event* event)
 {
 	if (m_IsCurrent)

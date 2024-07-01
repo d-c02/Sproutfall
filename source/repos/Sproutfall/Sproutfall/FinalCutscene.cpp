@@ -37,7 +37,7 @@ FinalCutscene::FinalCutscene(float viewSizeX, float viewSizeY, sf::Texture* Tran
 	m_playerAnimationManager->setState(0);
 
 	m_SproutTexture = make_unique<sf::Texture>();
-	if (!m_SproutTexture->loadFromFile("Textures/finalcutscene/sprout.png"))
+	if (!m_SproutTexture->loadFromFile("Textures/finalcutscene/sprout2.png"))
 	{
 		cout << "Final cutscene sprout texture load failure" << endl;
 	}
@@ -67,25 +67,25 @@ FinalCutscene::FinalCutscene(float viewSizeX, float viewSizeY, sf::Texture* Tran
 	m_TransitionSprite->setScale(2, -2);
 
 	m_GrowingSproutTexture = make_unique<sf::Texture>();
-	if (!m_GrowingSproutTexture->loadFromFile("Textures/finalcutscene/growingsprout.png"))
+	if (!m_GrowingSproutTexture->loadFromFile("Textures/finalcutscene/growingStalkTop.png"))
 	{
 		cout << "Final cutscene growing sprout texture load failure" << endl;
 	}
 
 	m_GrowingSproutSprite = make_unique<sf::Sprite>();
 	m_GrowingSproutSprite->setTexture(*m_GrowingSproutTexture);
-	m_GrowingSproutSprite->setOrigin(75, 0);
+	m_GrowingSproutSprite->setOrigin(28, 105);
 	m_GrowingSproutSprite->setScale(2, 2);
-	m_GrowingSproutSprite->setPosition(sf::Vector2f(1280 / 2, 960 - 100));
+	m_GrowingSproutSprite->setPosition(sf::Vector2f(1280 / 2, 960));
 
 	m_GrowingSproutAnimationManager = make_unique<AnimationManager>(m_GrowingSproutSprite.get());
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 7; i++)
 	{
-		frameVector.push_back(sf::IntRect(i * 150, 0, 150, 50));
+		frameVector.push_back(sf::IntRect(i * 55, 0, 55, 105));
 	}
-	m_GrowingSproutAnimationManager->addState(0, frameVector, true, 0.5f);
+	m_GrowingSproutAnimationManager->addState(0, frameVector, true, 0.25f);
 	m_GrowingSproutAnimationManager->setState(0);
-	m_GrowingSproutSprite->setTextureRect(sf::IntRect(0, 0, 150, 450));
+	m_GrowingSproutSprite->setTextureRect(sf::IntRect(0, 0, 55, 105));
 	frameVector.clear();
 
 	m_State = s_PlayerFalling;
@@ -402,7 +402,7 @@ void FinalCutscene::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 	}
 	if (m_State == s_Forest || m_State == s_Sky || m_State == s_Space || m_State == s_FarOut || m_State == s_Speeding)
 	{
-		m_GrowingSproutSprite->setPosition(m_GrowingSproutSprite->getPosition().x, m_BGUpdatePos + 380);
+		m_GrowingSproutSprite->setPosition(m_GrowingSproutSprite->getPosition().x, m_BGUpdatePos + 480);
 		if (m_HoldingTextPos)
 		{
 			m_EnemySprite1->setPosition(m_EnemySprite1->getPosition().x, m_BGUpdatePos);

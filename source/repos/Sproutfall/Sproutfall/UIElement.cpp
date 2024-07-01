@@ -36,6 +36,11 @@ void UIElement::handleInput(sf::Event* event)
 	//Do nothing
 }
 
+void UIElement::updateHighScores()
+{
+	//Do nothing
+}
+
 void UIElement::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(*m_Sprite);

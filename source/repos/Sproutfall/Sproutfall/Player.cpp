@@ -322,76 +322,76 @@ void Player::configureAnimations()
 
 void Player::CheckCollisions(Enemy* enemy)
 {
-	bool collided = false;
-	if (abs(enemy->getPosition().y - getPosition().y) < 2000)
-	{
-		sf::CircleShape* playerHitbox = dynamic_cast<sf::CircleShape*>(m_Hitbox.get());
-		if (m_IsHittable && enemy->getHittable())
+		bool collided = false;
+		if (abs(enemy->getPosition().y - getPosition().y) < 2000)
 		{
-			if (HitboxIsCircular(enemy->getHitbox()))
+			sf::CircleShape* playerHitbox = dynamic_cast<sf::CircleShape*>(m_Hitbox.get());
+			if (m_IsHittable && enemy->getHittable())
 			{
-				sf::CircleShape* enemyHitbox = dynamic_cast<sf::CircleShape*>(enemy->getHitbox());
-				if (calculateCollision(playerHitbox, enemyHitbox))
+				if (HitboxIsCircular(enemy->getHitbox()))
 				{
+					sf::CircleShape* enemyHitbox = dynamic_cast<sf::CircleShape*>(enemy->getHitbox());
+					if (calculateCollision(playerHitbox, enemyHitbox))
+					{
+						collided = true;
+					}
+				}
+				else
+				{
+					sf::RectangleShape* enemyHitbox = dynamic_cast<sf::RectangleShape*>(enemy->getHitbox());
+					if (calculateCollision(playerHitbox, enemyHitbox))
+					{
+						//enemyHitbox->setFillColor(sf::Color(0x00ff00aa));
+						//m_CurrentState = hurt;
+						//m_VelocityX = m_VelocityX * m_CollisionSlowdown;
+						//m_VelocityY = m_VelocityY * m_CollisionSlowdown;
+						//m_AnimationManager->setState(hurt);
+						//m_Health--;
+						//setHittable(false);
+						collided = true;
+					}
+				}
+			}
+			if (enemy->getShootable())
+			{
+				if (m_bulletManager->checkCollisions(enemy))
+				{
+					if (m_ShotgunHitSounds[m_previousHitSound]->getStatus() != sf::Sound::Playing)
+					{
+						m_ShotgunHitSounds[m_previousHitSound]->play();
+					}
+				}
+			}
+
+			if (enemy->hasProjectiles())
+			{
+				if (enemy->checkProjectiles() && m_IsHittable)
+				{
+					/*m_CurrentState = hurt;
+					m_VelocityX = m_VelocityX * m_CollisionSlowdown;
+					m_VelocityY = m_VelocityY * m_CollisionSlowdown;
+					m_AnimationManager->setState(hurt);
+					m_Health--;
+					setHittable(false);*/
 					collided = true;
 				}
 			}
-			else
-			{
-				sf::RectangleShape* enemyHitbox = dynamic_cast<sf::RectangleShape*>(enemy->getHitbox());
-				if (calculateCollision(playerHitbox, enemyHitbox))
-				{
-					//enemyHitbox->setFillColor(sf::Color(0x00ff00aa));
-					//m_CurrentState = hurt;
-					//m_VelocityX = m_VelocityX * m_CollisionSlowdown;
-					//m_VelocityY = m_VelocityY * m_CollisionSlowdown;
-					//m_AnimationManager->setState(hurt);
-					//m_Health--;
-					//setHittable(false);
-					collided = true;
-				}
-			}
 		}
-		if (enemy->getShootable())
+		if (collided)
 		{
-			if (m_bulletManager->checkCollisions(enemy))
-			{
-				if (m_ShotgunHitSounds[m_previousHitSound]->getStatus() != sf::Sound::Playing)
-				{
-					m_ShotgunHitSounds[m_previousHitSound]->play();
-				}
-			}
-		}
+			m_CurrentState = hurt;
+			m_VelocityX = m_VelocityX * m_CollisionSlowdown;
+			m_VelocityY = m_VelocityY * m_CollisionSlowdown;
+			m_AnimationManager->setState(hurt);
+			m_Health--;
+			setHittable(false);
 
-		if (enemy->hasProjectiles())
-		{
-			if (enemy->checkProjectiles() && m_IsHittable)
+			if (m_TakeDamageSounds[m_previousDamageSound]->getStatus() != sf::Sound::Playing)
 			{
-				/*m_CurrentState = hurt;
-				m_VelocityX = m_VelocityX * m_CollisionSlowdown;
-				m_VelocityY = m_VelocityY * m_CollisionSlowdown;
-				m_AnimationManager->setState(hurt);
-				m_Health--;
-				setHittable(false);*/
-				collided = true;
+				m_previousDamageSound = rand() % m_TakeDamageSounds.size();
+				m_TakeDamageSounds[m_previousDamageSound]->play();
 			}
 		}
-	}
-	if (collided)
-	{
-		m_CurrentState = hurt;
-		m_VelocityX = m_VelocityX * m_CollisionSlowdown;
-		m_VelocityY = m_VelocityY * m_CollisionSlowdown;
-		m_AnimationManager->setState(hurt);
-		m_Health--;
-		setHittable(false);
-
-		if (m_TakeDamageSounds[m_previousDamageSound]->getStatus() != sf::Sound::Playing)
-		{
-			m_previousDamageSound = rand() % m_TakeDamageSounds.size();
-			m_TakeDamageSounds[m_previousDamageSound]->play();
-		}
-	}
 }
 void Player::Die()
 {

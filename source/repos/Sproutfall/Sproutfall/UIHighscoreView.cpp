@@ -45,6 +45,40 @@ void UIHighscoreView::setPosition(sf::Vector2f pos)
 	}
 }
 
+void UIHighscoreView::updateHighScores()
+{
+	for (int i = 0; i < 5; i++)
+	{
+		m_Highscores[i]->reset();
+	}
+	for (int i = 0; i < 5; i++)
+	{
+		for (int j = 0; j < 12; j++)
+		{
+			m_Highscores[i][j] = make_unique<sf::Sprite>();
+			m_Highscores[i][j]->setTexture(*m_atlasTexture);
+			m_Highscores[i][j]->setOrigin(16, 16);
+			m_Highscores[i][j]->setScale(2, 2);
+			if (j != 3 && j != 4 && j != 6 && j != 9)
+			{
+				m_Highscores[i][j]->setTextureRect(m_DashCoords);
+			}
+			else
+			{
+				if (j != 4)
+				{
+					m_Highscores[i][j]->setTextureRect(m_ColonCoords);
+				}
+				else
+				{
+					m_Highscores[i][j]->setTextureRect(sf::IntRect(0, 0, 1, 1));
+				}
+			}
+		}
+	}
+	ParseScores();
+}
+
 void UIHighscoreView::ParseScores()
 {
 	for (int i = 0; i < 5; i++)

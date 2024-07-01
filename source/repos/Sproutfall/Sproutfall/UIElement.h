@@ -9,7 +9,7 @@ public:
 	virtual void Update(float tf);
 	virtual void setPosition(sf::Vector2f pos);
 	virtual void handleInput(sf::Event* event);
-
+	virtual void updateHighScores();
 protected:
 	std::unique_ptr<sf::Sprite> m_Sprite;
 	std::unique_ptr<sf::Texture> m_Texture;

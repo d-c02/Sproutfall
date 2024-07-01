@@ -54,7 +54,7 @@ private:
 	bool m_HoldingTextPos = false;
 	bool m_MovingPastText = false;
 	float m_ReadingTime = 5.0f;
-	float m_MovingPastTime = 5.0f;
+	float m_MovingPastTime = 2.5f;
 	float s_SpeedingTime = 5.0f;
 	float s_SpeedingSpeed = -5000;
 	std::unique_ptr<sf::Texture> m_TextTexture;
@@ -68,5 +68,5 @@ private:
 
 	
 	bool* m_OpenHighScoreInput;
-	float m_CreditsOffset = -2000;
+	float m_CreditsOffset = -1500;
 };

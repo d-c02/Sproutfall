@@ -24,6 +24,7 @@ public:
 	void AddCounter(string TexturePath, int* countVal, int maxVal, sf::IntRect ActiveTextureCoords, sf::IntRect InactiveTextureCoords, sf::Vector2f position);
 	void AddStringInput(sf::Texture* atlasTexture, string* modifiedString, int maxLength, sf::Vector2f position);
 	void AddHighScoreView(sf::Texture* atlasTexture, sf::Vector2f position, HighScoreManager* highScoreManager);
+	void UpdateHighScores();
 
 	void handleInput(sf::Event* event);
 

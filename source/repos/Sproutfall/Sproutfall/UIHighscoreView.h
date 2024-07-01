@@ -8,6 +8,7 @@ class UIHighscoreView :public UIElement
 public:
 	UIHighscoreView(sf::Texture* atlasTexture, sf::Vector2f position, HighScoreManager* highScoreManager);
 	void setPosition(sf::Vector2f pos) override;
+	void updateHighScores() override;
 private:
 	void ParseScores();
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
