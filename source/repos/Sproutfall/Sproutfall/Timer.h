@@ -8,6 +8,8 @@ public:
 	void setPosition(sf::Vector2f pos);
 	void Update(float tf);
 	void Reset();
+	int getMins();
+	int getSecs();
 private:
 	void Timeout();
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;

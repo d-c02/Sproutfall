@@ -48,6 +48,7 @@ private:
 	int m_Length;
 	sf::Vector2f m_Position;
 	sf::Texture* m_atlasTexture;
+	string* m_ModifiedString;
 
 	int m_CurMod = 0;
 	int m_DelMod = 0;

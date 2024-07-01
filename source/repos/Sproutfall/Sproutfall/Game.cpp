@@ -59,8 +59,8 @@ int Game()
         float tf = clock.getElapsedTime().asSeconds();
         clock.restart();
 
-        if (tf > 1.0 / 60.0)
-           tf = 1.0 / 60.0;
+        if (tf > 1.0 / 10.0)
+           tf = 1.0 / 10.0;
         accumulator += tf;
 
         while (accumulator > 1.0 / 60)

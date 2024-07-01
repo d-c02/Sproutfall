@@ -13,7 +13,7 @@ private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	unique_ptr<sf::Sprite> m_Highscores[5][12];
 	sf::Texture* m_atlasTexture;
-	const float m_verticalDist = 100;
+	const float m_verticalDist = 140;
 
 	sf::IntRect m_Letters[26] =
 	{

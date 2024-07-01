@@ -152,6 +152,16 @@ void Timer::Reset()
 	setPosition(m_Position);
 }
 
+int Timer::getMins()
+{
+	return m_Hours * 60 + m_Minutes;
+}
+
+int Timer::getSecs()
+{
+	return m_Seconds;
+}
+
 void Timer::Timeout()
 {
 	m_timedOut = true;

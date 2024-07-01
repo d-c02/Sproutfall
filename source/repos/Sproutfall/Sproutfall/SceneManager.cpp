@@ -326,6 +326,16 @@ void SceneManager::handleUIInput()
 		loadSceneWithTransition(Forest);
 	}
 
+	if (m_OpenHighScores)
+	{
+		m_OpenHighScores = false;
+		for (int i = 0; i < m_UILayers.size(); i++)
+		{
+			m_UILayers[i]->setCurrent(false);
+		}
+		m_UILayers[UI_Highscore_View]->setCurrent(true);
+	}
+
 	if (m_Retry)
 	{
 		m_Paused = false;
@@ -409,6 +419,23 @@ void SceneManager::handleUIInput()
 		m_Paused = false;
 		m_UILayers[UI_Gameplay_Paused]->setCurrent(false);
 	}
+
+	if (m_OpenHighScoreInput)
+	{
+		m_OpenHighScoreInput = false;
+		for (int i = 0; i < m_UILayers.size(); i++)
+		{
+			m_UILayers[i]->setCurrent(false);
+		}
+		m_UILayers[UI_Highscore_Input]->setCurrent(true);
+	}
+
+	if (m_InputHighScore)
+	{
+		m_InputHighScore = false;
+		m_HighscoreManager->AddScore(m_UsernameInput, m_Timer->getMins(), m_Timer->getSecs());
+		loadSceneWithTransition(TitleScreen);
+	}
 }
 
 void SceneManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -451,6 +478,8 @@ void SceneManager::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	m_UILayers[UI_Gameplay_HUD]->SetPosition(sf::Vector2f(m_View->getCenter().x - m_viewSizeX / 2, m_View->getCenter().y - m_viewSizeY / 2));
 	//m_UILayers[UI_Gameplay_HUD]->SetPosition(sf::Vector2f(m_View->getCenter().x, m_View->getCenter().y));
 	m_UILayers[UI_Title_Options]->SetPosition(sf::Vector2f(m_View->getCenter().x - m_viewSizeX / 2, m_View->getCenter().y - m_viewSizeY / 2));
+	m_UILayers[UI_Highscore_Input]->SetPosition(sf::Vector2f(m_View->getCenter().x - m_viewSizeX / 2, m_View->getCenter().y - m_viewSizeY / 2));
+
 
 	if (m_Player->getPosition().y < (m_Scene->getLevelSize() * m_viewSizeY) - (m_viewSizeY / 2))
 	{
@@ -515,7 +544,7 @@ void SceneManager::loadTitle()
 
 	//m_UILayers[UI_Highscore_Input]->setCurrent(true);
 
-	m_UILayers[UI_Highscore_View]->setCurrent(true);
+	//m_UILayers[UI_Highscore_View]->setCurrent(true);
 
 	m_CurrentScene = TitleScreen;
 
@@ -774,7 +803,7 @@ void SceneManager::loadWin()
 	m_Scene.reset();
 	m_EnemyManager->Clear();
 
-	m_Scene = make_unique<FinalCutscene>(m_viewSizeX, m_viewSizeY, m_TransitionTexture.get());
+	m_Scene = make_unique<FinalCutscene>(m_viewSizeX, m_viewSizeY, m_TransitionTexture.get(), &m_OpenHighScoreInput);
 
 	m_Scene->setGameplay(false);
 
@@ -862,6 +891,8 @@ void SceneManager::configureUI()
 
 	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/PlayButtonBorder.png", &m_LoadSpace, sf::Vector2f(m_viewSizeX / 2 - 140, m_viewSizeY / 2), sf::IntRect(0, 0, 140, 50), sf::IntRect(140, 0, 140, 50), sf::IntRect(0, 0, 140, 50), m_renderWindow);
 
+	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/HighScoresButton.png", &m_OpenHighScores, sf::Vector2f(m_viewSizeX / 2 - 350, m_viewSizeY / 2 + 125), sf::IntRect(0, 0, 350, 50), sf::IntRect(350, 0, 350, 50), sf::IntRect(0, 0, 350, 50), m_renderWindow);
+
 	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/OptionsButtonOutline2.png", &m_OpenOptions, sf::Vector2f(m_viewSizeX / 2 - 225, m_viewSizeY / 2 + 250), sf::IntRect(0, 0, 225, 50), sf::IntRect(225, 0, 225, 50), sf::IntRect(0, 0, 225, 50), m_renderWindow);
 
 	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/QuitButtonOutline.png", &m_QuitGame, sf::Vector2f(m_viewSizeX / 2 - 140, m_viewSizeY / 2 + 350), sf::IntRect(0, 0, 140, 50), sf::IntRect(140, 0, 140, 50), sf::IntRect(0, 0, 140, 50), m_renderWindow);
@@ -916,13 +947,23 @@ void SceneManager::configureUI()
 	//Highscore input
 	m_UILayers.push_back(make_unique<UIElementLayer>());
 
-	m_UILayers[m_UILayers.size() - 1]->AddStringInput(m_LetterAtlas.get(), m_UsernameInput, 3, sf::Vector2f(m_viewSizeX / 2, m_viewSizeY / 2));
+	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/UI/MenuBorderSmallRough.png", sf::Vector2f(100, 75));
+
+	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/finalcutscene/ThankYouForPlaying.png", sf::Vector2f(m_viewSizeX / 2 - 500, m_viewSizeY / 2 - 200));
+
+	m_UILayers[m_UILayers.size() - 1]->AddStringInput(m_LetterAtlas.get(), &m_UsernameInput, 3, sf::Vector2f(m_viewSizeX / 2 - 64, m_viewSizeY / 2));
+
+	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/EnterButton.png", &m_InputHighScore, sf::Vector2f(m_viewSizeX / 2 - 185, m_viewSizeY / 2 + 200), sf::IntRect(0, 0, 185, 50), sf::IntRect(185, 0, 185, 50), sf::IntRect(0, 0, 185, 50), m_renderWindow);
 
 	//Highscore view
 
 	m_UILayers.push_back(make_unique<UIElementLayer>());
 
-	m_UILayers[m_UILayers.size() - 1]->AddHighScoreView(m_LetterAtlas.get(), sf::Vector2f(200, 200), m_HighscoreManager.get());
+	m_UILayers[m_UILayers.size() - 1]->AddVisualElement("Textures/UI/MenuBorderSmallRough.png", sf::Vector2f(100, 75));
+
+	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/CloseButtonRough.png", &m_CloseOptions, sf::Vector2f(1040, 125), sf::IntRect(0, 0, 50, 50), sf::IntRect(50, 0, 50, 50), sf::IntRect(0, 0, 50, 50), m_renderWindow);
+
+	m_UILayers[m_UILayers.size() - 1]->AddHighScoreView(m_LetterAtlas.get(), sf::Vector2f(225, 200), m_HighscoreManager.get());
 }
 
 void SceneManager::handleResize(int width, int height)

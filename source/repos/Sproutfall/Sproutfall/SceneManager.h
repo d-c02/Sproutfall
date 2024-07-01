@@ -71,6 +71,9 @@ private:
 	bool m_QuitGame = false;
 	bool m_OpenOptions = false;
 	bool m_CloseOptions = false;
+	bool m_OpenHighScores = false;
+	bool m_OpenHighScoreInput = false;
+	bool m_InputHighScore = false;
 
 	float m_SFXVolumeSlider = 50.0f;
 	bool m_SFXVolumeSliderHeld = false;
@@ -86,7 +89,7 @@ private:
 
 	bool m_Paused = false;
 
-	string* m_UsernameInput;
+	string m_UsernameInput;
 
 	//Music
 	std::unique_ptr<sf::Music> m_Music;

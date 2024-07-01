@@ -1,7 +1,11 @@
 #include "FinalCutscene.h"
 
-FinalCutscene::FinalCutscene(float viewSizeX, float viewSizeY, sf::Texture* TransitionTexture)
+FinalCutscene::FinalCutscene(float viewSizeX, float viewSizeY, sf::Texture* TransitionTexture, bool* openHighScoreInput)
 {
+
+	//If I sent this code in a portfolio please ignore the entire final cutscene implementation, it was done in a rush for a jam submission and is some of the worst code I have ever written.
+
+	m_OpenHighScoreInput = openHighScoreInput;
 	m_viewSizeX = viewSizeX;
 	m_viewSizeY = viewSizeY;
 	m_playerTexture = make_unique<sf::Texture>();
@@ -303,7 +307,7 @@ void FinalCutscene::Update(float tf)
 		m_BGUpdatePos += m_BGUpdateTick * tf;
 		if (!m_HoldingTextPos && !m_MovingPastText)
 		{
-			if (m_EnemySprite1->getPosition().y >= m_BGUpdatePos)
+			if (m_TextSprite->getPosition().y >= m_BGUpdatePos)
 			{
 				m_HoldingTextPos = true;
 			}
@@ -326,17 +330,27 @@ void FinalCutscene::Update(float tf)
 				{
 					m_MovingPastText = false;
 					m_TimeAccumulator = 0.0f;
-					m_State = s_Transitioning;
-					UpdateTransitionPos();
-					m_NextScene = s_End;
+					m_State = s_Speeding;
 				}
 			}
 		}
 	}
-	else if (m_State == s_FarOut)
+	else if (m_State == s_Speeding)
 	{
-
+		for (int i = 0; i < m_Backgrounds.size(); i++)
+		{
+			m_Backgrounds[i]->Update(tf);
 		}
+		m_GrowingSproutAnimationManager->Update(tf * 11);
+		m_BGUpdatePos += s_SpeedingSpeed * tf;
+		m_TimeAccumulator += tf;
+		if (m_TimeAccumulator >= s_SpeedingTime)
+		{
+			m_TimeAccumulator = 0;
+			*m_OpenHighScoreInput = true;
+			m_State = s_End;
+		}
+	}
 }
 
 bool FinalCutscene::isScreenShaking()
@@ -386,7 +400,7 @@ void FinalCutscene::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 		}
 		target.draw(*m_TransitionSprite);
 	}
-	if (m_State == s_Forest || m_State == s_Sky || m_State == s_Space || m_State == s_FarOut)
+	if (m_State == s_Forest || m_State == s_Sky || m_State == s_Space || m_State == s_FarOut || m_State == s_Speeding)
 	{
 		m_GrowingSproutSprite->setPosition(m_GrowingSproutSprite->getPosition().x, m_BGUpdatePos + 380);
 		if (m_HoldingTextPos)
@@ -395,7 +409,7 @@ void FinalCutscene::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 			m_EnemySprite2->setPosition(m_EnemySprite2->getPosition().x, m_BGUpdatePos);
 			m_TextSprite->setPosition(m_TextSprite->getPosition().x, m_BGUpdatePos);
 		}
-		if (m_State != s_FarOut)
+		if (m_State != s_FarOut && m_State != s_Speeding)
 		{
 			target.draw(*m_EnemySprite1);
 			target.draw(*m_EnemySprite2);

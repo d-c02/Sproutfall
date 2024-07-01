@@ -4,6 +4,7 @@ UIStringInput::UIStringInput(sf::Texture* atlasTexture, string* modifiedString, 
 {
 	m_Length = maxLength;
 	m_atlasTexture = atlasTexture;
+	m_ModifiedString = modifiedString;
 	for (int i = 0; i < m_Length; i++)
 	{
 		m_Sprites.push_back(make_unique<sf::Sprite>());
@@ -32,18 +33,35 @@ void UIStringInput::handleInput(sf::Event* event)
 		if (isalpha(input))
 		{
 			m_Sprites[m_CurMod]->setTextureRect(m_Letters[toupper(input) - 'A']);
+			
 			if (m_CurMod < m_Length - 1)
 			{
+				m_ModifiedString->push_back(toupper(input));
 				m_CurMod++;
 				m_DelMod = m_CurMod - 1;
 			}
 			else
 			{
+				if (m_ModifiedString->size() < m_Length)
+				{
+					m_ModifiedString->push_back(toupper(input));
+				}
+				else
+				{
+					m_ModifiedString->pop_back();
+					m_ModifiedString->push_back(toupper(input));
+				}
+
+
 				m_DelMod = m_Length - 1;
 			}
 		}
 		else if (input == '\b')
 		{
+			if (m_ModifiedString->size() > 0)
+			{
+				m_ModifiedString->pop_back();
+			}
 			if (m_DelMod == m_Length - 1)
 			{
 				m_Sprites[m_DelMod]->setTextureRect(m_DashCoords);
@@ -63,9 +81,8 @@ void UIStringInput::handleInput(sf::Event* event)
 				}
 				m_Sprites[m_DelMod]->setTextureRect(m_DashCoords);
 			}
-
-			
 		}
+		cout << *m_ModifiedString << endl;
 	}
 }
 
