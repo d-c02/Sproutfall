@@ -15,10 +15,11 @@ private:
 	void loadForest();
 	void loadSky();
 	void loadSpace();
+	void loadFarout();
 	void UpdateTransitionPos();
 
 	int m_State;
-	enum States {s_PlayerFalling, s_ImpactVFX, s_Shaking, s_SproutGrowing, s_Transitioning, s_Forest, s_Sky, s_Space};
+	enum States {s_PlayerFalling, s_ImpactVFX, s_Shaking, s_SproutGrowing, s_Transitioning, s_Forest, s_Sky, s_Space, s_FarOut, s_End};
 	sf::Vector2f m_initialPlayerPosition = sf::Vector2f(640, 0);
 	sf::Vector2f m_finalPlayerPosition = sf::Vector2f(640, 850);
 	float m_TimeAccumulator = 0;
@@ -62,6 +63,8 @@ private:
 	std::unique_ptr<sf::Texture> m_EnemyTexture2;
 	std::unique_ptr<sf::Sprite> m_EnemySprite2;
 	std::unique_ptr<AnimationManager> m_EnemyAnimationManager2;
+
+	
 
 	float m_CreditsOffset = -2000;
 };

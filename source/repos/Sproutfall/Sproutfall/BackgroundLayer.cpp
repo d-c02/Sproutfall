@@ -97,8 +97,11 @@ void BackgroundLayer::UpdatePosition(float pos)
 void BackgroundLayer::setScale(float x, float y)
 {
 	m_Sprite->setScale(x, y);
-	m_Upper->setScale(x, y);
-	m_Lower->setScale(x, y);
+	if (m_drawOthers)
+	{
+		m_Upper->setScale(x, y);
+		m_Lower->setScale(x, y);
+	}
 }
 
 void BackgroundLayer::draw(sf::RenderTarget& target, sf::RenderStates states) const

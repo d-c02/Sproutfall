@@ -15,89 +15,185 @@ C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(169,21): war
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(176,35): warning C4244: '+=': conversion from 'float' to 'long', possible loss of data
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(212,21): warning C4018: '<': signed/unsigned mismatch
 C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(219,35): warning C4244: '+=': conversion from 'float' to 'long', possible loss of data
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(266,27): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(254,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(261,35): warning C4244: '+=': conversion from 'float' to 'long', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(296,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(303,35): warning C4244: '+=': conversion from 'float' to 'long', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(354,27): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(272,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(274,36): warning C4244: 'argument': conversion from 'const long' to 'float', possible loss of data
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(277,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(303,92): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(306,65): warning C4244: 'argument': conversion from 'const long' to 'float', possible loss of data
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(307,65): warning C4244: 'argument': conversion from 'const long' to 'float', possible loss of data
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(308,61): warning C4244: 'argument': conversion from 'const long' to 'float', possible loss of data
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(410,85): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(360,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(362,36): warning C4244: 'argument': conversion from 'const long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(365,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(391,92): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(394,65): warning C4244: 'argument': conversion from 'const long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(395,65): warning C4244: 'argument': conversion from 'const long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(396,61): warning C4244: 'argument': conversion from 'const long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(509,85): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(410,53): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(509,53): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(423,53): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(522,53): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(423,63): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(429,55): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(522,63): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(528,55): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(429,65): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(433,55): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(528,65): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(532,55): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(433,65): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(437,56): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(532,65): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(536,56): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(437,66): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(440,53): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(440,30): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(449,55): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(536,66): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(539,53): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(539,30): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(548,55): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(449,65): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(452,45): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(452,38): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(456,53): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(548,65): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(551,45): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(551,38): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(555,53): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(456,63): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(508,85): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(555,63): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(607,85): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(508,53): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(607,53): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(514,62): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(625,55): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(515,46): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(625,65): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(629,55): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(516,61): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(629,65): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(633,55): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(633,65): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(637,56): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(637,66): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(650,55): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(650,65): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(654,53): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(654,63): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(701,85): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(701,53): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(721,95): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(721,105): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(731,95): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(731,105): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(740,95): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(740,105): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(749,95): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(749,105): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(758,95): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(758,105): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(767,95): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(767,105): warning C4244: 'argument': conversion from 'long' to 'float', possible loss of data
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(782,85): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(782,53): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(788,62): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(789,46): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\djcas\source\repos\Sproutfall\Sproutfall\FinalCutscene.cpp(790,61): warning C4244: 'argument': conversion from 'long' to 'T', possible loss of data
           with
           [
               T=float

@@ -249,6 +249,94 @@ void FinalCutscene::Update(float tf)
 			}
 		}
 	}
+	else if (m_State == s_Space)
+	{
+		for (int i = 0; i < m_Backgrounds.size(); i++)
+		{
+			m_Backgrounds[i]->Update(tf);
+		}
+		m_GrowingSproutAnimationManager->Update(tf);
+		m_EnemyAnimationManager1->Update(tf);
+		m_EnemyAnimationManager2->Update(tf);
+		m_BGUpdatePos += m_BGUpdateTick * tf;
+		if (!m_HoldingTextPos && !m_MovingPastText)
+		{
+			if (m_EnemySprite1->getPosition().y >= m_BGUpdatePos)
+			{
+				m_HoldingTextPos = true;
+			}
+		}
+		else
+		{
+			m_TimeAccumulator += tf;
+			if (!m_MovingPastText)
+			{
+				if (m_TimeAccumulator >= m_ReadingTime)
+				{
+					m_HoldingTextPos = false;
+					m_MovingPastText = true;
+					m_TimeAccumulator = 0.0f;
+				}
+			}
+			else
+			{
+				if (m_TimeAccumulator >= m_ReadingTime)
+				{
+					m_MovingPastText = false;
+					m_TimeAccumulator = 0.0f;
+					m_State = s_Transitioning;
+					UpdateTransitionPos();
+					m_NextScene = s_FarOut;
+				}
+			}
+		}
+	}
+	else if (m_State == s_FarOut)
+	{
+		for (int i = 0; i < m_Backgrounds.size(); i++)
+		{
+			m_Backgrounds[i]->Update(tf);
+		}
+		m_GrowingSproutAnimationManager->Update(tf);
+		m_EnemyAnimationManager1->Update(tf);
+		m_EnemyAnimationManager2->Update(tf);
+		m_BGUpdatePos += m_BGUpdateTick * tf;
+		if (!m_HoldingTextPos && !m_MovingPastText)
+		{
+			if (m_EnemySprite1->getPosition().y >= m_BGUpdatePos)
+			{
+				m_HoldingTextPos = true;
+			}
+		}
+		else
+		{
+			m_TimeAccumulator += tf;
+			if (!m_MovingPastText)
+			{
+				if (m_TimeAccumulator >= m_ReadingTime)
+				{
+					m_HoldingTextPos = false;
+					m_MovingPastText = true;
+					m_TimeAccumulator = 0.0f;
+				}
+			}
+			else
+			{
+				if (m_TimeAccumulator >= m_ReadingTime)
+				{
+					m_MovingPastText = false;
+					m_TimeAccumulator = 0.0f;
+					m_State = s_Transitioning;
+					UpdateTransitionPos();
+					m_NextScene = s_End;
+				}
+			}
+		}
+	}
+	else if (m_State == s_FarOut)
+	{
+
+		}
 }
 
 bool FinalCutscene::isScreenShaking()
@@ -292,13 +380,13 @@ void FinalCutscene::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 		{
 			target.draw(*m_GrowingSproutSprite);
 		}
-		if (m_NextScene == s_Sky || m_NextScene == s_Space)
+		if (m_NextScene == s_Sky || m_NextScene == s_Space || m_NextScene == s_FarOut)
 		{
 			target.draw(*m_GrowingSproutSprite);
 		}
 		target.draw(*m_TransitionSprite);
 	}
-	if (m_State == s_Forest || m_State == s_Sky || m_State == s_Space)
+	if (m_State == s_Forest || m_State == s_Sky || m_State == s_Space || m_State == s_FarOut)
 	{
 		m_GrowingSproutSprite->setPosition(m_GrowingSproutSprite->getPosition().x, m_BGUpdatePos + 380);
 		if (m_HoldingTextPos)
@@ -307,8 +395,11 @@ void FinalCutscene::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 			m_EnemySprite2->setPosition(m_EnemySprite2->getPosition().x, m_BGUpdatePos);
 			m_TextSprite->setPosition(m_TextSprite->getPosition().x, m_BGUpdatePos);
 		}
-		target.draw(*m_EnemySprite1);
-		target.draw(*m_EnemySprite2);
+		if (m_State != s_FarOut)
+		{
+			target.draw(*m_EnemySprite1);
+			target.draw(*m_EnemySprite2);
+		}
 		target.draw(*m_TextSprite);
 		target.draw(*m_GrowingSproutSprite);
 	}
@@ -323,6 +414,14 @@ void FinalCutscene::loadScene(int Scene)
 	if (Scene == s_Sky)
 	{
 		loadSky();
+	}
+	if (Scene == s_Space)
+	{
+		loadSpace();
+	}
+	if (Scene == s_FarOut)
+	{
+		loadFarout();
 	}
 }
 
@@ -511,7 +610,177 @@ void FinalCutscene::loadSky()
 
 void FinalCutscene::loadSpace()
 {
+	m_Backgrounds.clear();
+	m_BackgroundSprites.clear();
 
+	addBackground(0.0, 8920, "Textures/space/space_stars_small.png", 9120);
+
+	addBackground(0.0, 8720, "Textures/space/space_stars_big.png", 9120);
+
+	//m_Scene->addBackground(0.0, 8520, "Textures/space/space_background_objects.png", 9120);
+
+	vector<sf::IntRect> frameVector;
+
+	frameVector.push_back(sf::IntRect(0, 0, 65, 41));
+	addBackgroundElement(sf::Vector2f(860, m_BGUpdatePos - 18300), m_BGUpdatePos, "Textures/space/space_saturn.png", frameVector, 1.0f, 19200, 250);
+	frameVector.clear();
+
+	frameVector.push_back(sf::IntRect(0, 0, 28, 26));
+	addBackgroundElement(sf::Vector2f(250, m_BGUpdatePos - 18300), m_BGUpdatePos, "Textures/space/space_pluto.png", frameVector, 1.0f, 19200, 100);
+	frameVector.clear();
+
+	frameVector.push_back(sf::IntRect(0, 0, 54, 48));
+	addBackgroundElement(sf::Vector2f(550, m_BGUpdatePos - 18300), m_BGUpdatePos, "Textures/space/space_moon.png", frameVector, 1.0f, 19200, 600);
+	frameVector.clear();
+
+	frameVector.push_back(sf::IntRect(0, 0, 46, 27));
+	addBackgroundElement(sf::Vector2f(1050, m_BGUpdatePos - 18250), m_BGUpdatePos, "Textures/space/space_satellite.png", frameVector, 0.25f, 19200, 950);
+	frameVector.clear();
+
+
+	for (int i = 0; i < 6; i++)
+	{
+		frameVector.push_back(sf::IntRect(i * 120, 0, 120, 120));
+	}
+
+	for (int i = 0; i < 20; i++)
+	{
+		frameVector.push_back(sf::IntRect(0, 0, 0, 0));
+	}
+	addBackgroundElement(sf::Vector2f(105, m_BGUpdatePos - 18000), m_BGUpdatePos, "Textures/space/space_meteor.png", frameVector, 0.25f, 19200, 550);
+	frameVector.clear();
+
+	frameVector.push_back(sf::IntRect(0, 0, 640, 252));
+	addBackgroundElement(sf::Vector2f(0, m_BGUpdatePos - 16800), m_BGUpdatePos, "Textures/space/earth2.png", frameVector, 1.0f, 19200, 2100);
+	frameVector.clear();
+
+	if (!m_EnemyTexture1->loadFromFile("Textures/Enemies/squid.png"))
+	{
+		cout << "Squid texture load failure credits" << endl;
+	}
+
+	m_EnemySprite1->setOrigin(12, 13);
+	m_EnemySprite1->setTextureRect(sf::IntRect(173, 0, 25, 26));
+	m_EnemySprite1->setPosition(200, m_BGUpdatePos + m_CreditsOffset);
+	m_EnemySprite1->setTexture(*m_EnemyTexture1);
+
+	m_EnemyAnimationManager1 = make_unique<AnimationManager>(m_EnemySprite1.get());
+
+	//Climbing state
+	frameVector.push_back(sf::IntRect(173, 0, 25, 26));
+	frameVector.push_back(sf::IntRect(199, 0, 26, 26));
+	m_EnemyAnimationManager1->addState(0, frameVector, true, 1.0f);
+	frameVector.clear();
+
+	m_EnemyAnimationManager1->setState(0);
+	m_EnemyAnimationManager1->Play();
+
+	if (!m_EnemyTexture2->loadFromFile("Textures/Enemies/asteroid.png"))
+	{
+		cout << "Asteroid texture load failure credits" << endl;
+	}
+
+	m_EnemySprite2->setOrigin(15, 13);
+	m_EnemySprite2->setTextureRect(sf::IntRect(0, 0, 30, 26));
+	m_EnemySprite2->setPosition(1000, m_BGUpdatePos + m_CreditsOffset);
+	m_EnemySprite2->setTexture(*m_EnemyTexture2);
+
+	m_EnemyAnimationManager2 = make_unique<AnimationManager>(m_EnemySprite2.get());
+
+	//Neutral state
+	frameVector.push_back(sf::IntRect(0, 0, 30, 26));
+	m_EnemyAnimationManager2->addState(0, frameVector, false, 1.0f);
+	frameVector.clear();
+
+	if (!m_TextTexture->loadFromFile("Textures/finalcutscene/ArtByCringenut.png"))
+	{
+		cout << "Nut credits load failure" << endl;
+	}
+	m_TextSprite = make_unique<sf::Sprite>();
+	m_TextSprite->setTexture(*m_TextTexture);
+	m_TextSprite->setOrigin(m_TextTexture->getSize().x / 2, m_TextTexture->getSize().y / 2);
+	m_TextSprite->setPosition(640, m_BGUpdatePos + m_CreditsOffset);
+}
+
+void FinalCutscene::loadFarout()
+{
+	m_Backgrounds.clear();
+	m_BackgroundSprites.clear();
+
+	addBackground(0.0, 8920, "Textures/space/space_stars_small.png", 9120);
+
+	addBackground(0.0, 8720, "Textures/space/space_stars_big.png", 9120);
+
+	vector<sf::IntRect> frameVector;
+
+	frameVector.push_back(sf::IntRect(0, 0, 8, 14));
+	frameVector.push_back(sf::IntRect(8, 0, 8, 14));
+
+	for (int i = 0; i < 3; i++)
+	{
+		addBackgroundElement(sf::Vector2f(((float)(rand() / (float)RAND_MAX)) * 1280, m_BGUpdatePos - 18300), m_BGUpdatePos, "Textures/finalcutscene/PlayerSpriteSheet.png", frameVector, 0.2f, 19200, ((float)(rand() / (float)RAND_MAX)) * 960 + 300);
+		if (rand() % 2 == 1)
+		{
+			m_Backgrounds[m_Backgrounds.size() - 1]->setScale(-2, 2);
+		}
+	}
+		
+
+	for (int i = 0; i < 3; i++)
+	{
+		addBackgroundElement(sf::Vector2f(((float)(rand() / (float)RAND_MAX)) * 1280, m_BGUpdatePos - 18300), m_BGUpdatePos, "Textures/finalcutscene/PlayerSpriteSheetBlue.png", frameVector, 0.2f, 19200, ((float)(rand() / (float)RAND_MAX)) * 960 + 300);
+		if (rand() % 2 == 1)
+		{
+			m_Backgrounds[m_Backgrounds.size() - 1]->setScale(-2, 2);
+		}
+	}
+		
+	for (int i = 0; i < 3; i++)
+	{
+		addBackgroundElement(sf::Vector2f(((float)(rand() / (float)RAND_MAX)) * 1280, m_BGUpdatePos - 18300), m_BGUpdatePos, "Textures/finalcutscene/PlayerSpriteSheetOrange.png", frameVector, 0.2f, 19200, ((float)(rand() / (float)RAND_MAX)) * 960 + 300);
+		if (rand() % 2 == 1)
+		{
+			m_Backgrounds[m_Backgrounds.size() - 1]->setScale(-2, 2);
+		}
+	}
+		
+	for (int i = 0; i < 3; i++)
+	{
+		addBackgroundElement(sf::Vector2f(((float)(rand() / (float)RAND_MAX)) * 1280, m_BGUpdatePos - 18300), m_BGUpdatePos, "Textures/finalcutscene/PlayerSpriteSheetRed.png", frameVector, 0.2f, 19200, ((float)(rand() / (float)RAND_MAX)) * 960 + 300);
+		if (rand() % 2 == 1)
+		{
+			m_Backgrounds[m_Backgrounds.size() - 1]->setScale(-2, 2);
+		}
+	}
+		
+	for (int i = 0; i < 3; i++)
+	{
+		addBackgroundElement(sf::Vector2f(((float)(rand() / (float)RAND_MAX)) * 1280, m_BGUpdatePos - 18300), m_BGUpdatePos, "Textures/finalcutscene/PlayerSpriteSheetWhite.png", frameVector, 0.2f, 19200, ((float)(rand() / (float)RAND_MAX)) * 960 + 300);
+		if (rand() % 2 == 1)
+		{
+			m_Backgrounds[m_Backgrounds.size() - 1]->setScale(-2, 2);
+		}
+	}
+		
+	for (int i = 0; i < 3; i++)
+	{
+		addBackgroundElement(sf::Vector2f(((float)(rand() / (float)RAND_MAX)) * 1280, m_BGUpdatePos - 18300), m_BGUpdatePos, "Textures/finalcutscene/PlayerSpriteSheetYellow.png", frameVector, 0.2f, 19200, ((float)(rand() / (float)RAND_MAX)) * 960 + 300);
+		if (rand() % 2 == 1)
+		{
+			m_Backgrounds[m_Backgrounds.size() - 1]->setScale(-2, 2);
+		}
+	}
+		
+	frameVector.clear();
+
+	if (!m_TextTexture->loadFromFile("Textures/finalcutscene/ProgrammingAndDesignBySheriffTumbleweed.png"))
+	{
+		cout << "Me credits load failure" << endl;
+	}
+	m_TextSprite = make_unique<sf::Sprite>();
+	m_TextSprite->setTexture(*m_TextTexture);
+	m_TextSprite->setOrigin(m_TextTexture->getSize().x / 2, m_TextTexture->getSize().y / 2);
+	m_TextSprite->setPosition(640, m_BGUpdatePos + m_CreditsOffset);
 }
 
 void FinalCutscene::UpdateTransitionPos()
