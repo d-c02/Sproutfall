@@ -179,6 +179,7 @@
     <ClCompile Include="UICounter.cpp" />
     <ClCompile Include="UIElement.cpp" />
     <ClCompile Include="UIElementLayer.cpp" />
+    <ClCompile Include="UIHighscoreView.cpp" />
     <ClCompile Include="UISlider.cpp" />
     <ClCompile Include="UIStringInput.cpp" />
   </ItemGroup>
@@ -214,6 +215,7 @@
     <ClInclude Include="UICounter.h" />
     <ClInclude Include="UIElement.h" />
     <ClInclude Include="UIElementLayer.h" />
+    <ClInclude Include="UIHighscoreView.h" />
     <ClInclude Include="UISlider.h" />
     <ClInclude Include="UIStringInput.h" />
   </ItemGroup>

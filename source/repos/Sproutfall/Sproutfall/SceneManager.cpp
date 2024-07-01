@@ -513,7 +513,9 @@ void SceneManager::loadTitle()
 
 	m_UILayers[UI_Title_Main]->setCurrent(true);
 
-	m_UILayers[UI_Highscore_Input]->setCurrent(true);
+	//m_UILayers[UI_Highscore_Input]->setCurrent(true);
+
+	m_UILayers[UI_Highscore_View]->setCurrent(true);
 
 	m_CurrentScene = TitleScreen;
 
@@ -915,6 +917,12 @@ void SceneManager::configureUI()
 	m_UILayers.push_back(make_unique<UIElementLayer>());
 
 	m_UILayers[m_UILayers.size() - 1]->AddStringInput(m_LetterAtlas.get(), m_UsernameInput, 3, sf::Vector2f(m_viewSizeX / 2, m_viewSizeY / 2));
+
+	//Highscore view
+
+	m_UILayers.push_back(make_unique<UIElementLayer>());
+
+	m_UILayers[m_UILayers.size() - 1]->AddHighScoreView(m_LetterAtlas.get(), sf::Vector2f(200, 200), m_HighscoreManager.get());
 }
 
 void SceneManager::handleResize(int width, int height)

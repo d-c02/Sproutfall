@@ -63,6 +63,11 @@ void UIElementLayer::AddStringInput(sf::Texture* atlasTexture, string* modifiedS
 	m_UIElements.push_back(make_unique<UIStringInput>(atlasTexture, modifiedString, maxLength, position));
 }
 
+void UIElementLayer::AddHighScoreView(sf::Texture* atlasTexture, sf::Vector2f position, HighScoreManager* highScoreManager)
+{
+	m_UIElements.push_back(make_unique<UIHighscoreView>(atlasTexture, position, highScoreManager));
+}
+
 void UIElementLayer::handleInput(sf::Event* event)
 {
 	if (m_IsCurrent)

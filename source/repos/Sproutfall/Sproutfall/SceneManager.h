@@ -63,7 +63,7 @@ private:
 	vector<std::unique_ptr<UIElementLayer>> m_UILayers;
 	
 	//UI Stuff
-	enum UI {UI_Title_Main, UI_Title_Options, UI_Gameplay_HUD, UI_Gameplay_Paused, UI_Highscore_Input};
+	enum UI {UI_Title_Main, UI_Title_Options, UI_Gameplay_HUD, UI_Gameplay_Paused, UI_Highscore_Input, UI_Highscore_View};
 
 	bool m_LoadSpace = false;
 	bool m_LoadSky = false;

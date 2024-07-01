@@ -143,6 +143,26 @@ void HighScoreManager::AddScore(string name, int mins, int secs)
 	SaveScores();
 }
 
+string HighScoreManager::getName(int index)
+{
+	return m_Names[index];
+}
+
+unsigned int HighScoreManager::getMins(int index)
+{
+	return m_Mins[index];
+}
+
+unsigned int HighScoreManager::getSecs(int index)
+{
+	return m_Secs[index];
+}
+
+bool HighScoreManager::getPopulated(int index)
+{
+	return m_Populated[index];
+}
+
 void HighScoreManager::RemoveScore(int index)
 {
 	for (int i = index; i < 4; i++)

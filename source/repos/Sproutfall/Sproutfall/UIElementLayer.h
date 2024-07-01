@@ -6,6 +6,8 @@
 #include "UISlider.h"
 #include "UICounter.h"
 #include "UIStringInput.h"
+#include "HighScoreManager.h"
+#include "UIHighscoreView.h"
 
 class UIElementLayer : public sf::Drawable
 {
@@ -21,6 +23,7 @@ public:
 	void AddSlider(sf::Vector2f position, float* sliderVal, bool* buttonHeld, string barTexturePath, string sliderNubTexturePath, float minVal, float maxVal, sf::RenderWindow* window, sf::Vector2f m_HitboxOffset = sf::Vector2f(0, 0));
 	void AddCounter(string TexturePath, int* countVal, int maxVal, sf::IntRect ActiveTextureCoords, sf::IntRect InactiveTextureCoords, sf::Vector2f position);
 	void AddStringInput(sf::Texture* atlasTexture, string* modifiedString, int maxLength, sf::Vector2f position);
+	void AddHighScoreView(sf::Texture* atlasTexture, sf::Vector2f position, HighScoreManager* highScoreManager);
 
 	void handleInput(sf::Event* event);
 

@@ -5,6 +5,10 @@ class HighScoreManager {
 public:
 	HighScoreManager();
 	void AddScore(string name, int mins, int secs);
+	string getName(int index);
+	unsigned int getMins(int index);
+	unsigned int getSecs(int index);
+	bool getPopulated(int index);
 private:
 	void RemoveScore(int index);
 	void InsertScore(string name, int mins, int secs, int index);

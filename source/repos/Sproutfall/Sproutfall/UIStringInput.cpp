@@ -42,10 +42,6 @@ void UIStringInput::handleInput(sf::Event* event)
 				m_DelMod = m_Length - 1;
 			}
 		}
-		else if (input == '\n')
-		{
-
-		}
 		else if (input == '\b')
 		{
 			if (m_DelMod == m_Length - 1)

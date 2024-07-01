@@ -43,21 +43,6 @@ private:
 		sf::IntRect(32, 128, 32, 32)
 	};
 
-	sf::IntRect m_Numbers[10] =
-	{
-		sf::IntRect(64, 128, 32, 32),
-		sf::IntRect(96, 128, 32, 32),
-		sf::IntRect(128, 128, 32, 32),
-		sf::IntRect(160, 128, 32, 32),
-		sf::IntRect(0, 160, 32, 32),
-		sf::IntRect(32, 160, 32, 32),
-		sf::IntRect(64, 160, 32, 32),
-		sf::IntRect(96, 160, 32, 32),
-		sf::IntRect(128, 160, 32, 32),
-		sf::IntRect(160, 160, 32, 32)
-	};
-
-	sf::IntRect m_ColonCoords = sf::IntRect(0, 192, 32, 32);
 	sf::IntRect m_DashCoords = sf::IntRect(32, 192, 32, 32);
 
 	int m_Length;
