@@ -58,6 +58,11 @@ void UIElementLayer::AddCounter(string TexturePath, int* countVal, int maxVal, s
 	m_UIElements.push_back(make_unique<UICounter>(TexturePath, countVal, maxVal, ActiveTextureCoords, InactiveTextureCoords, position));
 }
 
+void UIElementLayer::AddStringInput(sf::Texture* atlasTexture, string* modifiedString, int maxLength, sf::Vector2f position)
+{
+	m_UIElements.push_back(make_unique<UIStringInput>(atlasTexture, modifiedString, maxLength, position));
+}
+
 void UIElementLayer::handleInput(sf::Event* event)
 {
 	if (m_IsCurrent)

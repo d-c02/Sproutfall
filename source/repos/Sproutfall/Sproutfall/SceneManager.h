@@ -63,7 +63,7 @@ private:
 	vector<std::unique_ptr<UIElementLayer>> m_UILayers;
 	
 	//UI Stuff
-	enum UI {UI_Title_Main, UI_Title_Options, UI_Gameplay_HUD, UI_Gameplay_Paused};
+	enum UI {UI_Title_Main, UI_Title_Options, UI_Gameplay_HUD, UI_Gameplay_Paused, UI_Highscore_Input};
 
 	bool m_LoadSpace = false;
 	bool m_LoadSky = false;
@@ -86,7 +86,12 @@ private:
 
 	bool m_Paused = false;
 
+	string* m_UsernameInput;
+
+	//Music
 	std::unique_ptr<sf::Music> m_Music;
+
+	//Transition stuff
 	std::unique_ptr<sf::SoundBuffer> m_MenuStartSoundBuffer;
 	std::unique_ptr<sf::Sound> m_MenuStartSound;
 	std::unique_ptr<sf::SoundBuffer> m_TransitionSoundBuffer;

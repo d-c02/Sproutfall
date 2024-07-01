@@ -513,6 +513,8 @@ void SceneManager::loadTitle()
 
 	m_UILayers[UI_Title_Main]->setCurrent(true);
 
+	m_UILayers[UI_Highscore_Input]->setCurrent(true);
+
 	m_CurrentScene = TitleScreen;
 
 	m_Scene.reset();
@@ -908,6 +910,11 @@ void SceneManager::configureUI()
 	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/QuitToTitleButton.png", &m_LoadTitle, sf::Vector2f(m_viewSizeX / 2 - 200, 575), sf::IntRect(0, 0, 200, 50), sf::IntRect(200, 0, 200, 50), sf::IntRect(0, 0, 200, 50), m_renderWindow);
 
 	m_UILayers[m_UILayers.size() - 1]->AddButton("Textures/UI/QuitToDesktopButton.png", &m_QuitGame, sf::Vector2f(m_viewSizeX / 2 - 215, 725), sf::IntRect(0, 0, 215, 50), sf::IntRect(215, 0, 215, 50), sf::IntRect(0, 0, 215, 50), m_renderWindow);
+
+	//Highscore input
+	m_UILayers.push_back(make_unique<UIElementLayer>());
+
+	m_UILayers[m_UILayers.size() - 1]->AddStringInput(m_LetterAtlas.get(), m_UsernameInput, 3, sf::Vector2f(m_viewSizeX / 2, m_viewSizeY / 2));
 }
 
 void SceneManager::handleResize(int width, int height)

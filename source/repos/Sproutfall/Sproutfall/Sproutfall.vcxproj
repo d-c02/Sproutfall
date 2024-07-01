@@ -180,6 +180,7 @@
     <ClCompile Include="UIElement.cpp" />
     <ClCompile Include="UIElementLayer.cpp" />
     <ClCompile Include="UISlider.cpp" />
+    <ClCompile Include="UIStringInput.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EnemyBulletManager.h" />
@@ -214,6 +215,7 @@
     <ClInclude Include="UIElement.h" />
     <ClInclude Include="UIElementLayer.h" />
     <ClInclude Include="UISlider.h" />
+    <ClInclude Include="UIStringInput.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
